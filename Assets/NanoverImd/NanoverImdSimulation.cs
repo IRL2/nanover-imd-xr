@@ -101,6 +101,7 @@ namespace NanoverImd
             Close();
         }
 
+        private float playbackTimeSinceMessage = 0;
         public void ConnectRecordingReader(NanoverRecordingReader reader)
         {
             Close();
@@ -112,6 +113,8 @@ namespace NanoverImd
             playback = new NanoverRecordingPlayback(reader);
             playback.PlaybackMessage += (message) =>
             {
+                playbackTimeSinceMessage = 0;
+
                 if (message.FrameUpdate is { } frameUpdate)
                     Trajectory.ReceiveFrameUpdate(frameUpdate);
 
@@ -121,6 +124,8 @@ namespace NanoverImd
 
             playback.PlaybackReset += () =>
             {
+                playbackTimeSinceMessage = 0;
+
                 Trajectory.Clear();
                 Multiplayer.Clear();
             };
@@ -326,13 +331,34 @@ namespace NanoverImd
 
         private void Update()
         {
+            UpdateWebsocket();
+            UpdatePlayback();
+        }
+
+        private void UpdateWebsocket()
+        {
 #if !UNITY_WEBGL || UNITY_EDITOR
             websocket?.DispatchMessageQueue();
 #endif
+        }
+
+        private void UpdatePlayback()
+        {
+            const float maxDeltaTime = 1/20f;
+            const float maxMessageGap = 1/28f;
 
             if (playback != null && !playback.IsPaused)
             {
-                playback.AdvanceBySeconds(Time.deltaTime);
+                var dt = Mathf.Min(Time.deltaTime, maxDeltaTime);
+
+                playbackTimeSinceMessage += dt;
+                playback.AdvanceBySeconds(dt);
+
+                // skip over recording hitches
+                if (playbackTimeSinceMessage > maxMessageGap)
+                {
+                    playback.StepOneEntry();
+                }
             }
         }
 
