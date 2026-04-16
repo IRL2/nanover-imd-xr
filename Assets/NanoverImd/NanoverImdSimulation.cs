@@ -22,9 +22,6 @@ using WebDiscovery;
 using NativeWebSocket;
 
 
-
-
-
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -60,8 +57,13 @@ namespace NanoverImd
 
         public bool Connected => websocket?.State == WebSocketState.Open;
 
-        private WebSocket websocket;
+        public bool Running => Connected || playback != null;
 
+        public bool InLocalPlayback => playback != null;
+
+        private WebSocket websocket;
+        private NanoverRecordingPlayback playback;
+        
         /// <summary>
         /// The route through which simulation space can be manipulated with
         /// gestures to perform translation, rotation, and scaling.
@@ -76,8 +78,8 @@ namespace NanoverImd
 
         public SynchronisedFrameSource FrameSynchronizer { get; private set; }
 
-        public event Action ConnectionEstablished;
-        public event Action ConnectionClosed;
+        public event Action SessionOpened;
+        public event Action SessionClosed;
 
         public event Action<Message> OnMessage;
 
@@ -94,9 +96,41 @@ namespace NanoverImd
             return websocket.Send(bytes).AsUniTask();
         }
 
-        private void OnClose(WebSocketCloseCode code)
+        private void OnWebSocketClose(WebSocketCloseCode code)
         {
             Close();
+        }
+
+        private float playbackTimeSinceMessage = 0;
+        public void ConnectRecordingReader(NanoverRecordingReader reader)
+        {
+            Close();
+
+            gameObject.SetActive(true);
+            SessionOpened?.Invoke();
+            Multiplayer.OpenClientFake();
+
+            playback = new NanoverRecordingPlayback(reader);
+            playback.PlaybackMessage += (message) =>
+            {
+                playbackTimeSinceMessage = 0;
+
+                if (message.FrameUpdate is { } frameUpdate)
+                    Trajectory.ReceiveFrameUpdate(frameUpdate);
+
+                if (message.StateUpdate is { } stateUpdate)
+                    Multiplayer.ReceiveStateUpdate(stateUpdate);
+            };
+
+            playback.PlaybackReset += () =>
+            {
+                playbackTimeSinceMessage = 0;
+
+                Trajectory.Clear();
+                Multiplayer.Clear();
+            };
+
+            playback.Reset();
         }
 
         public void ConnectWebSocket(string address)
@@ -117,10 +151,10 @@ namespace NanoverImd
             websocket.OnOpen += () =>
             {
                 gameObject.SetActive(true);
-                ConnectionEstablished?.Invoke();
+                SessionOpened?.Invoke();
             };
 
-            websocket.OnClose += OnClose;
+            websocket.OnClose += OnWebSocketClose;
 
             OnMessage += (Message message) =>
             {
@@ -197,6 +231,16 @@ namespace NanoverImd
             Close();
         }
 
+        private void OnDestroy()
+        {
+            Close();
+        }
+
+        public void Disconnect()
+        {
+            Close();
+        }
+
         /// <summary>
         /// Connect to services as advertised by an ESSD service hub.
         /// </summary>
@@ -258,16 +302,19 @@ namespace NanoverImd
         /// </summary>
         public void Close()
         { 
-            if (this.websocket == null)
+            if (this.websocket == null && playback == null)
                 return;
+
+            playback = null;
 
             var websocket = this.websocket;
             this.websocket = null;
 
-            websocket.OnClose -= OnClose;
-
-            Debug.LogError($"TRY CLOSING {websocket}");
-            websocket?.Close().AsUniTask().Forget();
+            if (websocket!=null)
+            {
+                websocket.OnClose -= OnWebSocketClose;
+                websocket.Close().AsUniTask().Forget();
+            }
 
             gameObject.SetActive(false);
 
@@ -278,22 +325,41 @@ namespace NanoverImd
 
             Trajectory.CloseClient();
             Multiplayer.CloseClient();
+
+            SessionClosed?.Invoke();
         }
 
         private void Update()
+        {
+            UpdateWebsocket();
+            UpdatePlayback();
+        }
+
+        private void UpdateWebsocket()
         {
 #if !UNITY_WEBGL || UNITY_EDITOR
             websocket?.DispatchMessageQueue();
 #endif
         }
-        private void OnDestroy()
+
+        private void UpdatePlayback()
         {
-            Close();
-        }
-        
-        public void Disconnect()
-        {
-            Close();
+            const float maxDeltaTime = 1/20f;
+            const float maxMessageGap = 1/28f;
+
+            if (playback != null && !playback.IsPaused)
+            {
+                var dt = Mathf.Min(Time.deltaTime, maxDeltaTime);
+
+                playbackTimeSinceMessage += dt;
+                playback.AdvanceBySeconds(dt);
+
+                // skip over recording hitches
+                if (playbackTimeSinceMessage > maxMessageGap)
+                {
+                    playback.StepOneEntry();
+                }
+            }
         }
 
         public UniTask<CommandReturn> RunCommand(string command, CommandArguments arguments = null)
@@ -306,22 +372,34 @@ namespace NanoverImd
 
         public void PlayTrajectory()
         {
-            Trajectory.Play();
+            if (InLocalPlayback)
+                playback.Play();
+            else
+                RunCommand(TrajectorySession.CommandPlay);
         }
 
         public void PauseTrajectory()
         {
-            Trajectory.Pause();
+            if (InLocalPlayback)
+                playback.Pause();
+            else
+                RunCommand(TrajectorySession.CommandPause);
         }
 
         public void ResetTrajectory()
         {
-            Trajectory.Reset();
+            if (InLocalPlayback)
+                playback.Reset();
+            else
+                RunCommand(TrajectorySession.CommandReset);
         }
 
         public void StepForwardTrajectory()
         {
-            Trajectory.Step();
+            if (InLocalPlayback)
+                playback.StepOneFrame();
+            else
+                RunCommand(TrajectorySession.CommandStep);
         }
 
 

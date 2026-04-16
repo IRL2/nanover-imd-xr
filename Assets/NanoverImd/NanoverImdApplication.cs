@@ -51,7 +51,10 @@ namespace NanoverImd
         [SerializeField]
         private UnityEvent connectionEstablished;
         [SerializeField]
-        private UnityEvent connectionClosed;
+        private UnityEvent connectionLost;
+        [SerializeField]
+        private UnityEvent afterCalibration;
+
 #pragma warning restore 0649
 
         public NanoverImdSimulation Simulation => simulation;
@@ -71,14 +74,19 @@ namespace NanoverImd
 
         private void Awake()
         {
-            simulation.ConnectionEstablished += connectionEstablished.Invoke;
-            simulation.ConnectionClosed += connectionClosed.Invoke;
+            if (PlayerPrefs.GetFloat("passthrough", 1f) is float savedPassthrough && savedPassthrough >= 0f)
+            {
+                passthrough = savedPassthrough;
+            };
+
+            simulation.SessionOpened += connectionEstablished.Invoke;
+            simulation.SessionClosed += connectionLost.Invoke;
         }
 
         // These methods expose the underlying async methods to Unity for use
         // in the UI so we disable warnings about not awaiting them, and use
         // void return type instead of Task.
-        #pragma warning disable 4014
+#pragma warning disable 4014
         /// <summary>
         /// Connect to the Nanover services described in a given ServiceHub.
         /// </summary>
@@ -103,13 +111,6 @@ namespace NanoverImd
         /// </summary>
         public void Quit() => Application.Quit();
 
-        [ContextMenu("TEST")]
-        private async void Test()
-        {
-            var commands = await GetUserCommands();
-            Debug.LogError(string.Join(", ", commands.Select(c => c.Name)));
-        }
-
         public async UniTask<IEnumerable<CommandDefinition>> GetUserCommands()
         {
             var commands = await simulation.Trajectory.UpdateCommands();
@@ -118,8 +119,6 @@ namespace NanoverImd
 
         private void Update()
         {
-            CheckDisconnect();
-
             if (ManualColocation)
             {
 
@@ -143,17 +142,6 @@ namespace NanoverImd
             camera.backgroundColor = color;
         }
 
-        private void CheckDisconnect()
-        {
-            const float timeout = 10f;
-
-            if (simulation.Multiplayer.TimeSinceIndex > timeout)
-            {
-                Debug.LogError($"{simulation.Multiplayer.TimeSinceIndex} / {simulation.Multiplayer.AwaitingIndex}");
-                Disconnect();
-            }
-        }
-
         private void UpdateSuggestedParameters()
         {
             const string scaleKey = "suggested.interaction.scale";
@@ -175,7 +163,7 @@ namespace NanoverImd
 
             if (simulation.Multiplayer.GetSharedState(passthroughKey) is double value)
             {
-                passthrough = (float) value;
+                passthrough = (float)value;
             }
 
             if (simulation.Multiplayer.GetSharedState(boxLockedKey) is bool locked)
@@ -287,13 +275,15 @@ namespace NanoverImd
 
                 var point0 = poses[0].Position;
                 var point1 = poses[1].Position;
-                
+
                 // assume that headsets agree on y-axis
                 point0.y = 0;
                 point1.y = 0;
 
                 //CalibratedSpace.CalibrateFromTwoControlPoints(point0, point1);
                 metaCalibrator.Setup(point0, point1);
+
+                afterCalibration.Invoke();
             }
         }
 
@@ -303,8 +293,8 @@ namespace NanoverImd
         private void CalibrateFromRemote()
         {
             var key = simulation.Multiplayer.AccessToken;
-            var origin = simulation.Multiplayer.PlayOrigins.ContainsKey(key) 
-                       ? simulation.Multiplayer.PlayOrigins.GetValue(key).Transformation 
+            var origin = simulation.Multiplayer.PlayOrigins.ContainsKey(key)
+                       ? simulation.Multiplayer.PlayOrigins.GetValue(key).Transformation
                        : UnitScaleTransformation.identity;
 
             var longest = Mathf.Max(playareaSize.x, playareaSize.z);
@@ -322,6 +312,28 @@ namespace NanoverImd
 
 
             CalibratedSpace.CalibrateFromMatrix(deviceToPlayspace * playspaceToShared);
+        }
+
+        /// <summary>
+        /// Toggle passthrough on/off.
+        /// </summary>
+        public void TogglePassthrough()
+        {
+            passthrough = passthrough > 0f ? 0f : 1f;
+            simulation.Multiplayer.SetSharedState("suggested.passthrough", passthrough);
+            PlayerPrefs.SetFloat("passthrough", passthrough);
+        }
+        public void CyclePassthrough()
+        {
+            if (passthrough == 1f)
+                passthrough = 0.3f;
+            else if (passthrough == 0.3f)
+                passthrough = 0f;
+            else
+                passthrough = 1f;
+
+            simulation.Multiplayer.SetSharedState("suggested.passthrough", passthrough);
+            PlayerPrefs.SetFloat("passthrough", passthrough);
         }
     }
 }

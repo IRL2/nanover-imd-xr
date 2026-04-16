@@ -87,6 +87,18 @@ namespace Nanover.Network.Trajectory
             trajectorySnapshot.FrameChanged += (sender, args) => FrameChanged?.Invoke(sender, args);
         }
 
+        public void ReceiveFrameUpdate(Dictionary<string, object> update)
+        {
+            CurrentFrameIndex = CurrentFrameIndex + 1;
+
+            var (frame, changes) = FrameConverter.ConvertFrame(update, CurrentFrame);
+
+            if (changes.HasAnythingChanged)
+                messageReceiveTimes.Add(Time.realtimeSinceStartup);
+
+            trajectorySnapshot.SetCurrentFrame(frame, changes);
+        }
+
         public void OpenClient(WebSocketMessageSource client)
         {
             websocketClient = client;
@@ -94,26 +106,13 @@ namespace Nanover.Network.Trajectory
             client.OnMessage += (Message message) =>
             {
                 if (message.FrameUpdate is { } update)
-                    ReceiveFrame(update);
+                    ReceiveFrameUpdate(update);
             };
+        }
 
-            void ReceiveFrame(Dictionary<string, object> update)
-            {
-                CurrentFrameIndex = CurrentFrameIndex + 1;
-
-                var clear = false;
-                var prevFrame = clear ? null : CurrentFrame;
-
-                var (frame, changes) = FrameConverter.ConvertFrame(update, prevFrame);
-
-                if (clear)
-                    changes = FrameChanges.All;
-
-                if (changes.HasAnythingChanged)
-                    messageReceiveTimes.Add(Time.realtimeSinceStartup);
-
-                trajectorySnapshot.SetCurrentFrame(frame, changes);
-            }
+        public void Clear()
+        {
+            trajectorySnapshot.Clear();
         }
 
         /// <summary>
@@ -129,30 +128,6 @@ namespace Nanover.Network.Trajectory
         public void Dispose()
         {
             CloseClient();
-        }
-        
-        /// <inheritdoc cref="CommandPlay"/>
-        public void Play()
-        {
-            RunCommand(CommandPlay);
-        }
-        
-        /// <inheritdoc cref="CommandPause"/>
-        public void Pause()
-        {
-            RunCommand(CommandPause);
-        }
-        
-        /// <inheritdoc cref="CommandReset"/>
-        public void Reset()
-        {
-            RunCommand(CommandReset);
-        }
-        
-        /// <inheritdoc cref="CommandStep"/>
-        public void Step()
-        {
-            RunCommand(CommandStep);
         }
 
         /// <inheritdoc cref="CommandStepBackward"/>
