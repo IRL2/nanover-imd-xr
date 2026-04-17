@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Linq;
-using Nanover.Core.Math;
+﻿using Nanover.Core.Math;
 using Nanover.Frontend.Utility;
 using Nanover.Frontend.XR;
 using Nanover.Network.Multiplayer;
+using NanoverImd.UI;
+using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.XR;
-
-using NanoverImd.UI;
 
 namespace NanoverImd
 {
@@ -35,9 +33,29 @@ namespace NanoverImd
 
         private MultiplayerAvatar LocalAvatar => nanover.Multiplayer.Avatars.LocalAvatar;
 
+        public bool HideHeads;
+        public bool HideHands;
+
         private void Update()
         {
+            UpdateSuggestedParameters();
             UpdateRendering();
+        }
+
+        private void UpdateSuggestedParameters()
+        {
+            const string headsKey = "suggested.hide.heads";
+            const string handsKey = "suggested.hide.hands";
+
+            if (nanover.Multiplayer.GetSharedState(headsKey) is bool hideHeads)
+            {
+                HideHeads = hideHeads;
+            }
+
+            if (nanover.Multiplayer.GetSharedState(handsKey) is bool hideHands)
+            {
+                HideHands = hideHands;
+            }
         }
 
         private void OnEnable()
@@ -100,8 +118,23 @@ namespace NanoverImd
                                     .Where(res => res.Component.Name == MultiplayerAvatar.LeftHandName
                                                || res.Component.Name == MultiplayerAvatar.RightHandName);
 
-            headsetObjects.MapConfig(headsets, UpdateAvatarComponent);
-            controllerObjects.MapConfig(controllers, UpdateAvatarComponent);
+            if (!HideHeads)
+            {
+                headsetObjects.MapConfig(headsets, UpdateAvatarComponent);
+            }
+            else
+            {
+                headsetObjects.SetActiveInstanceCount(0);
+            }
+
+            if (!HideHands)
+            {
+                controllerObjects.MapConfig(controllers, UpdateAvatarComponent);
+            }
+            else
+            {
+                controllerObjects.SetActiveInstanceCount(0);
+            }
 
             void UpdateAvatarComponent((MultiplayerAvatar Avatar, MultiplayerAvatar.Component Component) value, AvatarModel model)
             {
