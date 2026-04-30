@@ -8,6 +8,8 @@ public class LineModeToggler : MonoBehaviour
 {
     private Nanover.Frontend.Input.IButton menuButton;
 
+    [SerializeField] private XRButtonProperty triggerButton;
+
     [SerializeField] GameObject[] ObjectsToActivate;
     [SerializeField] GameObject[] ObjectsToDeactivate;
     [SerializeField] MonoBehaviour[] ScriptsToEnable;
@@ -15,13 +17,24 @@ public class LineModeToggler : MonoBehaviour
 
     [SerializeField] bool isExtendedModeEnabled = false;
 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        menuButton = InputDeviceCharacteristics.Left.WrapUsageAsButton(CommonUsages.menuButton);
+        menuButton = triggerButton.CreateButton();
         UpdateStates();
 
-        menuButton.Pressed += () => EnableExtendedMode(!isActiveAndEnabled);
+        if (menuButton != null)
+        {
+            menuButton.Pressed += () => EnableExtendedMode(!isActiveAndEnabled);
+        }
+
+        EnableExtendedMode(false);
+    }
+
+    public void ToggleExtendedMode()
+    {
+        EnableExtendedMode(!isExtendedModeEnabled);
     }
 
     public void EnableExtendedMode(bool state = true)

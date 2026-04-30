@@ -106,3 +106,4 @@ crashlytics-build.properties
 **/Assets/Plugins/Editor.meta
 **/Assets/Plugins/Editor/JetBrains.meta
 UserSettings/
+/bin
