@@ -2951,10 +2951,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_LineWidth: 0.005
-  m_OverrideInteractorLineLength: 0
+  m_OverrideInteractorLineLength: 1
   m_LineLength: 20
-  m_AutoAdjustLineLength: 0
-  m_MinLineLength: 0.5
+  m_AutoAdjustLineLength: 1
+  m_MinLineLength: 0.7
   m_UseDistanceToHitAsMaxLineLength: 1
   m_LineRetractionDelay: 0.5
   m_LineLengthChangeSpeed: 12
@@ -2962,19 +2962,28 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.94407654
-      value: -0.08465576
-      inSlope: 19.39536
-      outSlope: 19.39536
+      time: 0.9442749
+      value: 0.1296997
+      inSlope: 11.768516
+      outSlope: 11.768516
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
+      time: 0.97187585
+      value: 0.45452183
+      inSlope: 15.58194
+      outSlope: 15.58194
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 19.39536
-      outSlope: 19.39536
+      inSlope: 19.395363
+      outSlope: 19.395363
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -3015,7 +3024,7 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   m_InvalidColorGradient:
     serializedVersion: 2
-    key0: {r: 0.76284564, g: 0.8090124, b: 0.8113208, a: 0}
+    key0: {r: 0.76284564, g: 0.8090124, b: 0.8113208, a: 0.15294118}
     key1: {r: 0.7851482, g: 0.7665835, b: 0.8553459, a: 0.7058824}
     key2: {r: 0.78616345, g: 0.7391914, b: 0.7564145, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
@@ -3031,9 +3040,9 @@ MonoBehaviour:
     ctime5: 0
     ctime6: 0
     ctime7: 0
-    atime0: 55127
-    atime1: 65535
-    atime2: 0
+    atime0: 0
+    atime1: 33346
+    atime2: 65535
     atime3: 0
     atime4: 0
     atime5: 0
@@ -3042,7 +3051,7 @@ MonoBehaviour:
     m_Mode: 0
     m_ColorSpace: 0
     m_NumColorKeys: 3
-    m_NumAlphaKeys: 2
+    m_NumAlphaKeys: 3
   m_BlockedColorGradient:
     serializedVersion: 2
     key0: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
@@ -3087,7 +3096,7 @@ MonoBehaviour:
     m_Bits: 2
   m_OverrideInteractorLineOrigin: 0
   m_LineOriginTransform: {fileID: 0}
-  m_LineOriginOffset: 0
+  m_LineOriginOffset: 0.06
 --- !u!120 &400568008
 LineRenderer:
   serializedVersion: 3
@@ -4656,7 +4665,6 @@ MonoBehaviour:
   metaCalibrator: {fileID: 425537939}
   passthrough: 1
   passthroughLayer: {fileID: 1938083358}
-  camera: {fileID: 199515959}
   connectionEstablished:
     m_PersistentCalls:
       m_Calls:
@@ -5093,10 +5101,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_LineWidth: 0.005
-  m_OverrideInteractorLineLength: 0
+  m_OverrideInteractorLineLength: 1
   m_LineLength: 20
-  m_AutoAdjustLineLength: 0
-  m_MinLineLength: 0.5
+  m_AutoAdjustLineLength: 1
+  m_MinLineLength: 0.7
   m_UseDistanceToHitAsMaxLineLength: 1
   m_LineRetractionDelay: 0.5
   m_LineLengthChangeSpeed: 12
@@ -5104,19 +5112,28 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.94407654
-      value: -0.08465576
-      inSlope: 19.39536
-      outSlope: 19.39536
+      time: 0.9442749
+      value: 0.1296997
+      inSlope: 11.768516
+      outSlope: 11.768516
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
+      time: 0.97187585
+      value: 0.45452183
+      inSlope: 15.58194
+      outSlope: 15.58194
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 19.39536
-      outSlope: 19.39536
+      inSlope: 19.395363
+      outSlope: 19.395363
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -5157,7 +5174,7 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   m_InvalidColorGradient:
     serializedVersion: 2
-    key0: {r: 0.76284564, g: 0.8090124, b: 0.8113208, a: 0}
+    key0: {r: 0.76284564, g: 0.8090124, b: 0.8113208, a: 0.15294118}
     key1: {r: 0.7851482, g: 0.7665835, b: 0.8553459, a: 0.7058824}
     key2: {r: 0.78616345, g: 0.7391914, b: 0.7564145, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
@@ -5173,9 +5190,9 @@ MonoBehaviour:
     ctime5: 0
     ctime6: 0
     ctime7: 0
-    atime0: 55127
-    atime1: 65535
-    atime2: 0
+    atime0: 0
+    atime1: 33346
+    atime2: 65535
     atime3: 0
     atime4: 0
     atime5: 0
@@ -5184,7 +5201,7 @@ MonoBehaviour:
     m_Mode: 0
     m_ColorSpace: 0
     m_NumColorKeys: 3
-    m_NumAlphaKeys: 2
+    m_NumAlphaKeys: 3
   m_BlockedColorGradient:
     serializedVersion: 2
     key0: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
@@ -5229,7 +5246,7 @@ MonoBehaviour:
     m_Bits: 2
   m_OverrideInteractorLineOrigin: 0
   m_LineOriginTransform: {fileID: 0}
-  m_LineOriginOffset: 0
+  m_LineOriginOffset: 0.06
 --- !u!120 &616363350
 LineRenderer:
   serializedVersion: 3
@@ -8286,6 +8303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   renderModel: {fileID: 971855734}
+  interactionLaser: {fileID: 616363347}
 --- !u!114 &971855734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9190,6 +9208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   renderModel: {fileID: 1083629889}
+  interactionLaser: {fileID: 400568004}
 --- !u!114 &1083629889
 MonoBehaviour:
   m_ObjectHideFlags: 0

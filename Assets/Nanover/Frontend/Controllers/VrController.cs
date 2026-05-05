@@ -123,10 +123,14 @@ namespace Nanover.Frontend.Controllers
         /// Set the current gizmo at the end of the controller.
         /// </summary>
         /// <param name="interactionGizmo">A <see cref="GameObject"/> representing the gizmo at the end of the controller, or null if there should be no gizmo.</param>
-        public void InstantiateCursorGizmo(GameObject interactionGizmo, ControllerAnchor anchor)
+        /// <param name="handleLaser">A <see cref="bool"/> to show the interaction laser when removing the gizmo and hide the laser when gizmo is there</param>
+        public void InstantiateCursorGizmo(GameObject interactionGizmo, ControllerAnchor anchor, bool handleLaser = false)
         {
             if (cursorGizmo != null)
+            {
                 Destroy(cursorGizmo);
+                if (handleLaser) SetLaserActive(true);
+            }
             if (cursor != null && interactionGizmo != null)
             {
                 var pivot =
@@ -137,7 +141,15 @@ namespace Nanover.Frontend.Controllers
 
 
                 cursorGizmo = Instantiate(interactionGizmo, pivot);
+                if (handleLaser) SetLaserActive(false);
             }
+        }
+
+        [SerializeField]
+        private GameObject interactionLaser;
+        public void SetLaserActive(bool active)
+        {
+            interactionLaser?.SetActive(active);
         }
     }
 }
