@@ -25,12 +25,12 @@ jobs:
         id: download
         uses: dsaltares/fetch-gh-release-asset@master
         with:
-          repo: 'IRL2/nanover-imd-vr'
-          file: 'nanover-imd-vr-windows.zip'
+          repo: 'IRL2/nanover-imd-xr'
+          file: 'nanover-imd-xr-windows.zip'
       - name: Unzip release
         run: |
-          Expand-Archive -Force nanover-imd-vr-windows.zip conda\artifacts
-          mv conda\artifacts\nanover-imd-vr-windows conda\artifacts\StandaloneWindows64
+          Expand-Archive -Force nanover-imd-xr-windows.zip conda\artifacts
+          mv conda\artifacts\nanover-imd-xr-windows conda\artifacts\StandaloneWindows64
           ls -R conda
       - name: Setup variables
         run: |

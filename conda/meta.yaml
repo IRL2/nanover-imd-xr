@@ -1,5 +1,5 @@
 package:
-    name: nanover-imd-vr
+    name: nanover-imd-xr
     version: {{ frontend_version }}
 
 source:
@@ -16,16 +16,16 @@ build:
 
 app:
   entry: NanoverImd.bat
-  summary: "iMD-VR frontend for NanoVer."
+  summary: "iMD-XR frontend for NanoVer."
   type: desk
 
 about:
   home: https://irl2.github.io/nanover-docs/
   license: MIT
   license_file: {{ NANOVER_LICENSE_PATH }}
-  summary: Virtual reality frontend for NanoVer.
+  summary: Extended reality frontend for NanoVer.
   description: |
     NanoVer is a framework for interactive molecular dynamics simulation in
-    virtual reality. This package provides the virtual reality frontend.
+    extended reality. This package provides the extended reality frontend.
   doc_url: https://irl2.github.io/nanover-docs/
-  dev_url: https://github.com/IRL2/nanover-imd-vr
+  dev_url: https://github.com/IRL2/nanover-imd-xr
