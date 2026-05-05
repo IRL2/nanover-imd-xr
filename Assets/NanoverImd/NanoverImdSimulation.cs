@@ -104,11 +104,29 @@ namespace NanoverImd
         private float playbackTimeSinceMessage = 0;
         public void ConnectRecordingReader(NanoverRecordingReader reader)
         {
+            bool calibrated = false;
+            bool scene = false;
+            bool box = false;
+
             Close();
 
             gameObject.SetActive(true);
             SessionOpened?.Invoke();
             Multiplayer.OpenClientFake();
+
+            void CheckCalibrate()
+            {
+                if (calibrated)
+                    return;
+
+                Debug.LogError($"CALIB? scene {scene} / box {box}");
+
+                if (scene && box)
+                {
+                    calibrated = true;
+                    application.RecalibrateToBoxAroundCamera();
+                }
+            }
 
             playback = new NanoverRecordingPlayback(reader);
             playback.PlaybackMessage += (message) =>
@@ -116,10 +134,26 @@ namespace NanoverImd
                 playbackTimeSinceMessage = 0;
 
                 if (message.FrameUpdate is { } frameUpdate)
+                {
                     Trajectory.ReceiveFrameUpdate(frameUpdate);
 
+                    if (!box)
+                    {
+                        box = true;
+                        CheckCalibrate();
+                    }
+                }
+
                 if (message.StateUpdate is { } stateUpdate)
+                {
                     Multiplayer.ReceiveStateUpdate(stateUpdate);
+
+                    //if (stateUpdate.Updates.ContainsKey("scene"))
+                    {
+                        scene = true;
+                        CheckCalibrate();
+                    }
+                }
             };
 
             playback.PlaybackReset += () =>

@@ -144,7 +144,8 @@ namespace Nanover.Network.Multiplayer
         public void OpenClientFake()
         {
             openedFake = true;
-            MultiplayerJoined?.Invoke(); 
+            MultiplayerJoined?.Invoke();
+            SimulationPose.Reset(Transformation.Identity);
         }
 
         public void OpenClient(WebSocketMessageSource source, Func<Message, UniTask> SendMessage)
