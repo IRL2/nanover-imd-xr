@@ -217,6 +217,13 @@ namespace Nanover.Network.Multiplayer
             }
         }
 
+        public void Reset(TValue value)
+        {
+            this.value = value;
+            localValuePending = false;
+            ValueChanged?.Invoke();
+        }
+
         private void SetLocalValue(TValue value)
         {
             this.value = value;
