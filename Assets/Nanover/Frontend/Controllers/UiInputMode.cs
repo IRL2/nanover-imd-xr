@@ -48,13 +48,15 @@ namespace Nanover.Frontend.Controllers
             {
                 var dominant = (Controllers.DominantHand & inputSource) != InputDeviceCharacteristics.None || bothHands;
                 if (dominant)
-                    controller.InstantiateCursorGizmo(gizmo, anchor);
-                else
-                    controller.InstantiateCursorGizmo(null, anchor);
-                if (dominant)
+                {
+                    controller.InstantiateCursorGizmo(gizmo, anchor, true);
                     controller.RenderModel.SetColor(Color.white);
+                }
                 else
+                {
+                    controller.InstantiateCursorGizmo(null, anchor, true);
                     controller.RenderModel.SetColor(new Color(1f, 1f, 1f, 0.2f));
+                }
             }
         }
     }

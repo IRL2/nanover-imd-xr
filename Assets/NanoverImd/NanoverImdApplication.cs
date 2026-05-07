@@ -47,6 +47,9 @@ namespace NanoverImd
         private float passthrough = 1f;
 
         [SerializeField]
+        private OVRPassthroughLayer passthroughLayer;
+
+        [SerializeField]
         private new Camera camera;
 
         [Header("Events")]
@@ -141,9 +144,11 @@ namespace NanoverImd
             UpdatePlayArea();
 
             // update passthrough
-            var color = camera.backgroundColor;
-            color.a = 1f - passthrough;
-            camera.backgroundColor = color;
+            passthroughLayer.textureOpacity = passthrough;
+
+            //var color = camera.backgroundColor;
+            //color.a = 1f - passthrough;
+            //camera.backgroundColor = color;
         }
 
         private void UpdateSuggestedParameters()

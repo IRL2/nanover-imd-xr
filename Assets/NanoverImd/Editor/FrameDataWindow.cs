@@ -40,7 +40,7 @@ namespace NanoverImd.Editor
 
             if (simulation == null)
             {
-                simulation = FindFirstObjectByType<NanoverImdSimulation>();
+                simulation = FindAnyObjectByType<NanoverImdSimulation>();
                 if (simulation != null)
                     OnConnectToSession();
             }

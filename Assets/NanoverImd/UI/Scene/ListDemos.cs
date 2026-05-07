@@ -1,7 +1,8 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using Nanover.Frontend.UI;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace NanoverImd.UI.Scene
 {
@@ -19,8 +20,16 @@ namespace NanoverImd.UI.Scene
         [SerializeField]
         private Sprite demoIcon;
 
+        [SerializeField]
+        private UnityEvent startSearch;
+
+        [SerializeField]
+        private UnityEvent endSearch;
+
+
         private void OnEnable()
         {
+            startSearch?.Invoke();
             Refresh();
         }
 
@@ -47,6 +56,7 @@ namespace NanoverImd.UI.Scene
                     () => NanoverRecordings.LoadDemo(demo.URL).AsUniTask().ContinueWith(application.Simulation.ConnectRecordingReader)
                 );
             }
+            endSearch?.Invoke ();
         }
     }
 }
