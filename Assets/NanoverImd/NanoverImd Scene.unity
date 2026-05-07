@@ -15395,6 +15395,10 @@ PrefabInstance:
       propertyPath: unacceptableDistance
       value: 0.6
       objectReference: {fileID: 0}
+    - target: {fileID: 4246871758349448173, guid: 5ce1f7023435bfe4994f657b9d8d9612, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.7
+      objectReference: {fileID: 0}
     - target: {fileID: 4273779151679904043, guid: 5ce1f7023435bfe4994f657b9d8d9612, type: 3}
       propertyPath: m_Pivot.y
       value: 0.06
@@ -16846,6 +16850,10 @@ PrefabInstance:
     - target: {fileID: 7641668014956358359, guid: 5ce1f7023435bfe4994f657b9d8d9612, type: 3}
       propertyPath: m_Spacing
       value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 7642952825585899338, guid: 5ce1f7023435bfe4994f657b9d8d9612, type: 3}
+      propertyPath: prefix
+      value: NanoVer iMD-XR version
       objectReference: {fileID: 0}
     - target: {fileID: 7813347469759408346, guid: 5ce1f7023435bfe4994f657b9d8d9612, type: 3}
       propertyPath: m_Layer
