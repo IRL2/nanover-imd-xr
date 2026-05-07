@@ -34,6 +34,8 @@ namespace Nanover.Visualisation
         [SerializeField]
         private Material material;
 
+        public AffineTransformation Box => box;
+
         /// <summary>
         /// The midpoints of the edges of the box, in the local box coordinates.
         /// </summary>

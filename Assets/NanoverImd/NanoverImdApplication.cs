@@ -1,18 +1,20 @@
+using Cysharp.Threading.Tasks;
 using Essd;
+using Nanover.Core.Math;
+using Nanover.Frontend.Controllers;
 using Nanover.Frontend.XR;
+using Nanover.Network.Multiplayer;
+using Nanover.Visualisation;
+using NanoverImd.Interaction;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
-using NanoverImd.Interaction;
-using Nanover.Core.Math;
 using UnityEngine.XR;
-using System.Collections.Generic;
-using Nanover.Network.Multiplayer;
-using Nanover.Frontend.Controllers;
-using System.Linq;
-using static Nanover.Network.Trajectory.TrajectorySession;
-using WebSocketTypes;
-using Cysharp.Threading.Tasks;
 using WebDiscovery;
+using static Nanover.Network.Trajectory.TrajectorySession;
 
 namespace NanoverImd
 {
@@ -84,6 +86,8 @@ namespace NanoverImd
 
             simulation.SessionOpened += connectionEstablished.Invoke;
             simulation.SessionClosed += connectionLost.Invoke;
+
+            CalibratedSpace.CalibrationChanged += () => Debug.LogError($"CALIB CHANGE {CalibratedSpace.WorldToLocalMatrix}");
         }
 
         // These methods expose the underlying async methods to Unity for use
@@ -290,6 +294,51 @@ namespace NanoverImd
 
                 afterCalibration.Invoke();
             }
+        }
+
+        [SerializeField]
+        private BoxVisualiser box;
+
+        [ContextMenu("CENTER BOX")]
+        public void RecalibrateToBoxAroundCamera()
+        {
+            Move();
+
+            async UniTask Move()
+            {
+                CalibratedSpace.CalibrateFromMatrix(Matrix4x4.identity);
+
+                await Task.Delay(50);
+                
+                ManualColocation = true;
+                var center = boxVisualiser.transform.TransformPoint(box.Box.axesMagnitudes * .5f);
+                var target = camera.transform.position;
+                //target.y = 1f;
+
+                var offset = target - center;
+                
+                var direction = offset;
+                direction.y = 0;
+                direction.Normalize();
+
+                CalibratedSpace.CalibrateFromMatrix(Matrix4x4.Translate(offset - direction * 1f));
+            }
+
+            //const float offset = .5f;
+
+            //var cornerToCenter = Matrix4x4.Translate(box.Box.axesMagnitudes * .5f);
+            //var cameraToCenter = Matrix4x4.Translate(Vector3.forward * offset);
+
+            //var cornerS = box.transform.localToWorldMatrix;
+            //var centerS = cornerS * cornerToCenter;
+
+            //var cameraD = camera.transform.localToWorldMatrix;
+            //var centerD = cameraD * cameraToCenter;
+            //var cornerD = centerD * cornerToCenter;
+
+            //var delta = cornerD.inverse * cornerS;
+
+            //CalibratedSpace.CalibrateFromMatrix(delta);
         }
 
         /// <summary>
