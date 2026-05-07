@@ -4665,6 +4665,7 @@ MonoBehaviour:
   metaCalibrator: {fileID: 425537939}
   passthrough: 1
   passthroughLayer: {fileID: 1938083358}
+  camera: {fileID: 199515959}
   connectionEstablished:
     m_PersistentCalls:
       m_Calls:

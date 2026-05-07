@@ -49,8 +49,8 @@ namespace NanoverImd
         [SerializeField]
         private OVRPassthroughLayer passthroughLayer;
 
-        //[SerializeField]
-        //private new Camera camera;
+        [SerializeField]
+        private new Camera camera;
 
         [Header("Events")]
         [SerializeField]
