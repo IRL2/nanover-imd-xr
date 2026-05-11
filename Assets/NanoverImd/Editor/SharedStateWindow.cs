@@ -171,8 +171,11 @@ namespace NanoverImd.Editor
                     EditorGUI.indentLevel -= 2;
                     break;
                 default:
+                    if (value is string s)
+                        value = $"\"{s}\"";
+
                     if (key != null)
-                        EditorGUILayout.LabelField($"{key}:", $"{value}");
+                        EditorGUILayout.LabelField($"{key}: {value}");
                     else
                         EditorGUILayout.LabelField($"{value}");
                     break;
