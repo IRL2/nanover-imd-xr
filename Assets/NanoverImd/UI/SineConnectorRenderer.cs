@@ -44,19 +44,24 @@ public class SineConnectorRenderer : MonoBehaviour
         get => endPoint;
         set => endPoint = value;
     }
-
+    
     private void Update()
+    {
+        Refresh();
+    }
+
+    public void Refresh()
     {
         var dist = Vector3.Distance(startPoint, endPoint);
         var dir = endPoint - startPoint;
-        
+
         var scaling = 1f + this.scaling / dist;
 
         var frequency = this.frequency * scaling;
         var amplitude = this.amplitude / scaling;
         var width = this.width / scaling;
         var segmentsPerMeter = Mathf.Clamp(this.segmentsPerMeter * scaling, 1, 10000f);
-        
+
         int segments = (int) Mathf.Clamp(segmentsPerMeter * dist, 2, 10000f);
 
         var cameraDir = Camera.main.transform.InverseTransformDirection(dir);

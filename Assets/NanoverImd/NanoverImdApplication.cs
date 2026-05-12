@@ -86,8 +86,6 @@ namespace NanoverImd
 
             simulation.SessionOpened += connectionEstablished.Invoke;
             simulation.SessionClosed += connectionLost.Invoke;
-
-            CalibratedSpace.CalibrationChanged += () => Debug.LogError($"CALIB CHANGE {CalibratedSpace.WorldToLocalMatrix}");
         }
 
         // These methods expose the underlying async methods to Unity for use

@@ -58,6 +58,7 @@ namespace NanoverImd.Interaction
 
                 renderer.EndPosition = transform.TransformPoint(interaction.Position);
                 renderer.StartPosition = particlePositionWorld;
+                renderer.Refresh();
             }
 
             Vector3 computeParticleCentroid(IReadOnlyList<int> particleIds)
