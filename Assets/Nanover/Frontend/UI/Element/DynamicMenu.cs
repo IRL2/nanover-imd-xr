@@ -42,5 +42,10 @@ namespace Nanover.Frontend.UI
                 DestroyButton(child);
             children.Clear();
         }
+
+        public int GetButtonCount()
+        {
+            return children.Count;
+        }
     }
 }

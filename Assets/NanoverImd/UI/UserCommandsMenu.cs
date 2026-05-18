@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Nanover.Frontend.Controllers;
 using Nanover.Frontend.UI;
 using UnityEngine;
@@ -34,7 +35,7 @@ namespace NanoverImd.UI
         public void RefreshButtons()
         {
             menu.ClearChildren();
-
+            
             foreach (var command in simulation.Trajectory.CommandDefinitions.Values.Where(command => command.Name.StartsWith("user/")))
             {
                 async void RunCommand()
@@ -47,7 +48,29 @@ namespace NanoverImd.UI
                         notifiedController.PushNotification($"Completed {command.Name}");
                 }
 
-                menu.AddItem(command.Name, commandIcon, RunCommand);
+                string commandName = "";
+                foreach (string part in command.Name.Split('/').Skip(1))
+                {
+                    commandName += part + "\n";
+                }
+
+                menu.AddItem(commandName, commandIcon, RunCommand);
+            }
+
+            // activate the rest of the menu, only if there are commands to show
+            if (menu.GetButtonCount() > 0)
+            {
+                ChildrenSetActive(true);
+                this.gameObject.transform.parent.transform.position += new Vector3(0, 0.1f, 0);
+            }
+        }
+
+        private void ChildrenSetActive(bool state)
+        {
+            int otherChildsCount = this.gameObject.transform.childCount;
+            for (int i = 0; i < otherChildsCount; i++)
+            {
+                this.gameObject.transform.GetChild(i).gameObject.SetActive(state);
             }
         }
     }
