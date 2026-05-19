@@ -20709,9 +20709,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 431384315}
     - target: {fileID: 2971540108686228541, guid: f3eac0c1301591843a2e2180567c3f3b, type: 3}
+      propertyPath: commandIcon
+      value: 
+      objectReference: {fileID: 21300000, guid: c6ec543becc9acb468532f9ee53403ec, type: 3}
+    - target: {fileID: 2971540108686228541, guid: f3eac0c1301591843a2e2180567c3f3b, type: 3}
       propertyPath: notifiedController
       value: 
-      objectReference: {fileID: 971855733}
+      objectReference: {fileID: 1083629888}
     - target: {fileID: 3208738399312431705, guid: f3eac0c1301591843a2e2180567c3f3b, type: 3}
       propertyPath: m_Name
       value: Options Button
