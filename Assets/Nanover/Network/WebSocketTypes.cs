@@ -49,6 +49,15 @@ namespace WebSocketTypes
         public CommandArguments Arguments;
     }
 
+    public partial class CommandRegister
+    {
+        [PropertyShape(Name = "name")]
+        public string Name;
+
+        [PropertyShape(Name = "arguments")]
+        public CommandArguments Arguments;
+    }
+
     public partial class CommandUpdate
     {
         [PropertyShape(Name = "request")]
@@ -56,6 +65,9 @@ namespace WebSocketTypes
 
         [PropertyShape(Name = "response")]
         public CommandReturn Response;
+
+        [PropertyShape(Name = "register")]
+        public CommandRegister Register;
     }
 
     public partial class Message
