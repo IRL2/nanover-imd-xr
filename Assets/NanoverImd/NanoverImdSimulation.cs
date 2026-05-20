@@ -20,6 +20,7 @@ using CommandArguments = System.Collections.Generic.Dictionary<string, object>;
 using CommandReturn = System.Collections.Generic.Dictionary<string, object>;
 using WebDiscovery;
 using NativeWebSocket;
+using UnityEngine.UIElements;
 
 
 #if UNITY_EDITOR
@@ -28,6 +29,8 @@ using UnityEditor;
 
 namespace NanoverImd
 {
+    using CommandCallback = System.Func<CommandArguments, CommandReturn>;
+
     public class NanoverImdSimulation : MonoBehaviour, WebSocketMessageSource
     {
         private const string CommandRadiallyOrient = "multiuser/radially-orient-origins";
@@ -119,8 +122,6 @@ namespace NanoverImd
                 if (calibrated)
                     return;
 
-                Debug.LogError($"CALIB? scene {scene} / box {box}");
-
                 if (scene && box)
                 {
                     calibrated = true;
@@ -186,6 +187,8 @@ namespace NanoverImd
             {
                 gameObject.SetActive(true);
                 SessionOpened?.Invoke();
+
+                RefreshCommandRegistrations();
             };
 
             websocket.OnClose += OnWebSocketClose;
@@ -199,12 +202,80 @@ namespace NanoverImd
             websocket.Connect().AsUniTask().Forget();
         }
 
+        private Dictionary<string, CommandCallback> commandCallbacks = new Dictionary<string, CommandCallback>();
+        private Dictionary<string, CommandCallback> trueCallbacks = new Dictionary<string, CommandCallback>();
+
+        public void RegisterCommand(string name, CommandCallback callback, CommandArguments args = null)
+        {
+            commandCallbacks[name] = callback;
+
+            var message = new Message
+            {
+                CommandUpdate = new CommandUpdate
+                {
+                    Register = new CommandRegister
+                    {
+                        Name = name,
+                        Arguments = args,
+                    },
+                }
+            };
+
+            RefreshCommandRegistrations();
+        }
+
+        private void RefreshCommandRegistrations()
+        {
+            trueCallbacks.Clear();
+
+            foreach (var (name, callback) in commandCallbacks)
+            {
+                var trueName = $"{Multiplayer.AccessToken}/{name}";
+                trueCallbacks[trueName] = callback;
+
+                var message = new Message
+                {
+                    CommandUpdate = new CommandUpdate
+                    {
+                        Register = new CommandRegister
+                        {
+                            Name = trueName,
+                            Arguments = null,
+                        },
+                    }
+                };
+
+                SendWebsocketMessage(message);
+            }
+        }
+
+        private void FulfillRequest(CommandRequest request)
+        {
+            if (!trueCallbacks.TryGetValue(request.Name, out var callback))
+                return;
+
+            var result = callback(request.Arguments);
+
+            var message = new Message
+            {
+                CommandUpdate = new CommandUpdate
+                {
+                    Request = new CommandRequest { Id = request.Id },
+                    Response = result,
+                }
+            };
+
+            SendWebsocketMessage(message);
+        }
+
         private Dictionary<int, UniTaskCompletionSource<CommandReturn>> pendingCommands = new Dictionary<int, UniTaskCompletionSource<CommandReturn>>();
 
         private void ReceiveWebSocketCommand(CommandUpdate update)
         {
-            if (pendingCommands.Remove(update.Request.Id, out var source))
+            if (update.Response is { } && pendingCommands.Remove(update.Request.Id, out var source))
                 source.TrySetResult(update.Response.StringifyStructureKeys() as CommandArguments);
+            else if (update.Request is { })
+                FulfillRequest(update.Request);
         }
 
         private UniTask<CommandReturn> RunWebSocketCommand(string name, CommandArguments args = null)
