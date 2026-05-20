@@ -122,8 +122,6 @@ namespace NanoverImd
                 if (calibrated)
                     return;
 
-                Debug.LogError($"CALIB? scene {scene} / box {box}");
-
                 if (scene && box)
                 {
                     calibrated = true;
@@ -256,8 +254,6 @@ namespace NanoverImd
             if (!trueCallbacks.TryGetValue(request.Name, out var callback))
                 return;
 
-            Debug.LogError($"REQUEST {request.Id} {request.Name}");
-
             var result = callback(request.Arguments);
 
             var message = new Message
@@ -268,8 +264,6 @@ namespace NanoverImd
                     Response = result,
                 }
             };
-
-            Debug.LogError($"RESPOND {message.CommandUpdate.Request.Id} {message.CommandUpdate.Response}");
 
             SendWebsocketMessage(message);
         }
