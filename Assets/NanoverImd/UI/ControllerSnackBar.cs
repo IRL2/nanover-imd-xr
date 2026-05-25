@@ -10,6 +10,11 @@ namespace NanoverImd.UI
         [SerializeField]
         private TMP_Text text;
 
+        [SerializeField]
+        private SpriteRenderer background;
+        private Color backgroundColor;
+        private Color backgroundColorTransparent;
+
         private float strength = 0;
 
         [SerializeField]
@@ -18,15 +23,18 @@ namespace NanoverImd.UI
         private void Awake()
         {
             Assert.IsNotNull(text);
+            backgroundColor = background.color;
+            backgroundColorTransparent = new Color(backgroundColor.r, backgroundColor.g, backgroundColor.b, 0);
         }
 
         private void Update()
         {
             if (strength > 0)
             {
-                text.enabled = true;
                 strength -= Time.deltaTime * decaySpeed;
+
                 text.color = new Color(1, 1, 1, strength * strength * (3 - 2 * strength));
+                background.color = Color.Lerp(backgroundColorTransparent, backgroundColor, strength);
 
                 var forwards = -(Camera.main.transform.position - transform.position);
                 var horizontal = Vector3.Cross(forwards, Vector3.up);
@@ -38,6 +46,7 @@ namespace NanoverImd.UI
             else
             {
                 text.enabled = false;
+                background.enabled = false;
             }
         
         }
@@ -46,6 +55,9 @@ namespace NanoverImd.UI
         {
             this.text.text = text;
             strength = 1;
+            this.text.enabled = true;
+            this.background.enabled = true;
+            this.background.color = backgroundColor;
         }
     }
 }

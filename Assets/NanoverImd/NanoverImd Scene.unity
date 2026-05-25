@@ -2608,6 +2608,7 @@ GameObject:
   - component: {fileID: 400568006}
   - component: {fileID: 400568008}
   - component: {fileID: 400568007}
+  - component: {fileID: 400568009}
   m_Layer: 0
   m_Name: UI Raycast interactor
   m_TagString: Untagged
@@ -2803,10 +2804,34 @@ MonoBehaviour:
   m_RotateMode: 0
   m_UIHoverEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 400568009}
+        m_TargetAssemblyTypeName: HoverHaptics, NanoverImd
+        m_MethodName: OnHoverEnter
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
   m_UIHoverExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 400568009}
+        m_TargetAssemblyTypeName: HoverHaptics, NanoverImd
+        m_MethodName: OnHoverEnter
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
   m_EnableARRaycasting: 0
   m_OccludeARHitsWith3DObjects: 0
   m_OccludeARHitsWith2DObjects: 0
@@ -3224,6 +3249,20 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &400568009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 400568004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fd1197b29662fb4f8784af82c47aee8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: NanoverImd::HoverHaptics
+  amplitude: 0.3
+  duration: 0.02
 --- !u!1 &404935975
 GameObject:
   m_ObjectHideFlags: 0
@@ -8022,6 +8061,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1396409553}
     m_Modifications:
+    - target: {fileID: 495998950860801787, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      propertyPath: m_renderer
+      value: 
+      objectReference: {fileID: 1362723657}
     - target: {fileID: 3089947305233972809, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
@@ -8029,10 +8072,6 @@ PrefabInstance:
     - target: {fileID: 3325979954682767317, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
       propertyPath: m_Name
       value: Snack Bar
-      objectReference: {fileID: 0}
-    - target: {fileID: 5802638612013578250, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
-      propertyPath: decaySpeed
-      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6504217415544137932, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
       propertyPath: m_Pivot.x
@@ -8060,19 +8099,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6504217415544137932, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 20
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6504217415544137932, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6504217415544137932, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.019999998
-      objectReference: {fileID: 0}
-    - target: {fileID: 6504217415544137932, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.019999998
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6504217415544137932, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8104,7 +8135,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6504217415544137932, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: -0.07
       objectReference: {fileID: 0}
     - target: {fileID: 6504217415544137932, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -8122,11 +8153,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7339688318362202980, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1549604112718095413, guid: 0cd382c4d470f174791dd96eb8f7b786, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3325979954682767317, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 6109195022761085468, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
@@ -8145,7 +8180,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ec3523c8fda986468a5387b5a36806e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: NanoverImd::NanoverImd.UI.ControllerSnackBar
 --- !u!1 &952470910
 GameObject:
   m_ObjectHideFlags: 0
@@ -11237,6 +11272,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 686404138}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &1362723657 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7339688318362202980, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+  m_PrefabInstance: {fileID: 946200458}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1373164401
 GameObject:
   m_ObjectHideFlags: 0
