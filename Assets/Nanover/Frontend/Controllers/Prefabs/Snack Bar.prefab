@@ -146,7 +146,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6109195022761085468}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
   m_Name: 
@@ -159,7 +159,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1024x
+  m_text: 111x
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0cd382c4d470f174791dd96eb8f7b786, type: 2}
   m_sharedMaterial: {fileID: 1549604112718095413, guid: 0cd382c4d470f174791dd96eb8f7b786, type: 2}
@@ -168,8 +168,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4292670463
-  m_fontColor: {r: 1, g: 0.9511513, b: 0.8632076, a: 1}
+    rgba: 14480383
+  m_fontColor: {r: 1, g: 0.9511513, b: 0.8632076, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -186,12 +186,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
-  m_fontSizeBase: 3
+  m_fontSize: 6
+  m_fontSizeBase: 7
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 3
-  m_fontSizeMax: 18
+  m_fontSizeMin: 6
+  m_fontSizeMax: 6
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -200,9 +200,9 @@ MonoBehaviour:
   m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
-  m_lineSpacingMax: 0
+  m_lineSpacingMax: -10
   m_paragraphSpacing: 0
-  m_charWidthMaxAdj: 0
+  m_charWidthMaxAdj: 20
   m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0

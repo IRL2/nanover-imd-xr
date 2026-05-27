@@ -8049,10 +8049,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1396409553}
     m_Modifications:
-    - target: {fileID: 495998950860801787, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
-      propertyPath: m_renderer
-      value: 
-      objectReference: {fileID: 1362723657}
     - target: {fileID: 3089947305233972809, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
@@ -8060,10 +8056,6 @@ PrefabInstance:
     - target: {fileID: 3325979954682767317, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
       propertyPath: m_Name
       value: Snack Bar
-      objectReference: {fileID: 0}
-    - target: {fileID: 5802638612013578250, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
-      propertyPath: decaySpeed
-      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 6504217415544137932, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
       propertyPath: m_Pivot.x
@@ -11264,11 +11256,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 686404138}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &1362723657 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 7339688318362202980, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
-  m_PrefabInstance: {fileID: 946200458}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1373164401
 GameObject:
   m_ObjectHideFlags: 0
@@ -15285,7 +15272,7 @@ PrefabInstance:
       objectReference: {fileID: 199515959}
     - target: {fileID: 4243182793719295655, guid: 5ce1f7023435bfe4994f657b9d8d9612, type: 3}
       propertyPath: distance
-      value: 0.8
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4243182793719295655, guid: 5ce1f7023435bfe4994f657b9d8d9612, type: 3}
       propertyPath: pitchRotation
@@ -21143,6 +21130,10 @@ PrefabInstance:
       propertyPath: camera
       value: 
       objectReference: {fileID: 199515959}
+    - target: {fileID: 5142325587052437943, guid: f3eac0c1301591843a2e2180567c3f3b, type: 3}
+      propertyPath: distance
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5142325587052437943, guid: f3eac0c1301591843a2e2180567c3f3b, type: 3}
       propertyPath: verticalOffset
       value: -0.22

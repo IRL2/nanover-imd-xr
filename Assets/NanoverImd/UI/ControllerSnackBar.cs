@@ -70,11 +70,11 @@ namespace NanoverImd.UI
         {
             if (content.StartsWith("[") || content.StartsWith("<") || content.StartsWith("("))
             {
-                content.Substring(1, content.Length - 2);
+                content = content[1..^0];
             }
             if (content.EndsWith("]") || content.EndsWith(">") || content.EndsWith(")"))
             {
-                content.Substring(0, content.Length - 1);
+                content = content[0..^1];
             }
             return content;
         }
