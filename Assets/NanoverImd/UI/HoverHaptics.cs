@@ -14,14 +14,16 @@ public class HoverHaptics : MonoBehaviour
 
     private Transform interactorTransform;
 
+    private InputDevice device;
+
     private void Awake()
     {
         interactorTransform = this.gameObject.transform;
+        device = GetNearestControllerDevice();
     }
 
     public void SendHapticImpuse()
     {
-        var device = GetNearestControllerDevice();
         if (device.isValid)
             device.SendHapticImpulse(0u, amplitude, duration);
     }
@@ -50,6 +52,7 @@ public class HoverHaptics : MonoBehaviour
         // choose device whose reported position is closest to interactor (best-effort)
         float bestDist = float.MaxValue;
         InputDevice best = new InputDevice();
+
         foreach (var d in candidates)
         {
             if (d.TryGetFeatureValue(CommonUsages.devicePosition, out Vector3 pos))

@@ -3249,7 +3249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fd1197b29662fb4f8784af82c47aee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: NanoverImd::HoverHaptics
-  amplitude: 0.3
+  amplitude: 0.2
   duration: 0.02
 --- !u!1 &404935975
 GameObject:
@@ -5113,6 +5113,7 @@ GameObject:
   - component: {fileID: 616363351}
   - component: {fileID: 616363350}
   - component: {fileID: 616363349}
+  - component: {fileID: 616363352}
   m_Layer: 0
   m_Name: UI Raycast interactor
   m_TagString: Untagged
@@ -5577,7 +5578,19 @@ MonoBehaviour:
   m_RotateMode: 0
   m_UIHoverEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 616363352}
+        m_TargetAssemblyTypeName: HoverHaptics, NanoverImd
+        m_MethodName: OnHoverEnter
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_UIHoverExited:
     m_PersistentCalls:
       m_Calls: []
@@ -5729,6 +5742,20 @@ MonoBehaviour:
     m_InputActionReference: {fileID: 0}
     m_ObjectReferenceObject: {fileID: 0}
     m_ManualValue: 0
+--- !u!114 &616363352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 616363347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fd1197b29662fb4f8784af82c47aee8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: NanoverImd::HoverHaptics
+  amplitude: 0.2
+  duration: 0.02
 --- !u!1 &624944745
 GameObject:
   m_ObjectHideFlags: 0
@@ -8049,6 +8076,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1396409553}
     m_Modifications:
+    - target: {fileID: 495998950860801787, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 495998950860801787, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      propertyPath: m_fontColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 495998950860801787, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4292670463
+      objectReference: {fileID: 0}
     - target: {fileID: 3089947305233972809, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
