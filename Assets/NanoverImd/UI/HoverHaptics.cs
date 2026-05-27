@@ -29,12 +29,14 @@ public class HoverHaptics : MonoBehaviour
     public void OnHoverEnter(UIHoverEventArgs args)
     {
         var device = GetNearestControllerDevice();
-        
 
-        if (device.isValid)
-            //if (!args.uiObject.name.Contains("Button"))
-            //    return;
-            device.SendHapticImpulse(0u, amplitude, duration);
+        if (!device.isValid)
+            return;
+
+        if (!args.uiObject.tag.Contains("HasHaptics"))
+            return;
+
+        device.SendHapticImpulse(0u, amplitude, duration);
     }
 
     InputDevice GetNearestControllerDevice()
