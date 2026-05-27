@@ -2764,7 +2764,7 @@ MonoBehaviour:
   m_PlayHapticsOnHoverCanceled: 0
   m_HapticHoverCancelIntensity: 0
   m_HapticHoverCancelDuration: 0
-  m_AllowHoverHapticsWhileSelecting: 1
+  m_AllowHoverHapticsWhileSelecting: 0
   m_LineType: 0
   m_BlendVisualLinePoints: 1
   m_MaxRaycastDistance: 2
@@ -2816,22 +2816,10 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 1
+        m_CallState: 2
   m_UIHoverExited:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 400568009}
-        m_TargetAssemblyTypeName: HoverHaptics, NanoverImd
-        m_MethodName: OnHoverEnter
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
+      m_Calls: []
   m_EnableARRaycasting: 0
   m_OccludeARHitsWith3DObjects: 0
   m_OccludeARHitsWith2DObjects: 0
@@ -8072,6 +8060,10 @@ PrefabInstance:
     - target: {fileID: 3325979954682767317, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
       propertyPath: m_Name
       value: Snack Bar
+      objectReference: {fileID: 0}
+    - target: {fileID: 5802638612013578250, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      propertyPath: decaySpeed
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 6504217415544137932, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
       propertyPath: m_Pivot.x

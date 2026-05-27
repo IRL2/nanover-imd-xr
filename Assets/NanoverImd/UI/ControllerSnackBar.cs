@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -12,8 +13,11 @@ namespace NanoverImd.UI
 
         [SerializeField]
         private SpriteRenderer background;
-        private Color backgroundColor;
+
+        private Color backgroundColorInitial;
         private Color backgroundColorTransparent;
+        private Color textColorInitial;
+        private Color textColorTransparent;
 
         private float strength = 0;
 
@@ -23,8 +27,11 @@ namespace NanoverImd.UI
         private void Awake()
         {
             Assert.IsNotNull(text);
-            backgroundColor = background.color;
-            backgroundColorTransparent = new Color(backgroundColor.r, backgroundColor.g, backgroundColor.b, 0);
+            Assert.IsNotNull(background);
+            backgroundColorInitial = background.color;
+            backgroundColorTransparent = new Color(backgroundColorInitial.r, backgroundColorInitial.g, backgroundColorInitial.b, 0);
+            textColorInitial = text.color;
+            textColorTransparent = new Color(textColorInitial.r, textColorInitial.g, textColorInitial.b, 0);
         }
 
         private void Update()
@@ -33,15 +40,13 @@ namespace NanoverImd.UI
             {
                 strength -= Time.deltaTime * decaySpeed;
 
-                text.color = new Color(1, 1, 1, strength * strength * (3 - 2 * strength));
-                background.color = Color.Lerp(backgroundColorTransparent, backgroundColor, strength);
+                if (strength < 0.3f)
+                {
+                    text.color = Color.Lerp(textColorTransparent, textColorInitial, strength*3);
+                    background.color = Color.Lerp(backgroundColorTransparent, backgroundColorInitial, strength*3);
+                }
 
-                var forwards = -(Camera.main.transform.position - transform.position);
-                var horizontal = Vector3.Cross(forwards, Vector3.up);
-                var up = Vector3.Cross(horizontal, forwards);
-
-                transform.rotation =
-                    Quaternion.LookRotation(forwards, up);
+                transform.rotation = Quaternion.LookRotation(- (Camera.main.transform.position - transform.position), Vector3.up);
             }
             else
             {
@@ -51,13 +56,27 @@ namespace NanoverImd.UI
         
         }
 
-        public void PushNotification(string text)
+        public void PushNotification(string content)
         {
-            this.text.text = text;
+            text.text = CleanIncommingText(content);
             strength = 1;
-            this.text.enabled = true;
-            this.background.enabled = true;
-            this.background.color = backgroundColor;
+            text.enabled = true;
+            background.enabled = true;
+            text.color = textColorInitial;
+            background.color = backgroundColorInitial;
+        }
+
+        public string CleanIncommingText(string content)
+        {
+            if (content.StartsWith("[") || content.StartsWith("<") || content.StartsWith("("))
+            {
+                content.Substring(1, content.Length - 2);
+            }
+            if (content.EndsWith("]") || content.EndsWith(">") || content.EndsWith(")"))
+            {
+                content.Substring(0, content.Length - 1);
+            }
+            return content;
         }
     }
 }
