@@ -36,7 +36,12 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3474323634791730561}
+  - {fileID: 1373333483397089107}
+  - {fileID: 1643562577481626331}
+  - {fileID: 2936729680437254804}
+  - {fileID: 4883909196868732859}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &-2248793339919527569
@@ -197,4 +202,1102 @@ MonoBehaviour:
     name: residue.colour_gradient
     input:
       value: []
+      isValueProvided: 0
+--- !u!1 &3377701165938396621
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1373333483397089107}
+  - component: {fileID: 5353917955698039970}
+  - component: {fileID: 6552673847118524468}
+  - component: {fileID: 6313162190706921293}
+  - component: {fileID: 9149472582256346989}
+  - component: {fileID: 6512717247215572210}
+  m_Layer: 0
+  m_Name: Secondary Structure(Clone)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1373333483397089107
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3377701165938396621}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8675595082771297215}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5353917955698039970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3377701165938396621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72996cf867374b4c984e509b7970a4e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection: []
+  node:
+    name: residue.secondarystructures
+    input:
+      value: 
+      isValueProvided: 0
+--- !u!114 &6552673847118524468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3377701165938396621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b42f6f78d95455a82a47b56046ced7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection:
+  - sourceComponent: {fileID: 9149472582256346989}
+    sourceFieldName: input
+    destinationFieldName: particleResidues
+  - sourceComponent: {fileID: 5353917955698039970}
+    sourceFieldName: input
+    destinationFieldName: residueSecondaryStructure
+  node:
+    residueSecondaryStructure:
+      value: 
+      isValueProvided: 0
+    particleResidues:
+      value: 
+      isValueProvided: 0
+    radius: 0
+    helixRadius: 1
+    turnRadius: 0
+    sheetRadius: 1
+--- !u!114 &6313162190706921293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3377701165938396621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7d4aa2b881744089c4f7917bb2ad882, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection:
+  - sourceComponent: {fileID: 6512717247215572210}
+    sourceFieldName: output
+    destinationFieldName: output
+  node:
+    name: particle.widths
+    output:
+      value: []
+      isValueProvided: 0
+--- !u!114 &9149472582256346989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3377701165938396621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28fb2bb5e9984368aaff39a10335ae4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection: []
+  node:
+    name: particle.residues
+    input:
+      value: 
+      isValueProvided: 0
+--- !u!114 &6512717247215572210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3377701165938396621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c39c5466bf374574ba65cdd14d56567f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection:
+  - sourceComponent: {fileID: 6552673847118524468}
+    sourceFieldName: scales
+    destinationFieldName: input
+  node:
+    input:
+      value: []
+      isValueProvided: 0
+    speed:
+      value: 0.5
+      isValueProvided: 1
+--- !u!1 &3436981793733250447
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1643562577481626331}
+  - component: {fileID: 8612844811146791731}
+  - component: {fileID: 9151920013423505362}
+  - component: {fileID: 2622802281771480683}
+  - component: {fileID: 2290276900173301088}
+  - component: {fileID: 4929215684907192452}
+  - component: {fileID: 8838889482085988055}
+  m_Layer: 0
+  m_Name: SecondaryStructureColourHeatmap(Clone)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1643562577481626331
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3436981793733250447}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8675595082771297215}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8612844811146791731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3436981793733250447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28fb2bb5e9984368aaff39a10335ae4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection: []
+  node:
+    name: particle.residues
+    input:
+      value: 
+      isValueProvided: 0
+--- !u!114 &9151920013423505362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3436981793733250447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d5333252f644ff099b06cc9fd514aa5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection: []
+  node:
+    name: residue.normalised_metric_c
+    input:
+      value: []
+      isValueProvided: 0
+--- !u!114 &2622802281771480683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3436981793733250447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d5333252f644ff099b06cc9fd514aa5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection: []
+  node:
+    name: residue.colour_gradient
+    input:
+      value: []
+      isValueProvided: 0
+--- !u!114 &2290276900173301088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3436981793733250447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b877d0eee4cd9ea4598e75db74187025, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection:
+  - sourceComponent: {fileID: 9151920013423505362}
+    sourceFieldName: input
+    destinationFieldName: residueNormalisedMetricColour
+  - sourceComponent: {fileID: 8612844811146791731}
+    sourceFieldName: input
+    destinationFieldName: residueIndices
+  - sourceComponent: {fileID: 2622802281771480683}
+    sourceFieldName: input
+    destinationFieldName: gradientColourArray
+  node:
+    residueNormalisedMetricColour:
+      value: []
+      isValueProvided: 0
+    residueIndices:
+      value: 
+      isValueProvided: 0
+    gradientColourArray:
+      value: []
+      isValueProvided: 0
+    gradient:
+      serializedVersion: 2
+      key0: {r: 0.27, g: 0, b: 0.33, a: 1}
+      key1: {r: 0.23, g: 0.32, b: 0.55, a: 1}
+      key2: {r: 0.13, g: 0.57, b: 0.55, a: 0}
+      key3: {r: 0.37, g: 0.79, b: 0.38, a: 0}
+      key4: {r: 0.99, g: 0.91, b: 0.15, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 16384
+      ctime2: 32768
+      ctime3: 49151
+      ctime4: 65535
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_ColorSpace: -1
+      m_NumColorKeys: 5
+      m_NumAlphaKeys: 2
+--- !u!114 &4929215684907192452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3436981793733250447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6aabe9a3ae74eb7b13d59f864c4b9a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection:
+  - sourceComponent: {fileID: 2290276900173301088}
+    sourceFieldName: colors
+    destinationFieldName: input
+  node:
+    input:
+      value: []
+      isValueProvided: 0
+    speed:
+      value: 10000
+      isValueProvided: 1
+--- !u!114 &8838889482085988055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3436981793733250447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f0af7a320c14292938973e5f087d629, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection:
+  - sourceComponent: {fileID: 4929215684907192452}
+    sourceFieldName: output
+    destinationFieldName: output
+  node:
+    name: particle.colors
+    output:
+      value: []
+      isValueProvided: 0
+--- !u!1 &5222870144687574082
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2936729680437254804}
+  - component: {fileID: 3009257499107779622}
+  - component: {fileID: 5583403849494070457}
+  - component: {fileID: 4569042193027068597}
+  - component: {fileID: 258682743456324370}
+  - component: {fileID: 6184977963767433061}
+  m_Layer: 0
+  m_Name: color pulser(Clone)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2936729680437254804
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5222870144687574082}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8675595082771297215}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3009257499107779622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5222870144687574082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28fb2bb5e9984368aaff39a10335ae4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection: []
+  node:
+    name: highlighted.particles
+    input:
+      value: 
+      isValueProvided: 0
+--- !u!114 &5583403849494070457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5222870144687574082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f0af7a320c14292938973e5f087d629, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection:
+  - sourceComponent: {fileID: 6184977963767433061}
+    sourceFieldName: outputColors
+    destinationFieldName: output
+  node:
+    name: particle.colors
+    output:
+      value: []
+      isValueProvided: 0
+--- !u!114 &4569042193027068597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5222870144687574082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 831672a59bd54ad4ad628e4871b2c716, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection: []
+  node:
+    name: particle.colors
+    input:
+      value: []
+      isValueProvided: 0
+--- !u!114 &258682743456324370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5222870144687574082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4cb6b71496e474a95dc2d19cb956d75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection: []
+  node:
+    name: particle.count
+    input:
+      value: 0
+      isValueProvided: 0
+--- !u!114 &6184977963767433061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5222870144687574082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8af82ac7843b4f409d88cd7d02eb60d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection:
+  - sourceComponent: {fileID: 4569042193027068597}
+    sourceFieldName: input
+    destinationFieldName: inputColors
+  - sourceComponent: {fileID: 258682743456324370}
+    sourceFieldName: input
+    destinationFieldName: count
+  - sourceComponent: {fileID: 3009257499107779622}
+    sourceFieldName: input
+    destinationFieldName: highlightFilter
+  node:
+    inputColors:
+      value: []
+      isValueProvided: 0
+    count:
+      value: 0
+      isValueProvided: 0
+    highlightFilter:
+      value: 
+      isValueProvided: 0
+    speed: 5
+    maximum: 0.5
+    minimum: 0
+--- !u!1 &8242153984224764532
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4883909196868732859}
+  - component: {fileID: 4072571839777235428}
+  - component: {fileID: 3647873923541463542}
+  - component: {fileID: 825334151362006210}
+  - component: {fileID: 9002070087240683430}
+  - component: {fileID: 833415446280156930}
+  - component: {fileID: 6601534414391587832}
+  - component: {fileID: 4780781347694375456}
+  - component: {fileID: 7776111521695133388}
+  - component: {fileID: 4562309439934091899}
+  - component: {fileID: 5448453437887373241}
+  - component: {fileID: 7476321621900788078}
+  - component: {fileID: 5626480356099010046}
+  - component: {fileID: 4505467715306534603}
+  - component: {fileID: 8725661287446680884}
+  - component: {fileID: 6320260189504804724}
+  m_Layer: 0
+  m_Name: Extended Elliptic Spline(Clone)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4883909196868732859
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8242153984224764532}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8675595082771297215}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4072571839777235428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8242153984224764532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d5333252f644ff099b06cc9fd514aa5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection: []
+  node:
+    name: residue.normalised_metric_c
+    input:
+      value: []
+      isValueProvided: 0
+--- !u!114 &3647873923541463542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8242153984224764532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28fb2bb5e9984368aaff39a10335ae4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection: []
+  node:
+    name: particle.residues
+    input:
+      value: 
+      isValueProvided: 0
+--- !u!114 &825334151362006210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8242153984224764532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59fb6635fa334c77838b8fb3a4c1b07b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection: []
+  node:
+    name: residue.scale_from
+    input:
+      value: 1
+      isValueProvided: 1
+--- !u!114 &9002070087240683430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8242153984224764532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59fb6635fa334c77838b8fb3a4c1b07b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection: []
+  node:
+    name: residue.scale_to
+    input:
+      value: 1
+      isValueProvided: 1
+--- !u!114 &833415446280156930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8242153984224764532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b724170684659e840bb6f73578202e2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection:
+  - sourceComponent: {fileID: 4072571839777235428}
+    sourceFieldName: input
+    destinationFieldName: normalisedMetric
+  - sourceComponent: {fileID: 3647873923541463542}
+    sourceFieldName: input
+    destinationFieldName: residueIndices
+  - sourceComponent: {fileID: 825334151362006210}
+    sourceFieldName: input
+    destinationFieldName: from
+  - sourceComponent: {fileID: 9002070087240683430}
+    sourceFieldName: input
+    destinationFieldName: to
+  node:
+    from:
+      value: 1
+      isValueProvided: 1
+    to:
+      value: 5
+      isValueProvided: 0
+    normalisedMetric:
+      value: []
+      isValueProvided: 0
+    residueIndices:
+      value: 
+      isValueProvided: 0
+--- !u!114 &6601534414391587832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8242153984224764532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7af33a56fb6746d3bbd35f089152781c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection: []
+  node:
+    name: particle.positions
+    input:
+      value: []
+      isValueProvided: 0
+--- !u!114 &4780781347694375456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8242153984224764532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28fb2bb5e9984368aaff39a10335ae4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection: []
+  node:
+    name: sequences.lengths
+    input:
+      value: 
+      isValueProvided: 0
+--- !u!114 &7776111521695133388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8242153984224764532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 831672a59bd54ad4ad628e4871b2c716, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection: []
+  node:
+    name: particle.colors
+    input:
+      value: []
+      isValueProvided: 0
+--- !u!114 &4562309439934091899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8242153984224764532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d5333252f644ff099b06cc9fd514aa5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection: []
+  node:
+    name: particle.widths
+    input:
+      value: []
+      isValueProvided: 0
+--- !u!114 &5448453437887373241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8242153984224764532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59fb6635fa334c77838b8fb3a4c1b07b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection: []
+  node:
+    name: scale
+    input:
+      value: 0.1
+      isValueProvided: 1
+--- !u!114 &7476321621900788078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8242153984224764532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59fb6635fa334c77838b8fb3a4c1b07b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection: []
+  node:
+    name: width
+    input:
+      value: 0.1
+      isValueProvided: 1
+--- !u!114 &5626480356099010046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8242153984224764532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08252f6767724dc9b9e53b5debd36295, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection:
+  - sourceComponent: {fileID: 4780781347694375456}
+    sourceFieldName: input
+    destinationFieldName: sequences
+  - sourceComponent: {fileID: 6601534414391587832}
+    sourceFieldName: input
+    destinationFieldName: positions
+  node:
+    positions:
+      value: []
+      isValueProvided: 0
+    sequences:
+      value: 
+      isValueProvided: 0
+    shape:
+      value: 0.5
+      isValueProvided: 1
+--- !u!114 &4505467715306534603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8242153984224764532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80bd9557e3c64d81ad6bbaa9f8de8809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection:
+  - sourceComponent: {fileID: 5626480356099010046}
+    sourceFieldName: normals
+    destinationFieldName: inputNormals
+  - sourceComponent: {fileID: 5626480356099010046}
+    sourceFieldName: tangents
+    destinationFieldName: inputTangents
+  node:
+    inputNormals:
+      value: []
+      isValueProvided: 0
+    inputTangents:
+      value: []
+      isValueProvided: 0
+--- !u!114 &8725661287446680884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8242153984224764532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 155883ae91ce82345b6cb82cb77e8eea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection:
+  - sourceComponent: {fileID: 7776111521695133388}
+    sourceFieldName: input
+    destinationFieldName: vertexColors
+  - sourceComponent: {fileID: 4562309439934091899}
+    sourceFieldName: input
+    destinationFieldName: vertexScales
+  - sourceComponent: {fileID: 4780781347694375456}
+    sourceFieldName: input
+    destinationFieldName: sequenceCounts
+  - sourceComponent: {fileID: 6601534414391587832}
+    sourceFieldName: input
+    destinationFieldName: vertexPositions
+  - sourceComponent: {fileID: 4505467715306534603}
+    sourceFieldName: outputNormals
+    destinationFieldName: vertexNormals
+  - sourceComponent: {fileID: 5626480356099010046}
+    sourceFieldName: tangents
+    destinationFieldName: vertexTangents
+  - sourceComponent: {fileID: 833415446280156930}
+    sourceFieldName: output
+    destinationFieldName: residueRadii
+  - sourceComponent: {fileID: 7476321621900788078}
+    sourceFieldName: input
+    destinationFieldName: width
+  node:
+    sequenceCounts:
+      value: 
+      isValueProvided: 0
+    vertexPositions:
+      value: []
+      isValueProvided: 0
+    vertexNormals:
+      value: []
+      isValueProvided: 0
+    vertexTangents:
+      value: []
+      isValueProvided: 0
+    vertexColors:
+      value: []
+      isValueProvided: 0
+    vertexScales:
+      value: []
+      isValueProvided: 0
+    color:
+      value: {r: 1, g: 1, b: 1, a: 1}
+      isValueProvided: 1
+    width:
+      value: 0
+      isValueProvided: 0
+    residueRadii:
+      value: []
+      isValueProvided: 0
+--- !u!114 &6320260189504804724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8242153984224764532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31480066a13601b41becbf554dc4f15b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection:
+  - sourceComponent: {fileID: 8725661287446680884}
+    sourceFieldName: splineSegments
+    destinationFieldName: splineSegments
+  - sourceComponent: {fileID: 5448453437887373241}
+    sourceFieldName: input
+    destinationFieldName: splineRadius
+  node:
+    useBox: 0
+    splineSegments:
+      value: []
+      isValueProvided: 0
+    rendererColor:
+      value: {r: 0, g: 0, b: 0, a: 0}
+      isValueProvided: 0
+    segments: 32
+    sides: 64
+    material: {fileID: 2100000, guid: c1cb68af83b4c504ba08228b450ac643, type: 2}
+    splineRadius:
+      value: 0
+      isValueProvided: 1
+--- !u!1 &8787178601742210928
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3474323634791730561}
+  - component: {fileID: 5565116996869993260}
+  - component: {fileID: 7594891308211621007}
+  - component: {fileID: 5956266091387507929}
+  - component: {fileID: 1057398567025824906}
+  - component: {fileID: 6983483487891864675}
+  - component: {fileID: 382115845837306097}
+  - component: {fileID: 7241744799221811918}
+  m_Layer: 0
+  m_Name: polypeptide(Clone)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3474323634791730561
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8787178601742210928}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8675595082771297215}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5565116996869993260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8787178601742210928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a72e54b13d84ba9abff43ae028eeb53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection: []
+  node:
+    name: particle.names
+    input:
+      value: []
+      isValueProvided: 0
+--- !u!114 &7594891308211621007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8787178601742210928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28fb2bb5e9984368aaff39a10335ae4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection: []
+  node:
+    name: particle.residues
+    input:
+      value: 
+      isValueProvided: 0
+--- !u!114 &5956266091387507929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8787178601742210928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a72e54b13d84ba9abff43ae028eeb53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection: []
+  node:
+    name: residue.names
+    input:
+      value: []
+      isValueProvided: 0
+--- !u!114 &1057398567025824906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8787178601742210928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28fb2bb5e9984368aaff39a10335ae4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection: []
+  node:
+    name: residue.chains
+    input:
+      value: 
+      isValueProvided: 0
+--- !u!114 &6983483487891864675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8787178601742210928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7af20ce70c19474cb0cabc1f8e7c5d12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection:
+  - sourceComponent: {fileID: 5565116996869993260}
+    sourceFieldName: input
+    destinationFieldName: atomNames
+  - sourceComponent: {fileID: 7594891308211621007}
+    sourceFieldName: input
+    destinationFieldName: atomResidues
+  - sourceComponent: {fileID: 5956266091387507929}
+    sourceFieldName: input
+    destinationFieldName: residueNames
+  - sourceComponent: {fileID: 1057398567025824906}
+    sourceFieldName: input
+    destinationFieldName: residueEntities
+  node:
+    atomNames:
+      value: []
+      isValueProvided: 0
+    atomResidues:
+      value: 
+      isValueProvided: 0
+    residueNames:
+      value: []
+      isValueProvided: 0
+    residueEntities:
+      value: 
+      isValueProvided: 0
+--- !u!114 &382115845837306097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8787178601742210928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3d9c1f4f34948e8bb51530d262fbcb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection:
+  - sourceComponent: {fileID: 6983483487891864675}
+    sourceFieldName: alphaCarbonSequences
+    destinationFieldName: particleFilter
+  node:
+    adaptor:
+      unityObject: {fileID: 0}
+      isValueProvided: 0
+    particleFilter:
+      value: 
+      isValueProvided: 0
+--- !u!114 &7241744799221811918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8787178601742210928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd38095907d472cb38174f6effc0d24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputLinkCollection:
+  - sourceComponent: {fileID: 6983483487891864675}
+    sourceFieldName: sequenceLengths
+    destinationFieldName: output
+  node:
+    name: sequences.lengths
+    output:
+      value: 
       isValueProvided: 0

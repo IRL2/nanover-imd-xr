@@ -5,6 +5,7 @@ using Nanover.Frame.Event;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 
 namespace Nanover.Network.Frame
@@ -56,6 +57,10 @@ namespace Nanover.Network.Frame
 
                 [FrameData.BondArrayKey] = (value) => Converters.BytesToBondPairArray((byte[])value),
                 [StandardFrameProperties.BoxTransformation.Key] = (value) => Converters.BytesToLinearTransformation((byte[])value),
+
+
+                [FrameData.ResidueNormalisedMetricCArrayKey] = (value) => Converters.BytesToFloatArray((byte[])value),
+                [FrameData.ResidueColorGradient] = (value) => Converters.BytesToFloatArray((byte[])value),
             };
     }
 

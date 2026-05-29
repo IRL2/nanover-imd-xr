@@ -119,8 +119,8 @@ namespace Nanover.Visualisation.Node.Protein
                                    StringComparison.InvariantCultureIgnoreCase))
                     continue;
                 var residue = atomResidues[atom];
-                if (!AminoAcid.IsStandardAminoAcid(residueNames[residue]))
-                    continue;
+                //if (!AminoAcid.IsStandardAminoAcid(residueNames[residue]))
+                //    continue;
                 var entity = residueEntities[residue];
                 if (currentEntity != entity && currentResidues.Any())
                 {

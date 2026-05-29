@@ -4,6 +4,7 @@ using Nanover.Core;
 using Nanover.Core.Math;
 using Nanover.Core.Science;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Nanover.Frame
 {
@@ -29,6 +30,11 @@ namespace Nanover.Frame
 
         public const string KineticEnergyValueKey = "energy.kinetic";
         public const string PotentialEnergyValueKey = "energy.potential";
+        //cartoon extend
+
+        public const string ResidueNormalisedMetricCArrayKey = "residue.normalised_metric_c";
+
+        public const string ResidueColorGradient = "residue.colour_gradient";
     }
 
     /// <summary>
