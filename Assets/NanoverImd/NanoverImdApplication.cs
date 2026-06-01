@@ -248,7 +248,7 @@ namespace NanoverImd
             poses.Clear();
             ManualColocation = true;
 
-            controllerManager.RightController.PushNotification($"Place two points");
+            controllerManager.RightController.PushNotification($"Click over two spatial reference");
 
             var hand = InputDeviceCharacteristics.Right;
             var button = hand.WrapUsageAsButton(CommonUsages.triggerButton);
@@ -263,12 +263,12 @@ namespace NanoverImd
                     if (poses.Count == 1)
                     {
                         metaCalibrator.referencePointA.position = pose.Position;
-                        controllerManager.RightController.PushNotification($"Place Colo-A");
+                        controllerManager.RightController.PushNotification($"Point A placed");
                     }
                     else
                     {
                         metaCalibrator.referencePointB.position = pose.Position;
-                        controllerManager.RightController.PushNotification($"Placed Colo-B");
+                        controllerManager.RightController.PushNotification($"Point B placed");
                     }
 
                     if (poses.Count >= 2)

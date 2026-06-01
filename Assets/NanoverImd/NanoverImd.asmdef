@@ -12,7 +12,8 @@
         "Meta.XR.BuildingBlocks",
         "Oculus.VR",
         "UniTask",
-        "endel.nativewebsocket"
+        "endel.nativewebsocket",
+        "Unity.XR.Interaction.Toolkit"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

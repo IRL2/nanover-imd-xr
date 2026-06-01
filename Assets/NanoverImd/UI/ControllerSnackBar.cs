@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -10,6 +11,14 @@ namespace NanoverImd.UI
         [SerializeField]
         private TMP_Text text;
 
+        [SerializeField]
+        private SpriteRenderer background;
+
+        private Color backgroundColorInitial;
+        private Color backgroundColorTransparent;
+        private Color textColorInitial;
+        private Color textColorTransparent;
+
         private float strength = 0;
 
         [SerializeField]
@@ -18,34 +27,43 @@ namespace NanoverImd.UI
         private void Awake()
         {
             Assert.IsNotNull(text);
+            Assert.IsNotNull(background);
+            backgroundColorInitial = background.color;
+            backgroundColorTransparent = new Color(backgroundColorInitial.r, backgroundColorInitial.g, backgroundColorInitial.b, 0);
+            textColorInitial = text.color;
+            textColorTransparent = new Color(textColorInitial.r, textColorInitial.g, textColorInitial.b, 0);
         }
 
         private void Update()
         {
             if (strength > 0)
             {
-                text.enabled = true;
                 strength -= Time.deltaTime * decaySpeed;
-                text.color = new Color(1, 1, 1, strength * strength * (3 - 2 * strength));
 
-                var forwards = -(Camera.main.transform.position - transform.position);
-                var horizontal = Vector3.Cross(forwards, Vector3.up);
-                var up = Vector3.Cross(horizontal, forwards);
+                if (strength < 0.3f)
+                {
+                    text.color = Color.Lerp(textColorTransparent, textColorInitial, strength*3);
+                    background.color = Color.Lerp(backgroundColorTransparent, backgroundColorInitial, strength*3);
+                }
 
-                transform.rotation =
-                    Quaternion.LookRotation(forwards, up);
+                transform.rotation = Quaternion.LookRotation(- (Camera.main.transform.position - transform.position), Vector3.up);
             }
             else
             {
                 text.enabled = false;
+                background.enabled = false;
             }
         
         }
 
-        public void PushNotification(string text)
+        public void PushNotification(string content)
         {
-            this.text.text = text;
+            text.text = content;
             strength = 1;
+            text.enabled = true;
+            background.enabled = true;
+            text.color = textColorInitial;
+            background.color = backgroundColorInitial;
         }
     }
 }
