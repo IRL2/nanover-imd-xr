@@ -58,25 +58,12 @@ namespace NanoverImd.UI
 
         public void PushNotification(string content)
         {
-            text.text = CleanIncommingText(content);
+            text.text = content;
             strength = 1;
             text.enabled = true;
             background.enabled = true;
             text.color = textColorInitial;
             background.color = backgroundColorInitial;
-        }
-
-        public string CleanIncommingText(string content)
-        {
-            if (content.StartsWith("[") || content.StartsWith("<") || content.StartsWith("("))
-            {
-                content = content[1..^0];
-            }
-            if (content.EndsWith("]") || content.EndsWith(">") || content.EndsWith(")"))
-            {
-                content = content[0..^1];
-            }
-            return content;
         }
     }
 }
