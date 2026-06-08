@@ -387,5 +387,10 @@ namespace NanoverImd
             simulation.Multiplayer.SetSharedState("suggested.passthrough", passthrough);
             PlayerPrefs.SetFloat("passthrough", passthrough);
         }
+
+        public float GetPassthroughValue()
+        {
+            return passthrough;
+        }
     }
 }
