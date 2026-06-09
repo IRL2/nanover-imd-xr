@@ -20,12 +20,18 @@ namespace Nanover.Network.Multiplayer
         public string AccessToken { get; set; }
 
         public MultiplayerAvatars Avatars { get; }
+        public MultiplayerObjectsShape Shapes { get; }
+        public MultiplayerObjectsLine Lines { get; }
+        public MultiplayerObjectsLabel Labels { get; }
         public PlayAreaCollection PlayAreas { get; }
         public PlayOriginCollection PlayOrigins { get; }
 
         public MultiplayerSession()
         {
             Avatars = new MultiplayerAvatars(this);
+            Shapes = new MultiplayerObjectsShape(this);
+            Lines = new MultiplayerObjectsLine(this);
+            Labels = new MultiplayerObjectsLabel(this);
             PlayAreas = new PlayAreaCollection(this);
             PlayOrigins = new PlayOriginCollection(this);
 
