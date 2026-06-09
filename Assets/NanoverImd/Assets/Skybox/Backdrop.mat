@@ -2,26 +2,34 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: Backdrop
   m_Shader: {fileID: 4800000, guid: 5f2b24ed55afd5d429382d7a20d96683, type: 3}
-  m_ShaderKeywords: 
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
   m_LightmapFlags: 5
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs: []
+    m_Ints: []
     m_Floats:
     - _SunIntensity: 0
     - _SunRadiusA: 0.0707
     - _SunRadiusB: 0.0387
     m_Colors:
     - _HorizonColor: {r: 0.078, g: 0.072, b: 0.072, a: 1}
-    - _SkyColor: {r: 0.284, g: 0.272, b: 0.266, a: 1}
+    - _SkyColor: {r: 0.14782837, g: 0.14940685, b: 0.20754716, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
