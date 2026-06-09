@@ -35,12 +35,7 @@ namespace NanoverImd
 
         private MultiplayerAvatar LocalAvatar => nanover.Multiplayer.Avatars.LocalAvatar;
 
-        private void Update()
-        {
-            UpdateRendering();
-        }
-
-        private void OnEnable()
+        private void Start()
         {
             headsetObjects = new IndexedPool<AvatarModel>(
                 () => Instantiate(headsetPrefab),
@@ -53,6 +48,15 @@ namespace NanoverImd
                 transform => transform.gameObject.SetActive(true),
                 transform => transform.gameObject.SetActive(false)
             );
+        }
+
+        private void Update()
+        {
+            UpdateRendering();
+        }
+
+        private void OnEnable()
+        {
             sendAvatarsCoroutine = StartCoroutine(UpdateLocalAvatar());
         }
 
