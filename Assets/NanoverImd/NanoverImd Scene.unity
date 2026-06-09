@@ -13544,6 +13544,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 1402464610}
+--- !u!114 &1704156284 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8187662959788427647, guid: 5ce1f7023435bfe4994f657b9d8d9612, type: 3}
+  m_PrefabInstance: {fileID: 1757073662}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7617310ee86d5334c95a16f758eefad2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: NanoverImd::PassthroughButtonRotation
 --- !u!1 &1716009501
 GameObject:
   m_ObjectHideFlags: 0
@@ -16994,7 +17005,7 @@ PrefabInstance:
     - target: {fileID: 7003742668216750793, guid: 5ce1f7023435bfe4994f657b9d8d9612, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 670276185}
+      objectReference: {fileID: 1704156284}
     - target: {fileID: 7003742668216750793, guid: 5ce1f7023435bfe4994f657b9d8d9612, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -17445,6 +17456,10 @@ PrefabInstance:
       propertyPath: buttonIcon
       value: 
       objectReference: {fileID: 829046667}
+    - target: {fileID: 8187662959788427647, guid: 5ce1f7023435bfe4994f657b9d8d9612, type: 3}
+      propertyPath: nanoverApp
+      value: 
+      objectReference: {fileID: 544060994}
     - target: {fileID: 8187662959788427647, guid: 5ce1f7023435bfe4994f657b9d8d9612, type: 3}
       propertyPath: sprites.Array.size
       value: 4
