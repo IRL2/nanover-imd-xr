@@ -21,7 +21,7 @@ namespace Nanover.Core.Serialization
             if (obj.Type == JTokenType.Array)
             {
                 var arr = (JArray) obj;
-                if (arr.Count == 4 && arr.All(token => token.Type == JTokenType.Float))
+                if (arr.Count == 4 && arr.All(token => token.Type == JTokenType.Float || token.Type == JTokenType.Integer))
                 {
                     var color = Color.black;
                     color.r = arr[0].Value<float>();
