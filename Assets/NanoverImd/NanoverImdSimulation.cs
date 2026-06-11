@@ -260,8 +260,8 @@ namespace NanoverImd
             {
                 CommandUpdate = new CommandUpdate
                 {
-                    Request = new CommandRequest { Id = request.Id },
-                    Response = result,
+                    Request = new CommandRequest { Id = request.Id, Name = request.Name },
+                    Response = result ?? new CommandReturn(),
                 }
             };
 
