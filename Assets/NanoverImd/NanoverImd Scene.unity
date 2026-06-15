@@ -9367,6 +9367,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1305205351}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1068916522 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3008853136819507370, guid: 5ce1f7023435bfe4994f657b9d8d9612, type: 3}
+  m_PrefabInstance: {fileID: 1757073662}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7617310ee86d5334c95a16f758eefad2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: NanoverImd::NanoverImd.UI.PassthroughIconRotation
 --- !u!1 &1074095927
 GameObject:
   m_ObjectHideFlags: 0
@@ -16998,7 +17009,7 @@ PrefabInstance:
     - target: {fileID: 7003742668216750793, guid: 5ce1f7023435bfe4994f657b9d8d9612, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1068916522}
     - target: {fileID: 7003742668216750793, guid: 5ce1f7023435bfe4994f657b9d8d9612, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -17021,7 +17032,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7003742668216750793, guid: 5ce1f7023435bfe4994f657b9d8d9612, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: PassthroughIconRotation, NanoverImd
+      value: NanoverImd.UI.PassthroughIconRotation, NanoverImd
       objectReference: {fileID: 0}
     - target: {fileID: 7003742668216750793, guid: 5ce1f7023435bfe4994f657b9d8d9612, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
