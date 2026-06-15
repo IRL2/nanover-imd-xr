@@ -144,9 +144,13 @@ namespace NanoverImd
             // update passthrough
             passthroughLayer.textureOpacity = passthrough;
 
-            //var color = camera.backgroundColor;
-            //color.a = 1f - passthrough;
-            //camera.backgroundColor = color;
+            if (passthrough == 0.0f)
+            {
+                camera.clearFlags = CameraClearFlags.Skybox;
+            } else
+            {
+                camera.clearFlags = CameraClearFlags.SolidColor;
+            }
         }
 
         private void UpdateSuggestedParameters()
@@ -386,6 +390,11 @@ namespace NanoverImd
 
             simulation.Multiplayer.SetSharedState("suggested.passthrough", passthrough);
             PlayerPrefs.SetFloat("passthrough", passthrough);
+        }
+
+        public float GetPassthroughValue()
+        {
+            return passthrough;
         }
     }
 }

@@ -1220,7 +1220,7 @@ PrefabInstance:
     - target: {fileID: 3794691817542679349, guid: 6cbbc06ceb9a9794299a1e06a17c86b2, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 2049088c8fbfec04dafe82b3d1d96520, type: 3}
+      objectReference: {fileID: 21300000, guid: e66502699315fb64a8422ee907b5254f, type: 3}
     - target: {fileID: 4678676913250523710, guid: 6cbbc06ceb9a9794299a1e06a17c86b2, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1438,7 +1438,7 @@ PrefabInstance:
     - target: {fileID: 3794691817542679349, guid: 6cbbc06ceb9a9794299a1e06a17c86b2, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 959a138bafba4534194b3500e1565d84, type: 3}
+      objectReference: {fileID: 21300000, guid: ab418b191b0001249b00d8402ef4077b, type: 3}
     - target: {fileID: 4678676913250523710, guid: 6cbbc06ceb9a9794299a1e06a17c86b2, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1523,9 +1523,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7640394630935375313, guid: 6cbbc06ceb9a9794299a1e06a17c86b2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7640394630935375313, guid: 6cbbc06ceb9a9794299a1e06a17c86b2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7640394630935375313, guid: 6cbbc06ceb9a9794299a1e06a17c86b2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7640394630935375313, guid: 6cbbc06ceb9a9794299a1e06a17c86b2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UpdateButtonIcon
+      objectReference: {fileID: 0}
+    - target: {fileID: 7640394630935375313, guid: 6cbbc06ceb9a9794299a1e06a17c86b2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PassthroughButtonRotation, NanoverImd
+      objectReference: {fileID: 0}
+    - target: {fileID: 7640394630935375313, guid: 6cbbc06ceb9a9794299a1e06a17c86b2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8865474348618771260, guid: 6cbbc06ceb9a9794299a1e06a17c86b2, type: 3}
       propertyPath: m_text
-      value: Toggle passthrough
+      value: Reality dial
       objectReference: {fileID: 0}
     - target: {fileID: 8865474348618771260, guid: 6cbbc06ceb9a9794299a1e06a17c86b2, type: 3}
       propertyPath: m_fontSize
@@ -1578,13 +1602,51 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4984236215334605191, guid: 6cbbc06ceb9a9794299a1e06a17c86b2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9160434246738624805}
   m_SourcePrefab: {fileID: 100100000, guid: 6cbbc06ceb9a9794299a1e06a17c86b2, type: 3}
+--- !u!1 &1796946480558096144 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4984236215334605191, guid: 6cbbc06ceb9a9794299a1e06a17c86b2, type: 3}
+  m_PrefabInstance: {fileID: 6763167643406282391}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9160434246738624805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1796946480558096144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7617310ee86d5334c95a16f758eefad2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: NanoverImd::NanoverImd.UI.PassthroughIconRotation
+  buttonIcon: {fileID: 7598396353971213730}
+  nanoverApp: {fileID: 0}
+  sprites:
+  - {fileID: 21300000, guid: ab418b191b0001249b00d8402ef4077b, type: 3}
+  - {fileID: 21300000, guid: d8bbf551c58a7f74b819a837bf5e88c5, type: 3}
+  - {fileID: 21300000, guid: d8bbf551c58a7f74b819a837bf5e88c5, type: 3}
+  - {fileID: 21300000, guid: 63e89240d3ff5984a9ebeb6872ddabcf, type: 3}
 --- !u!224 &2104983119713793193 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4678676913250523710, guid: 6cbbc06ceb9a9794299a1e06a17c86b2, type: 3}
   m_PrefabInstance: {fileID: 6763167643406282391}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7598396353971213730 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3794691817542679349, guid: 6cbbc06ceb9a9794299a1e06a17c86b2, type: 3}
+  m_PrefabInstance: {fileID: 6763167643406282391}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1796946480558096144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8051643248463703678
 PrefabInstance:
   m_ObjectHideFlags: 0
