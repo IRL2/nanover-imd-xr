@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using UnityEngine;
 
 namespace NanoverImd.UI
@@ -14,6 +15,7 @@ namespace NanoverImd.UI
 
 
         [SerializeField]
+        [Description("Should be as many sprites as stops/keyframes in passthroughSteps")]
         private Sprite[] sprites;
 
         private void Start()
@@ -28,11 +30,9 @@ namespace NanoverImd.UI
             UpdatePassthroughIcon();
         }
 
-        // From a percentage 0.0 to 1.0, update the button icon using the loaded sprites
         public void UpdatePassthroughIcon()
         {
-            float passthroughPercentage = nanoverApp.GetPassthroughValue();
-            int spriteIndex = Mathf.Clamp(Mathf.FloorToInt(passthroughPercentage * sprites.Length), 0, sprites.Length - 1);
+            int spriteIndex = nanoverApp.GetPassthroughIndexStep();
             buttonIcon.sprite = sprites[spriteIndex];
         }
 
