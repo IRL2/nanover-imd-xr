@@ -8,7 +8,6 @@ using Nanover.Visualisation;
 using NanoverImd.Interaction;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
