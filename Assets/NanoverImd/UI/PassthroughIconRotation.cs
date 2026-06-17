@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.U2D;
 
 namespace NanoverImd.UI
 {
@@ -15,7 +16,7 @@ namespace NanoverImd.UI
 
 
         [SerializeField]
-        [Description("Should be as many sprites as stops/keyframes in passthroughSteps")]
+        [Tooltip("As many sprites as stops in the passthrough cycling steps")]
         private Sprite[] sprites;
 
         private void Start()
@@ -26,14 +27,13 @@ namespace NanoverImd.UI
                 Debug.LogError("PassthroughIconRotation: No Image component found on the GameObject.");
                 return;
             }
-
             UpdatePassthroughIcon();
         }
 
         public void UpdatePassthroughIcon()
         {
             int spriteIndex = nanoverApp.GetPassthroughIndexStep();
-            buttonIcon.sprite = sprites[spriteIndex];
+            buttonIcon.sprite = sprites[spriteIndex % sprites.Length];
         }
 
 

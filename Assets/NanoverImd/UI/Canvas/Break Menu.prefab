@@ -1438,7 +1438,7 @@ PrefabInstance:
     - target: {fileID: 3794691817542679349, guid: 6cbbc06ceb9a9794299a1e06a17c86b2, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: ab418b191b0001249b00d8402ef4077b, type: 3}
+      objectReference: {fileID: 1685292054, guid: bcd5c1b85fe539941a58c52b71027f50, type: 3}
     - target: {fileID: 4678676913250523710, guid: 6cbbc06ceb9a9794299a1e06a17c86b2, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1643,10 +1643,10 @@ MonoBehaviour:
   buttonIcon: {fileID: 7598396353971213730}
   nanoverApp: {fileID: 0}
   sprites:
-  - {fileID: 21300000, guid: 63e89240d3ff5984a9ebeb6872ddabcf, type: 3}
-  - {fileID: 21300000, guid: f40bcfe327f83dd43b1f6734a4c44d8b, type: 3}
-  - {fileID: 21300000, guid: f1de1784143ffb94eae69af9ae76b621, type: 3}
-  - {fileID: 21300000, guid: ab418b191b0001249b00d8402ef4077b, type: 3}
+  - {fileID: 1685292054, guid: bcd5c1b85fe539941a58c52b71027f50, type: 3}
+  - {fileID: 1079139461, guid: bcd5c1b85fe539941a58c52b71027f50, type: 3}
+  - {fileID: -1668301114, guid: bcd5c1b85fe539941a58c52b71027f50, type: 3}
+  - {fileID: -1112944347, guid: bcd5c1b85fe539941a58c52b71027f50, type: 3}
 --- !u!224 &2104983119713793193 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4678676913250523710, guid: 6cbbc06ceb9a9794299a1e06a17c86b2, type: 3}
