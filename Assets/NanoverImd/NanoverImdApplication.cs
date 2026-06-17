@@ -52,6 +52,10 @@ namespace NanoverImd
         [SerializeField]
         private new Camera camera;
 
+        [SerializeField]
+        private float[] passthroughCyclingStops;
+
+
         [Header("Events")]
         [SerializeField]
         private UnityEvent connectionEstablished;
@@ -379,14 +383,12 @@ namespace NanoverImd
             simulation.Multiplayer.SetSharedState("suggested.passthrough", passthrough);
             PlayerPrefs.SetFloat("passthrough", passthrough);
         }
+
+
+        // Cycle passthrough through the keyframes defined in the AnimationCurve
         public void CyclePassthrough()
         {
-            if (passthrough == 1f)
-                passthrough = 0.3f;
-            else if (passthrough == 0.3f)
-                passthrough = 0f;
-            else
-                passthrough = 1f;
+            passthrough = GetNextPassthroughStep(passthrough, passthroughCyclingStops);
 
             simulation.Multiplayer.SetSharedState("suggested.passthrough", passthrough);
             PlayerPrefs.SetFloat("passthrough", passthrough);
@@ -396,5 +398,36 @@ namespace NanoverImd
         {
             return passthrough;
         }
+
+        private float GetNextPassthroughStep(float current, float[] stops)
+        {
+            if (stops == null || stops.Length == 0) return current;
+
+            int idx = GetPassthroughIndexStep();
+
+            idx = (idx + 1) % stops.Length;
+
+            return stops[idx];
+        }
+
+        public int GetPassthroughIndexStep()
+        {
+            float current = passthrough;
+            float[] stops = passthroughCyclingStops;
+            float epsilon = 1e-6f;
+
+            // find index of the keyframe closer to the current value
+            int idx = -1;
+            for (int i = 0; i < stops.Length; i++)
+            {
+                if (Mathf.Abs(stops[i] - current) <= epsilon)
+                {
+                    idx = i;
+                    break;
+                }
+            }
+            return idx;
+        }
+
     }
 }

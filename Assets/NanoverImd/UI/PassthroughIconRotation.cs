@@ -1,5 +1,7 @@
 using System;
+using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.U2D;
 
 namespace NanoverImd.UI
 {
@@ -14,6 +16,7 @@ namespace NanoverImd.UI
 
 
         [SerializeField]
+        [Tooltip("As many sprites as stops in the passthrough cycling steps")]
         private Sprite[] sprites;
 
         private void Start()
@@ -24,16 +27,13 @@ namespace NanoverImd.UI
                 Debug.LogError("PassthroughIconRotation: No Image component found on the GameObject.");
                 return;
             }
-
             UpdatePassthroughIcon();
         }
 
-        // From a percentage 0.0 to 1.0, update the button icon using the loaded sprites
         public void UpdatePassthroughIcon()
         {
-            float passthroughPercentage = nanoverApp.GetPassthroughValue();
-            int spriteIndex = Mathf.Clamp(Mathf.FloorToInt(passthroughPercentage * sprites.Length), 0, sprites.Length - 1);
-            buttonIcon.sprite = sprites[spriteIndex];
+            int spriteIndex = nanoverApp.GetPassthroughIndexStep();
+            buttonIcon.sprite = sprites[spriteIndex % sprites.Length];
         }
 
 

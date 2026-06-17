@@ -4854,6 +4854,11 @@ MonoBehaviour:
   passthrough: 1
   passthroughLayer: {fileID: 1938083358}
   camera: {fileID: 199515959}
+  passthroughCyclingStops:
+  - 0
+  - 0.015
+  - 0.3
+  - 1
   connectionEstablished:
     m_PersistentCalls:
       m_Calls:
@@ -15247,9 +15252,33 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3008853136819507370, guid: 5ce1f7023435bfe4994f657b9d8d9612, type: 3}
+      propertyPath: buttonIcon
+      value: 
+      objectReference: {fileID: 829046667}
+    - target: {fileID: 3008853136819507370, guid: 5ce1f7023435bfe4994f657b9d8d9612, type: 3}
       propertyPath: nanoverApp
       value: 
       objectReference: {fileID: 544060994}
+    - target: {fileID: 3008853136819507370, guid: 5ce1f7023435bfe4994f657b9d8d9612, type: 3}
+      propertyPath: sprites.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3008853136819507370, guid: 5ce1f7023435bfe4994f657b9d8d9612, type: 3}
+      propertyPath: 'sprites.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1685292054, guid: bcd5c1b85fe539941a58c52b71027f50, type: 3}
+    - target: {fileID: 3008853136819507370, guid: 5ce1f7023435bfe4994f657b9d8d9612, type: 3}
+      propertyPath: 'sprites.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1079139461, guid: bcd5c1b85fe539941a58c52b71027f50, type: 3}
+    - target: {fileID: 3008853136819507370, guid: 5ce1f7023435bfe4994f657b9d8d9612, type: 3}
+      propertyPath: 'sprites.Array.data[2]'
+      value: 
+      objectReference: {fileID: -1668301114, guid: bcd5c1b85fe539941a58c52b71027f50, type: 3}
+    - target: {fileID: 3008853136819507370, guid: 5ce1f7023435bfe4994f657b9d8d9612, type: 3}
+      propertyPath: 'sprites.Array.data[3]'
+      value: 
+      objectReference: {fileID: -1112944347, guid: bcd5c1b85fe539941a58c52b71027f50, type: 3}
     - target: {fileID: 3045602486748827482, guid: 5ce1f7023435bfe4994f657b9d8d9612, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
