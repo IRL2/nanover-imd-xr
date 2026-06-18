@@ -14350,6 +14350,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.3679245
       objectReference: {fileID: 0}
+    - target: {fileID: 907158270450556679, guid: 5ce1f7023435bfe4994f657b9d8d9612, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 150
+      objectReference: {fileID: 0}
     - target: {fileID: 909988506245209637, guid: 5ce1f7023435bfe4994f657b9d8d9612, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -42.3
@@ -21717,7 +21721,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4899474055103681268, guid: f3eac0c1301591843a2e2180567c3f3b, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0.3
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4899474055103681268, guid: f3eac0c1301591843a2e2180567c3f3b, type: 3}
       propertyPath: m_SizeDelta.y

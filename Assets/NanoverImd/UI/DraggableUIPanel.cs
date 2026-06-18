@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
+using UnityEngine.XR.Interaction.Toolkit.Interactors.Visuals;
 using UnityEngine.XR.Interaction.Toolkit.UI;
 
 public class UIPanelDraggable : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
@@ -46,6 +47,7 @@ public class UIPanelDraggable : MonoBehaviour, IPointerUpHandler, IPointerDownHa
     {
         isDragging = false;
         SavePanelLocation();
+        activeRay.transform.GetComponent<XRInteractorLineVisual>().enabled = true;
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -65,6 +67,8 @@ public class UIPanelDraggable : MonoBehaviour, IPointerUpHandler, IPointerDownHa
         panelPointerOffset = panelRoot.position - activeRay.rayEndPoint;
 
         panelDistance = Vector3.Distance(transform.position, pointerTransform.position);
+
+        activeRay.transform.GetComponent<XRInteractorLineVisual>().enabled = false;
     }
 
 
