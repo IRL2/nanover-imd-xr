@@ -47,14 +47,6 @@ namespace NanoverImd.UI
                 return;
 
             GotoScene(menuPrefab);
-
-            SceneUI.transform.position = Camera.main.transform.position +
-                                         Vector3.down * 0.2f +
-                                         Camera.main.transform.forward * 0.8f;
-
-            SceneUI.transform.rotation =
-                Quaternion.LookRotation(SceneUI.transform.position - Camera.main.transform.position,
-                                        Vector3.up);
         }
 
         private void CloseMenu()
