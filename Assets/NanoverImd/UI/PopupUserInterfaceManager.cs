@@ -28,11 +28,16 @@ namespace NanoverImd.UI
         [SerializeField]
         private UiInputMode mode;
 
+        [SerializeField]
+        private CanvasGroup canvasGroup;
+
         private void Start()
         {
             Assert.IsNotNull(menuPrefab, "Missing menu prefab");
 
             SetupInSimulationMenu();
+
+            ShowMenu();
         }
 
         private void SetupInSimulationMenu()
@@ -43,22 +48,31 @@ namespace NanoverImd.UI
 
         private void ShowMenu()
         {
+            canvasGroup.alpha = 1f;
+
             if (!controllers.WouldBecomeCurrentMode(mode))
                 return;
 
             GotoScene(menuPrefab);
+
+            mode.enabled = true;
         }
 
         private void CloseMenu()
         {
             if (clickOnMenuClosed)
                 WorldSpaceCursorInput.TriggerClick();
-            CloseScene();
+
+            //CloseScene();
+
+            mode.enabled = false;
+
+            canvasGroup.alpha = 0.3f;
         }
 
         private void ToggleMenu()
         {
-            if (!SimulationMenuActive)
+            if (canvasGroup.alpha == 0.3f)
                 ShowMenu();
             else
                 CloseMenu();

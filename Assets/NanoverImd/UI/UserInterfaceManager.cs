@@ -73,11 +73,14 @@ namespace NanoverImd.UI
         {
             if (currentScene != null)
                 LeaveScene(currentScene);
+
             currentScene = EnterScene(scene);
+
             if (currentScene != null)
                 currentScenePrefab = scene;
             else
                 currentScenePrefab = null;
+
             sceneUI.SetActive(currentScene != null);
         }
 

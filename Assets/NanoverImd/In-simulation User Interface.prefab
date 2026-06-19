@@ -676,7 +676,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 25, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0.5, y: -0.579952}
+  m_AnchoredPosition: {x: 0.5, y: -0.51998794}
   m_SizeDelta: {x: 643.6472, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &2971540108686228541
@@ -955,7 +955,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2921766579234846785
 Transform:
   m_ObjectHideFlags: 0
@@ -1363,6 +1363,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3834708501005402217}
   - component: {fileID: 783323445283192389}
+  - component: {fileID: 6026979519795285317}
+  - component: {fileID: 3326260942169158238}
   m_Layer: 5
   m_Name: In-simulation User Interface
   m_TagString: Untagged
@@ -1406,7 +1408,37 @@ MonoBehaviour:
   menuPrefab: {fileID: 1930144549770668214}
   clickOnMenuClosed: 1
   controllers: {fileID: 0}
-  mode: {fileID: 4969003233117326809}
+  mode: {fileID: 3326260942169158238}
+  canvasGroup: {fileID: 0}
+--- !u!225 &6026979519795285317
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8619848101082793326}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &3326260942169158238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8619848101082793326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 710f1504e2584f11b11bdbaaec455f24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controllers: {fileID: 0}
+  gizmo: {fileID: 0}
+  anchor: 0
+  priority: 2
+  bothHands: 1
 --- !u!1 &8671533409841152082
 GameObject:
   m_ObjectHideFlags: 0
@@ -1531,7 +1563,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9011756456478895427}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e32f96ad943645c98126f9b5d24f0ec7, type: 3}
   m_Name: 
@@ -2850,7 +2882,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7640394630935375313, guid: 6cbbc06ceb9a9794299a1e06a17c86b2, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7640394630935375313, guid: 6cbbc06ceb9a9794299a1e06a17c86b2, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -4316,7 +4348,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7640394630935375313, guid: 6cbbc06ceb9a9794299a1e06a17c86b2, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7640394630935375313, guid: 6cbbc06ceb9a9794299a1e06a17c86b2, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
