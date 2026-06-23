@@ -16,11 +16,16 @@ namespace Nanover.Frontend.Controllers
 #pragma warning disable 0649
         [SerializeField]
         private ControllerManager controllers;
+
+        [SerializeField]
+        private bool broadcastCursors;
 #pragma warning restore 0649
 
         protected ControllerManager Controllers => controllers;
 
         protected bool IsCurrentInputMode => controllers.CurrentInputMode == this;
+
+        public bool ShouldBroadcastCursors => broadcastCursors;
 
         public abstract int Priority { get; }
 

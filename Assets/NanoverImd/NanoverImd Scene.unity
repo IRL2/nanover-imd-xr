@@ -7838,6 +7838,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controllers: {fileID: 2074532958}
+  broadcastCursors: 1
   gizmo: {fileID: 3640672610816993193, guid: 1c71c146c52b75b40b044e66de75be8e, type: 3}
   anchor: 2
   priority: 0

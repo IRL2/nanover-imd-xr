@@ -20,6 +20,7 @@ namespace Nanover.Network.Multiplayer
         public string AccessToken { get; set; }
 
         public MultiplayerAvatars Avatars { get; }
+        public MultiplayerCursors Cursors { get; }
         public MultiplayerObjectsShape Shapes { get; }
         public MultiplayerObjectsLine Lines { get; }
         public MultiplayerObjectsLabel Labels { get; }
@@ -29,6 +30,7 @@ namespace Nanover.Network.Multiplayer
         public MultiplayerSession()
         {
             Avatars = new MultiplayerAvatars(this);
+            Cursors = new MultiplayerCursors(this);
             Shapes = new MultiplayerObjectsShape(this);
             Lines = new MultiplayerObjectsLine(this);
             Labels = new MultiplayerObjectsLabel(this);

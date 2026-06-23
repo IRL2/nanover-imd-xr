@@ -36,7 +36,7 @@ namespace NanoverImd
         private GameObject boxVisualiser;
 
         [SerializeField]
-        private ControllerManager controllerManager;
+        public ControllerManager controllerManager;
 
         [SerializeField]
         private NanoverImdMetaCalibrator metaCalibrator;

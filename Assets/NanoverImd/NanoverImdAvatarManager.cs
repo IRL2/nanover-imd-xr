@@ -1,14 +1,16 @@
-﻿using System;
-using System.Collections;
-using System.Linq;
-using Nanover.Core.Math;
+﻿using Nanover.Core.Math;
+using Nanover.Frontend.Controllers;
+using Nanover.Frontend.Input;
 using Nanover.Frontend.Utility;
 using Nanover.Frontend.XR;
 using Nanover.Network.Multiplayer;
+using NanoverImd.UI;
+using System;
+using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.XR;
-
-using NanoverImd.UI;
+using static UnityEngine.XR.Interaction.Toolkit.Inputs.XRInputTrackingAggregator;
 
 namespace NanoverImd
 {
@@ -32,6 +34,7 @@ namespace NanoverImd
         private IndexedPool<AvatarModel> controllerObjects;
         
         private Coroutine sendAvatarsCoroutine;
+        private Coroutine sendCursorsCoroutine;
 
         private MultiplayerAvatar LocalAvatar => nanover.Multiplayer.Avatars.LocalAvatar;
 
@@ -58,11 +61,58 @@ namespace NanoverImd
         private void OnEnable()
         {
             sendAvatarsCoroutine = StartCoroutine(UpdateLocalAvatar());
+            sendCursorsCoroutine = StartCoroutine(UpdateLocalCursors());
         }
 
         private void OnDisable()
         {
             StopCoroutine(sendAvatarsCoroutine);
+            StopCoroutine(sendCursorsCoroutine);
+        }
+
+        private IEnumerator UpdateLocalCursors()
+        {
+            var buttonUsage = CommonUsages.primaryButton;
+
+            var leftCursorObject = application.controllerManager.LeftController.CursorPose;
+            var leftButton = InputDeviceCharacteristics.Left.WrapUsageAsButton(buttonUsage);
+            var rightCursorObject = application.controllerManager.RightController.CursorPose;
+            var rightButton = InputDeviceCharacteristics.Right.WrapUsageAsButton(buttonUsage);
+
+            while (true)
+            {
+                if (nanover.Multiplayer.IsOpen)
+                {
+                    if (!application.controllerManager.ShouldBroadcastCursors)
+                    {
+                        nanover.Multiplayer.Cursors.LocalCursorLeft = null;
+                        nanover.Multiplayer.Cursors.LocalCursorRight = null;
+                    }
+                    else
+                    {
+                        nanover.Multiplayer.Cursors.LocalCursorLeft = MakeCursor(leftCursorObject, leftButton);
+                        nanover.Multiplayer.Cursors.LocalCursorRight = MakeCursor(rightCursorObject, rightButton);
+                    }
+
+                    nanover.Multiplayer.Cursors.FlushLocalCursors();
+                }
+
+                yield return null;
+            }
+
+            MultiplayerCursor MakeCursor(IPosedObject posedObject, IButton button)
+            {
+                if (posedObject.Pose is not { } transformation)
+                    return null;
+
+                return new MultiplayerCursor
+                {
+                    OwnerID = nanover.Multiplayer.AccessToken,
+                    Position = transformation.Position,
+                    Rotation = transformation.Rotation,
+                    IsPressed = button.IsPressed,
+                };
+            }
         }
 
         private IEnumerator UpdateLocalAvatar()
@@ -70,6 +120,9 @@ namespace NanoverImd
             var leftHand = InputDeviceCharacteristics.Left.WrapAsPosedObject();
             var rightHand = InputDeviceCharacteristics.Right.WrapAsPosedObject();
             var headset = InputDeviceCharacteristics.HeadMounted.WrapAsPosedObject();
+
+            var leftCursor = application.controllerManager.LeftController.CursorPose;
+            var rightCursor = application.controllerManager.RightController.CursorPose;
 
             while (true)
             {
