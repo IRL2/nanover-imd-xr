@@ -1383,6 +1383,8 @@ MonoBehaviour:
   clickOnMenuClosed: 1
   controllers: {fileID: 0}
   mode: {fileID: 4969003233117326809}
+  placeMenuInFrontOfCameraOnOpen: 1
+  keepMenuFollowingCamera: 0
 --- !u!1 &8671533409841152082
 GameObject:
   m_ObjectHideFlags: 0

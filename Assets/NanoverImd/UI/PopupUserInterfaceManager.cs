@@ -28,6 +28,12 @@ namespace NanoverImd.UI
         [SerializeField]
         private UiInputMode mode;
 
+        [SerializeField]
+        private bool placeMenuInFrontOfCameraOnOpen = true;
+
+        [SerializeField]
+        private bool keepMenuFollowingCamera = false;
+
         private void Start()
         {
             Assert.IsNotNull(menuPrefab, "Missing menu prefab");
@@ -47,6 +53,13 @@ namespace NanoverImd.UI
                 return;
 
             GotoScene(menuPrefab);
+
+            var floatingCanvas = SceneUI.GetComponent<FloatingCanvas>();
+            if (floatingCanvas != null)
+                floatingCanvas.enabled = keepMenuFollowingCamera;
+
+            if (!placeMenuInFrontOfCameraOnOpen)
+                return;
 
             SceneUI.transform.position = Camera.main.transform.position +
                                          Vector3.down * 0.2f +
