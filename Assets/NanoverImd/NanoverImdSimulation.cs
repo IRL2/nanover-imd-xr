@@ -138,22 +138,16 @@ namespace NanoverImd
                 {
                     Trajectory.ReceiveFrameUpdate(frameUpdate);
 
-                    if (!box)
-                    {
-                        box = true;
-                        CheckCalibrate();
-                    }
+                    box = true;
+                    CheckCalibrate();
                 }
 
                 if (message.StateUpdate is { } stateUpdate)
                 {
                     Multiplayer.ReceiveStateUpdate(stateUpdate);
 
-                    //if (stateUpdate.Updates.ContainsKey("scene"))
-                    {
-                        scene = true;
-                        CheckCalibrate();
-                    }
+                    scene = true;
+                    CheckCalibrate();
                 }
             };
 
