@@ -315,19 +315,24 @@ namespace NanoverImd
                 CalibratedSpace.CalibrateFromMatrix(Matrix4x4.identity);
 
                 await Task.Delay(50);
-                
-                ManualColocation = true;
-                var center = boxVisualiser.transform.TransformPoint(box.Box.axesMagnitudes * .5f);
-                var target = camera.transform.position;
-                //target.y = 1f;
 
-                var offset = target - center;
-                
-                var direction = offset;
+                ManualColocation = true;
+
+                var anchor = box.Box.axesMagnitudes * .5f;
+                anchor.z = 0;
+                var center = boxVisualiser.transform.TransformPoint(anchor);
+                var target = camera.transform.position;
+
+                var direction = camera.transform.forward;
                 direction.y = 0;
                 direction.Normalize();
+                var cameraFacing = Quaternion.LookRotation(direction);
 
-                CalibratedSpace.CalibrateFromMatrix(Matrix4x4.Translate(offset - direction * 1f));
+                var boxCenterToOrigin = Matrix4x4.Translate(-center);
+                var rotateToCameraFacing = Matrix4x4.Rotate(cameraFacing);
+                var originToCamera = Matrix4x4.Translate(camera.transform.position);
+
+                CalibratedSpace.CalibrateFromMatrix(originToCamera * rotateToCameraFacing * boxCenterToOrigin);
             }
 
             //const float offset = .5f;
