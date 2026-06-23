@@ -6,27 +6,42 @@ public class GradientVisualizer : MonoBehaviour
     float[] gradientData;
     Texture2D gradientTex;
     [SerializeField] Renderer targetRenderer;
+
     private void Awake()
     {
+        if (dataHandler == null)
+            dataHandler = FindAnyObjectByType<DnemdUIDataHandler>();
+
+        if (targetRenderer == null)
+            targetRenderer = GetComponent<Renderer>() ?? GetComponentInChildren<Renderer>();
+
         gradientTex = new Texture2D(256, 1, TextureFormat.RGBA32, false);
         gradientTex.wrapMode = TextureWrapMode.Clamp;
         gradientTex.filterMode = FilterMode.Bilinear;
 
-        targetRenderer.material.mainTexture = gradientTex;
+        if (targetRenderer != null)
+            targetRenderer.material.mainTexture = gradientTex;
+        else
+            Debug.LogWarning($"{nameof(GradientVisualizer)} needs a target renderer.", this);
     }
+
     void OnEnable()
     {
-        dataHandler.OnResidueColourGradientChanged += UpdateGradient;
+        if (dataHandler != null)
+            dataHandler.OnResidueColourGradientChanged += UpdateGradient;
+        else
+            Debug.LogWarning($"{nameof(GradientVisualizer)} could not find a {nameof(DnemdUIDataHandler)}.", this);
     }
 
     void OnDisable()
     {
-        dataHandler.OnResidueColourGradientChanged -= UpdateGradient;
+        if (dataHandler != null)
+            dataHandler.OnResidueColourGradientChanged -= UpdateGradient;
     }
 
     public void UpdateGradient(float[] newGradientData)
     {
-        if (newGradientData == null || newGradientData.Length < 4)
+        if (targetRenderer == null || newGradientData == null || newGradientData.Length < 4)
             return;
 
         gradientData = newGradientData;

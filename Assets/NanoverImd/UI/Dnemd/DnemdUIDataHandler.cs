@@ -18,8 +18,13 @@ public class DnemdUIDataHandler : MonoBehaviour
 
     void OnEnable()
     {
+        if (frameSource == null)
+            frameSource = FindAnyObjectByType<SynchronisedFrameSource>();
+
         if (frameSource != null)
             frameSource.FrameChanged += OnFrameChanged;
+        else
+            Debug.LogWarning($"{nameof(DnemdUIDataHandler)} could not find a {nameof(SynchronisedFrameSource)}.", this);
     }
 
     void OnDisable()
