@@ -42,6 +42,11 @@ namespace Nanover.Network.Trajectory
         public const string CommandStepBackward = "playback/step_back";
 
         /// <summary>
+        /// Command the server to move playback to a specific frame.
+        /// </summary>
+        public const string CommandSeek = "playback/seek";
+
+        /// <summary>
         /// Command the server to reset the simulation to its initial state.
         /// </summary>
         public const string CommandReset = "playback/reset";

@@ -513,6 +513,14 @@ namespace NanoverImd
             Trajectory.StepBackward();
         }
 
+        public void SeekTrajectory(int frameIndex)
+        {
+            RunCommand(
+                TrajectorySession.CommandSeek,
+                new CommandArguments { { "frame_index", frameIndex } }
+            );
+        }
+
         /// <summary>
         /// Reset the box to the unit position.
         /// </summary>

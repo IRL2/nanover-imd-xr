@@ -2,12 +2,15 @@ using UnityEngine;
 using Nanover.Visualisation;
 using Nanover.Frame;
 using Nanover.Frame.Event;
+using NanoverImd;
 using System;
 
 public class DnemdUIDataHandler : MonoBehaviour
 {
     public SynchronisedFrameSource frameSource;
 
+    [SerializeField]
+    NanoverImdSimulation simulation;
 
     public event Action<int, int> OnPlaybackStepChanged;
     public event Action<float[]> OnResidueColourGradientChanged;
@@ -16,10 +19,15 @@ public class DnemdUIDataHandler : MonoBehaviour
     int currentStep;
     float[] residueColourGradient;
 
+    public int TotalSteps => totalSteps;
+
     void OnEnable()
     {
         if (frameSource == null)
             frameSource = FindAnyObjectByType<SynchronisedFrameSource>();
+
+        if (simulation == null)
+            simulation = FindAnyObjectByType<NanoverImdSimulation>();
 
         if (frameSource != null)
             frameSource.FrameChanged += OnFrameChanged;
@@ -70,5 +78,19 @@ public class DnemdUIDataHandler : MonoBehaviour
             residueColourGradient = gradientArray;
             OnResidueColourGradientChanged?.Invoke(residueColourGradient);
         }
+    }
+
+    public void RequestPlaybackStep(int frameIndex)
+    {
+        if (simulation == null)
+        {
+            Debug.LogWarning($"{nameof(DnemdUIDataHandler)} could not find a {nameof(NanoverImdSimulation)}.", this);
+            return;
+        }
+
+        if (totalSteps <= 0)
+            return;
+
+        simulation.SeekTrajectory(Mathf.Clamp(frameIndex, 0, totalSteps - 1));
     }
 }
