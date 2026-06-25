@@ -33,6 +33,14 @@ namespace NanoverImd.UI
 
         private void Start()
         {
+            if (this.initialScene != null)
+                GotoScene(initialScene);
+
+            //this.SetupOutOfSimulationMenu();
+        }
+
+        private void Awake()
+        {
             Assert.IsNotNull(menuPrefab, "Missing menu prefab");
 
             SetupInSimulationMenu();
@@ -72,6 +80,8 @@ namespace NanoverImd.UI
 
         private void ToggleMenu()
         {
+            Debug.Log("trigger toggle menu");
+
             if (canvasGroup.alpha == 0.3f)
                 ShowMenu();
             else

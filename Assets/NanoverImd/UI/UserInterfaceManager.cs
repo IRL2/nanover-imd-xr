@@ -19,7 +19,7 @@ namespace NanoverImd.UI
         private GameObject currentScene;
 
         [SerializeField]
-        private GameObject initialScene;
+        protected GameObject initialScene;
 
         [SerializeField]
         private GameObject sceneUI;
@@ -51,7 +51,7 @@ namespace NanoverImd.UI
             SetupOutOfSimulationMenu();
         }
 
-        private void SetupOutOfSimulationMenu()
+        protected void SetupOutOfSimulationMenu()
         {
             // hides any open full-screen ui (like options or change-sim menu)
             SetupControllerButton(InputDeviceCharacteristics.Left, leftControllerButton, () => SimulationActive && SimulationMenuActive, CloseScene);
