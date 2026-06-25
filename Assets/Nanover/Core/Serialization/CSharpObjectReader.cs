@@ -70,8 +70,11 @@ namespace Nanover.Core.Serialization
                 case double dbl:
                     yield return (JsonToken.Float, dbl);
                     break;
+                case null:
+                    yield return (JsonToken.Null, null);
+                    break;
                 default:
-                    throw new ArgumentException($"Cannot parse {obj} ({obj.GetType()})");
+                    throw new ArgumentException($"Cannot parse {obj} ({obj?.GetType()})");
             }
         }
 

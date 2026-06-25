@@ -25,7 +25,9 @@ namespace Nanover.Frontend.Controllers
         public InputDeviceCharacteristics DominantHand => dominantHand;
 
         public event Action DominantHandChanged;
-        
+
+        public bool ShouldBroadcastCursors => CurrentInputMode?.ShouldBroadcastCursors ?? false;
+
         private void OnEnable()
         {
             leftController.ControllerReset += SetupLeftController;

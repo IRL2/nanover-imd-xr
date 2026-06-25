@@ -1,14 +1,16 @@
-﻿using System;
-using System.Collections;
-using System.Linq;
-using Nanover.Core.Math;
+﻿using Nanover.Core.Math;
+using Nanover.Frontend.Controllers;
+using Nanover.Frontend.Input;
 using Nanover.Frontend.Utility;
 using Nanover.Frontend.XR;
 using Nanover.Network.Multiplayer;
+using NanoverImd.UI;
+using System;
+using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.XR;
-
-using NanoverImd.UI;
+using static UnityEngine.XR.Interaction.Toolkit.Inputs.XRInputTrackingAggregator;
 
 namespace NanoverImd
 {
@@ -32,6 +34,7 @@ namespace NanoverImd
         private IndexedPool<AvatarModel> controllerObjects;
         
         private Coroutine sendAvatarsCoroutine;
+        private Coroutine sendCursorsCoroutine;
 
         private MultiplayerAvatar LocalAvatar => nanover.Multiplayer.Avatars.LocalAvatar;
 
@@ -58,11 +61,67 @@ namespace NanoverImd
         private void OnEnable()
         {
             sendAvatarsCoroutine = StartCoroutine(UpdateLocalAvatar());
+            sendCursorsCoroutine = StartCoroutine(UpdateLocalCursors());
         }
 
         private void OnDisable()
         {
             StopCoroutine(sendAvatarsCoroutine);
+            StopCoroutine(sendCursorsCoroutine);
+        }
+
+        private IEnumerator UpdateLocalCursors()
+        {
+            var buttonUsage = CommonUsages.primaryButton;
+
+            var buttons = new[]
+            {
+                new { Name = "primary", Usage = CommonUsages.primaryButton },
+                new { Name = "secondary", Usage = CommonUsages.secondaryButton },
+                new { Name = "trigger", Usage = CommonUsages.triggerButton },
+                new { Name = "grip", Usage = CommonUsages.gripButton },
+            };
+
+            var leftCursorObject = application.controllerManager.LeftController.CursorPose;
+            var rightCursorObject = application.controllerManager.RightController.CursorPose;
+
+            while (true)
+            {
+                if (nanover.Multiplayer.IsOpen)
+                {
+                    if (!application.controllerManager.ShouldBroadcastCursors)
+                    {
+                        nanover.Multiplayer.Cursors.LocalCursorLeft = null;
+                        nanover.Multiplayer.Cursors.LocalCursorRight = null;
+                    }
+                    else
+                    {
+                        nanover.Multiplayer.Cursors.LocalCursorLeft = MakeCursor(leftCursorObject, InputDeviceCharacteristics.Left);
+                        nanover.Multiplayer.Cursors.LocalCursorRight = MakeCursor(rightCursorObject, InputDeviceCharacteristics.Right);
+                    }
+
+                    nanover.Multiplayer.Cursors.FlushLocalCursors();
+                }
+
+                yield return null;
+            }
+
+            MultiplayerCursor MakeCursor(IPosedObject posedObject, InputDeviceCharacteristics characteristic)
+            {
+                if (posedObject.Pose is not { } pose)
+                    return null;
+
+                var device = characteristic.GetFirstDevice();
+
+                return new MultiplayerCursor
+                {
+                    OwnerID = nanover.Multiplayer.AccessToken,
+                    Position = pose.Position,
+                    Rotation = pose.Rotation,
+                    HeldButtons = buttons.Where((button) => device.GetButtonPressed(button.Usage) ?? false).Select((button) => button.Name).ToList(),
+                    Joystick = device.GetJoystickValue(CommonUsages.primary2DAxis) ?? Vector2.zero,
+                };
+            }
         }
 
         private IEnumerator UpdateLocalAvatar()
@@ -70,6 +129,9 @@ namespace NanoverImd
             var leftHand = InputDeviceCharacteristics.Left.WrapAsPosedObject();
             var rightHand = InputDeviceCharacteristics.Right.WrapAsPosedObject();
             var headset = InputDeviceCharacteristics.HeadMounted.WrapAsPosedObject();
+
+            var leftCursor = application.controllerManager.LeftController.CursorPose;
+            var rightCursor = application.controllerManager.RightController.CursorPose;
 
             while (true)
             {
