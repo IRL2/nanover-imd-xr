@@ -26,7 +26,7 @@ namespace Nanover.Frontend.Controllers
 
         public event Action DominantHandChanged;
 
-        public bool ShouldBroadcastCursors => CurrentInputMode.ShouldBroadcastCursors;
+        public bool ShouldBroadcastCursors => CurrentInputMode?.ShouldBroadcastCursors ?? false;
 
         private void OnEnable()
         {

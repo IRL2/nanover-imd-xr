@@ -74,10 +74,16 @@ namespace NanoverImd
         {
             var buttonUsage = CommonUsages.primaryButton;
 
+            var buttons = new[]
+            {
+                new { Name = "primary", Usage = CommonUsages.primaryButton },
+                new { Name = "secondary", Usage = CommonUsages.secondaryButton },
+                new { Name = "trigger", Usage = CommonUsages.triggerButton },
+                new { Name = "grip", Usage = CommonUsages.gripButton },
+            };
+
             var leftCursorObject = application.controllerManager.LeftController.CursorPose;
-            var leftButton = InputDeviceCharacteristics.Left.WrapUsageAsButton(buttonUsage);
             var rightCursorObject = application.controllerManager.RightController.CursorPose;
-            var rightButton = InputDeviceCharacteristics.Right.WrapUsageAsButton(buttonUsage);
 
             while (true)
             {
@@ -90,8 +96,8 @@ namespace NanoverImd
                     }
                     else
                     {
-                        nanover.Multiplayer.Cursors.LocalCursorLeft = MakeCursor(leftCursorObject, leftButton);
-                        nanover.Multiplayer.Cursors.LocalCursorRight = MakeCursor(rightCursorObject, rightButton);
+                        nanover.Multiplayer.Cursors.LocalCursorLeft = MakeCursor(leftCursorObject, InputDeviceCharacteristics.Left);
+                        nanover.Multiplayer.Cursors.LocalCursorRight = MakeCursor(rightCursorObject, InputDeviceCharacteristics.Right);
                     }
 
                     nanover.Multiplayer.Cursors.FlushLocalCursors();
@@ -100,17 +106,20 @@ namespace NanoverImd
                 yield return null;
             }
 
-            MultiplayerCursor MakeCursor(IPosedObject posedObject, IButton button)
+            MultiplayerCursor MakeCursor(IPosedObject posedObject, InputDeviceCharacteristics characteristic)
             {
-                if (posedObject.Pose is not { } transformation)
+                if (posedObject.Pose is not { } pose)
                     return null;
+
+                var device = characteristic.GetFirstDevice();
 
                 return new MultiplayerCursor
                 {
                     OwnerID = nanover.Multiplayer.AccessToken,
-                    Position = transformation.Position,
-                    Rotation = transformation.Rotation,
-                    IsPressed = button.IsPressed,
+                    Position = pose.Position,
+                    Rotation = pose.Rotation,
+                    HeldButtons = buttons.Where((button) => device.GetButtonPressed(button.Usage) ?? false).Select((button) => button.Name).ToList(),
+                    Joystick = device.GetJoystickValue(CommonUsages.primary2DAxis) ?? Vector2.zero,
                 };
             }
         }

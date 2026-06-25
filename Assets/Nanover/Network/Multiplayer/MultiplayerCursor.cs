@@ -19,7 +19,10 @@ namespace Nanover.Network.Multiplayer
         [DataMember(Name = "rotation")]
         public Quaternion Rotation;
 
-        [DataMember(Name = "ispressed")]
-        public bool IsPressed;
+        [DataMember(Name = "heldbuttons")]
+        public List<string> HeldButtons;
+
+        [DataMember(Name = "joystick")]
+        public Vector2 Joystick;
     }
 }
