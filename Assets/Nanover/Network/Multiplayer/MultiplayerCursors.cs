@@ -47,8 +47,8 @@ namespace Nanover.Network.Multiplayer
         public MultiplayerCursor LocalCursorLeft = new MultiplayerCursor();
         public MultiplayerCursor LocalCursorRight = new MultiplayerCursor();
 
-        private string LocalCursorLeftId => $"cursors.{Multiplayer.AccessToken}.left";
-        private string LocalCursorRightId => $"cursors.{Multiplayer.AccessToken}.right";
+        private string LocalCursorLeftId => $"{Multiplayer.AccessToken}.left";
+        private string LocalCursorRightId => $"{Multiplayer.AccessToken}.right";
 
         public void FlushLocalCursors()
         {
