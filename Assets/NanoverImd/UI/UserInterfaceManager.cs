@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
@@ -31,6 +32,12 @@ namespace NanoverImd.UI
         [SerializeField]
         public InputDeviceCharacteristics characteristics;
 
+        [SerializeField]
+        protected ControllerButton leftControllerButton = ControllerButton.MenuButton;
+
+        [SerializeField]
+        protected ControllerButton rightControllerButton = ControllerButton.MenuButton;
+
         public bool SimulationActive => simulation.activeInHierarchy;
         public bool SimulationMenuActive => sceneUI.activeInHierarchy;
 
@@ -47,8 +54,18 @@ namespace NanoverImd.UI
         private void SetupOutOfSimulationMenu()
         {
             // hides any open full-screen ui (like options or change-sim menu)
-            var menuButton = characteristics.WrapUsageAsButton(CommonUsages.menuButton, () => SimulationActive && SimulationMenuActive);
-            menuButton.Pressed += CloseScene;
+            SetupControllerButton(InputDeviceCharacteristics.Left, leftControllerButton, () => SimulationActive && SimulationMenuActive, CloseScene);
+            SetupControllerButton(InputDeviceCharacteristics.Right, rightControllerButton, () => SimulationActive && SimulationMenuActive, CloseScene);
+        }
+
+        protected void SetupControllerButton(InputDeviceCharacteristics hand, ControllerButton button, Func<bool> predicate, Action pressed)
+        {
+            if (!button.TryToUsage(out var usage))
+                return;
+
+            var menuButton = (characteristics & ~(InputDeviceCharacteristics.Left | InputDeviceCharacteristics.Right) | hand)
+                .WrapUsageAsButton(usage, predicate);
+            menuButton.Pressed += pressed;
         }
 
         private void LeaveScene(GameObject scene)

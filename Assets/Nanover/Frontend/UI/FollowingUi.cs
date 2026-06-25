@@ -4,7 +4,7 @@ using UnityEngine.Assertions;
 
  namespace Nanover.Frontend.UI
 {
-    public class FloatingCanvas : MonoBehaviour
+    public class FollowingUi : MonoBehaviour
     {
         [SerializeField]
         private float distance;

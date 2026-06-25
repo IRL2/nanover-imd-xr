@@ -42,8 +42,8 @@ namespace NanoverImd.UI
 
         private void SetupInSimulationMenu()
         {
-            var menuButton = characteristics.WrapUsageAsButton(CommonUsages.menuButton, () => SimulationActive);
-            menuButton.Pressed += ToggleMenu;
+            SetupControllerButton(InputDeviceCharacteristics.Left, leftControllerButton, () => SimulationActive, ToggleMenu);
+            SetupControllerButton(InputDeviceCharacteristics.Right, rightControllerButton, () => SimulationActive, ToggleMenu);
         }
 
         private void ShowMenu()

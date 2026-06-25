@@ -50,6 +50,8 @@ MonoBehaviour:
   sceneUI: {fileID: 6600268805218363695}
   simulation: {fileID: 0}
   characteristics: 0
+  leftControllerButton: 5
+  rightControllerButton: 5
 --- !u!1 &6600268805218363695
 GameObject:
   m_ObjectHideFlags: 0
