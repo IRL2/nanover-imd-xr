@@ -26,6 +26,10 @@ public class UIPanelDraggable : MonoBehaviour, IPointerUpHandler, IPointerDownHa
     private bool fallbackFollowing = false;
 
     [SerializeField]
+    [Tooltip("If true, disable following mechanism for this panel")]
+    private bool ignoreFollowing = false;
+
+    [SerializeField]
     private FollowingUi followingUiController;
 
 
@@ -39,7 +43,7 @@ public class UIPanelDraggable : MonoBehaviour, IPointerUpHandler, IPointerDownHa
 
     private void Awake()
     {
-        followingUiController.enabled = fallbackFollowing;
+        followingUiController.enabled = fallbackFollowing && !ignoreFollowing;
         panelPointerOffset = panelRoot.position - transform.position;
         hasBeenSaved = RestorePanelLocation(restoreFromSaved);
     }
@@ -53,7 +57,7 @@ public class UIPanelDraggable : MonoBehaviour, IPointerUpHandler, IPointerDownHa
             panelRoot.rotation = Quaternion.LookRotation(panelRoot.position - Camera.main.transform.position, Vector3.up);
         }
 
-        if (!isDragging && fallbackFollowing)
+        if (!ignoreFollowing && !isDragging && fallbackFollowing)
         {
             followingUiController.enabled = !hasBeenSaved;
         }
