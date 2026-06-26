@@ -161,14 +161,15 @@ namespace NanoverImd.UI
             if (!controllers.WouldBecomeCurrentMode(uiMode))
                 return;
 
-            GotoScene(simulationMenuPrefab);
+            if (currentMenuPrefab != simulationMenuPrefab)
+                GotoScene(simulationMenuPrefab);
 
             uiMode.enabled = true;
         }
 
-        private void CloseSimScene()
+        private void FadeSimMenu()
         {
-            Debug.Log("close sim scene");
+            Debug.Log("fade sim scene");
 
             if (clickOnMenuClosed)
                 WorldSpaceCursorInput.TriggerClick();
@@ -185,7 +186,7 @@ namespace NanoverImd.UI
             if (canvasGroup.alpha == 0.3f)
                 ShowSimMenu();
             else
-                CloseSimScene();
+                FadeSimMenu();
         }
 
         private void LaunchButtonTrigger()
@@ -206,5 +207,15 @@ namespace NanoverImd.UI
                 CloseScene();
             }
         }
+
+        public void EnableUIMode()
+        {
+            uiMode.enabled = true;
+        }
+        public void DisableUIMode()
+        { 
+            uiMode.enabled = false;
+        }
+
     }
 }

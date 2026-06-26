@@ -2378,6 +2378,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   simulation: {fileID: 431384315}
   avatars: {fileID: 838290071}
+--- !u!114 &261478363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1017814555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3158e85af16326a44a1baea261a221bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: NanoverImd::CleanSavedPanelPosition
 --- !u!1 &262137139
 GameObject:
   m_ObjectHideFlags: 0
@@ -10536,6 +10548,9 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3288549822030033708, guid: 76606180d238bce479bacd070fe282ba, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 261478363}
+    - targetCorrespondingSourceObject: {fileID: 3288549822030033708, guid: 76606180d238bce479bacd070fe282ba, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 1017814557}
     - targetCorrespondingSourceObject: {fileID: 7830743740537945159, guid: 76606180d238bce479bacd070fe282ba, type: 3}
       insertIndex: -1
@@ -10577,9 +10592,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1017814555}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3158e85af16326a44a1baea261a221bf, type: 3}
+  m_Script: {fileID: 11500000, guid: b90e1734576edde4db022ce1991b6f2f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: NanoverImd::CleanSavedPanelPosition
+  m_EditorClassIdentifier: NanoverImd::ActivateFollower
+  follower: {fileID: 5142325587425996025}
 --- !u!1 &1021756013
 GameObject:
   m_ObjectHideFlags: 0
@@ -13734,10 +13750,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 411248752287646639, guid: ed1fe2728e7109b41a5f5f7c758e03f2, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 411248752287646639, guid: ed1fe2728e7109b41a5f5f7c758e03f2, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 411248752287646639, guid: ed1fe2728e7109b41a5f5f7c758e03f2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 411248752287646639, guid: ed1fe2728e7109b41a5f5f7c758e03f2, type: 3}
@@ -13745,7 +13765,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1947515438}
     - target: {fileID: 411248752287646639, guid: ed1fe2728e7109b41a5f5f7c758e03f2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1947515438}
+    - target: {fileID: 411248752287646639, guid: ed1fe2728e7109b41a5f5f7c758e03f2, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 411248752287646639, guid: ed1fe2728e7109b41a5f5f7c758e03f2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 411248752287646639, guid: ed1fe2728e7109b41a5f5f7c758e03f2, type: 3}
@@ -13753,11 +13781,23 @@ PrefabInstance:
       value: CloseScene
       objectReference: {fileID: 0}
     - target: {fileID: 411248752287646639, guid: ed1fe2728e7109b41a5f5f7c758e03f2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: DisableUIMode
+      objectReference: {fileID: 0}
+    - target: {fileID: 411248752287646639, guid: ed1fe2728e7109b41a5f5f7c758e03f2, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: NanoverImd.UI.MainUserInterfaceManager, NanoverImd
       objectReference: {fileID: 0}
     - target: {fileID: 411248752287646639, guid: ed1fe2728e7109b41a5f5f7c758e03f2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: NanoverImd.UI.MainUserInterfaceManager, NanoverImd
+      objectReference: {fileID: 0}
+    - target: {fileID: 411248752287646639, guid: ed1fe2728e7109b41a5f5f7c758e03f2, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 411248752287646639, guid: ed1fe2728e7109b41a5f5f7c758e03f2, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 568589174576091685, guid: ed1fe2728e7109b41a5f5f7c758e03f2, type: 3}
@@ -31073,7 +31113,7 @@ MonoBehaviour:
   restoreFromSaved: 1
   fallbackFollowing: 1
   ignoreFollowing: 0
-  followingUiController: {fileID: 5142325587425996025}
+  followGazeUI: {fileID: 5142325587425996025}
   hasBeenSaved: 0
 --- !u!222 &5621384495121067570
 CanvasRenderer:

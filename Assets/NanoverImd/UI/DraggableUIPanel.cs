@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Nanover.Frontend.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -30,7 +31,7 @@ public class UIPanelDraggable : MonoBehaviour, IPointerUpHandler, IPointerDownHa
     private bool ignoreFollowing = false;
 
     [SerializeField]
-    private FollowingUi followingUiController;
+    private FollowingUi followGazeUI;
 
 
     private XRRayInteractor activeRay;
@@ -43,9 +44,10 @@ public class UIPanelDraggable : MonoBehaviour, IPointerUpHandler, IPointerDownHa
 
     private void Awake()
     {
-        followingUiController.enabled = fallbackFollowing && !ignoreFollowing;
         panelPointerOffset = panelRoot.position - transform.position;
+
         hasBeenSaved = RestorePanelLocation(restoreFromSaved);
+        followGazeUI.enabled = fallbackFollowing && !hasBeenSaved;
     }
 
     private void Update()
@@ -57,10 +59,15 @@ public class UIPanelDraggable : MonoBehaviour, IPointerUpHandler, IPointerDownHa
             panelRoot.rotation = Quaternion.LookRotation(panelRoot.position - Camera.main.transform.position, Vector3.up);
         }
 
-        if (!ignoreFollowing && !isDragging && fallbackFollowing)
-        {
-            followingUiController.enabled = !hasBeenSaved;
-        }
+        //if (ignoreFollowing) return;
+        //if (hasBeenSaved) return;
+
+        //if (!isDragging && fallbackFollowing)
+        //{
+        //    followGazeUI.enabled = fallbackFollowing && !hasBeenSaved;
+        //}
+
+        followGazeUI.enabled = fallbackFollowing && !hasBeenSaved;
     }
 
 
@@ -77,7 +84,7 @@ public class UIPanelDraggable : MonoBehaviour, IPointerUpHandler, IPointerDownHa
 
         if (activeRay == null)
         {
-            Debug.LogWarning("Could not determine which XR Ray Interactor clicked the handle.");
+            UnityEngine.Debug.LogWarning("Could not determine which XR Ray Interactor clicked the handle.");
             return;
         }
 
