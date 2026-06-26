@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1505670753906287392
+--- !u!1 &2904540790522000907
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,12 +8,11 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6178047479300359302}
-  - component: {fileID: 8362819656199687592}
-  - component: {fileID: 6568254533095805781}
-  - component: {fileID: 6603564579284918355}
-  - component: {fileID: 2256348555797968890}
-  - component: {fileID: 3450450908085588755}
+  - component: {fileID: 2694647279572069732}
+  - component: {fileID: 6143289231869755343}
+  - component: {fileID: 938172377011532935}
+  - component: {fileID: 4183272821453247166}
+  - component: {fileID: 4328605917962643503}
   m_Layer: 5
   m_Name: Position Handle
   m_TagString: HasHaptics
@@ -21,13 +20,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &6178047479300359302
+--- !u!224 &2694647279572069732
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1505670753906287392}
+  m_GameObject: {fileID: 2904540790522000907}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0.0012}
@@ -35,26 +34,26 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0.3, y: 0.04}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0.5, y: -0.4777}
+  m_SizeDelta: {x: 0.2, y: 0.03}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &8362819656199687592
+--- !u!222 &6143289231869755343
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1505670753906287392}
+  m_GameObject: {fileID: 2904540790522000907}
   m_CullTransparentMesh: 1
---- !u!114 &6568254533095805781
+--- !u!114 &938172377011532935
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1505670753906287392}
+  m_GameObject: {fileID: 2904540790522000907}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -78,41 +77,30 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6603564579284918355
+--- !u!114 &4183272821453247166
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1505670753906287392}
+  m_GameObject: {fileID: 2904540790522000907}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e254c5e5013aed46a2412e8917939e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: NanoverImd::DraggableUIPanel
   panelRoot: {fileID: 0}
-  saveLocation: 0
-  fallbackFollowing: 0
-  floatingCanvasRoot: {fileID: 0}
---- !u!114 &2256348555797968890
+  restoreFromSaved: 1
+  fallbackFollowing: 1
+  followGazeUI: {fileID: 0}
+  hasBeenSaved: 0
+--- !u!114 &4328605917962643503
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1505670753906287392}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3158e85af16326a44a1baea261a221bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: NanoverImd::CleanSavedPanelPosition
---- !u!114 &3450450908085588755
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1505670753906287392}
+  m_GameObject: {fileID: 2904540790522000907}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
@@ -146,7 +134,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 6568254533095805781}
+  m_TargetGraphic: {fileID: 938172377011532935}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []

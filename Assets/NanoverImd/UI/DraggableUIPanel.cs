@@ -20,15 +20,11 @@ public class UIPanelDraggable : MonoBehaviour, IPointerUpHandler, IPointerDownHa
     
     [SerializeField]
     [Tooltip("If true, the panel will use remember its latest location before close")]
-    private bool restoreFromSaved = false;
+    private bool restoreFromSaved = true;
 
     [SerializeField]
-    [Tooltip("If true, the panel will use remember its latest location before close")]
+    [Tooltip("If true, use the float follower only when not using saved location")]
     private bool fallbackFollowing = false;
-
-    [SerializeField]
-    [Tooltip("If true, disable following mechanism for this panel")]
-    private bool ignoreFollowing = false;
 
     [SerializeField]
     private FollowingUi followGazeUI;
@@ -58,14 +54,6 @@ public class UIPanelDraggable : MonoBehaviour, IPointerUpHandler, IPointerDownHa
             panelRoot.position = Vector3.Lerp(panelRoot.position, targetPosition, 0.2f);
             panelRoot.rotation = Quaternion.LookRotation(panelRoot.position - Camera.main.transform.position, Vector3.up);
         }
-
-        //if (ignoreFollowing) return;
-        //if (hasBeenSaved) return;
-
-        //if (!isDragging && fallbackFollowing)
-        //{
-        //    followGazeUI.enabled = fallbackFollowing && !hasBeenSaved;
-        //}
 
         followGazeUI.enabled = fallbackFollowing && !hasBeenSaved;
     }
@@ -120,6 +108,7 @@ public class UIPanelDraggable : MonoBehaviour, IPointerUpHandler, IPointerDownHa
 
     private void SavePanelLocation()
     {
+        UnityEngine.Debug.Log("Saving panel location");
         PlayerPrefs.SetString("UIPanel.position", $"{panelRoot.position.x}|{panelRoot.position.y}|{panelRoot.position.z}");
         PlayerPrefs.SetString("UIPanel.rotation", $"{panelRoot.rotation.x}|{panelRoot.rotation.y}|{panelRoot.rotation.z}|{panelRoot.rotation.w}");
     }
@@ -144,6 +133,7 @@ public class UIPanelDraggable : MonoBehaviour, IPointerUpHandler, IPointerDownHa
             hasSaved = true;
         }
 
+        UnityEngine.Debug.Log("Restoring panel location from saved data: " + hasSaved);
         return hasSaved;
     }
 }

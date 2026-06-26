@@ -12,8 +12,13 @@ namespace NanoverImd.UI
 {
     public class MainUserInterfaceManager : MonoBehaviour
     {
+        const float FADE_ALPHA = 0.2f;
+
         private GameObject currentMenuPrefab;
 
+        private Stack<GameObject> sceneStack = new Stack<GameObject>();
+
+        [Header("UI Panels")]
         [SerializeField]
         private GameObject currentMenu;
 
@@ -23,14 +28,24 @@ namespace NanoverImd.UI
         [SerializeField]
         private GameObject simulationMenuPrefab;
 
+        [Header("UI Dependencies")]
         [SerializeField]
         private GameObject sceneUI;
 
         [SerializeField]
-        public GameObject simulation;
+        private GameObject simulation;
 
-        private Stack<GameObject> sceneStack = new Stack<GameObject>();
+        [SerializeField]
+        private CanvasGroup canvasGroup;
 
+
+        [SerializeField]
+        private UiInputMode uiMode;
+
+        [SerializeField]
+        private ControllerManager controllers;
+
+        [Header("Controller Settings")]
         [SerializeField]
         public InputDeviceCharacteristics characteristics;
 
@@ -41,26 +56,8 @@ namespace NanoverImd.UI
         protected ControllerButton rightControllerButton = ControllerButton.MenuButton;
 
 
-
-        [SerializeField]
-        private bool clickOnMenuClosed = true;
-
-        [SerializeField]
-        private ControllerManager controllers;
-
-        [SerializeField]
-        private UiInputMode uiMode;
-
-        [SerializeField]
-        private CanvasGroup canvasGroup;
-
-
-
         public bool SimulationActive => simulation.activeInHierarchy;
-        //public bool SimulationMenuActive => sceneUI.activeInHierarchy;
-        public bool SimulationMenuActive => simulationMenuPrefab.activeInHierarchy;
-
-        public GameObject SceneUI => sceneUI;
+        public bool SimulationMenuActive => currentMenu != null && currentMenuPrefab == simulationMenuPrefab;
 
         private void Start()
         {
@@ -72,12 +69,6 @@ namespace NanoverImd.UI
 
         protected void SetupOutOfSimulationMenu()
         {
-            //SetupControllerButton(InputDeviceCharacteristics.Left, leftControllerButton, () => SimulationActive && SimulationMenuActive, ToggleSimScene);
-            //SetupControllerButton(InputDeviceCharacteristics.Right, rightControllerButton, () => SimulationActive && SimulationMenuActive, ToggleSimScene);
-
-            //SetupControllerButton(InputDeviceCharacteristics.Left, leftControllerButton, () => SimulationActive && !SimulationMenuActive, CloseScene);
-            //SetupControllerButton(InputDeviceCharacteristics.Right, rightControllerButton, () => SimulationActive && !SimulationMenuActive, CloseScene);
-
             SetupControllerButton(InputDeviceCharacteristics.Left, leftControllerButton, () => SimulationActive, LaunchButtonTrigger);
             SetupControllerButton(InputDeviceCharacteristics.Right, rightControllerButton, () => SimulationActive, LaunchButtonTrigger);
         }
@@ -146,21 +137,19 @@ namespace NanoverImd.UI
         {
             sceneStack.Clear();
             GotoScene(null);
-
-            Debug.Log("close scene");
         }
 
 
 
         private void ShowSimMenu()
         {
-            Debug.Log("show sim menu");
 
             canvasGroup.alpha = 1f;
 
             if (!controllers.WouldBecomeCurrentMode(uiMode))
                 return;
 
+            // load menu if not already loaded
             if (currentMenuPrefab != simulationMenuPrefab)
                 GotoScene(simulationMenuPrefab);
 
@@ -169,21 +158,14 @@ namespace NanoverImd.UI
 
         private void FadeSimMenu()
         {
-            Debug.Log("fade sim scene");
-
-            if (clickOnMenuClosed)
-                WorldSpaceCursorInput.TriggerClick();
-
             uiMode.enabled = false;
 
-            canvasGroup.alpha = 0.3f;
+            canvasGroup.alpha = FADE_ALPHA;
         }
 
         private void ToggleSimMenu()
         {
-            Debug.Log("trigger toggle menu");
-
-            if (canvasGroup.alpha == 0.3f)
+            if (canvasGroup.alpha == FADE_ALPHA)
                 ShowSimMenu();
             else
                 FadeSimMenu();
