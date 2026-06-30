@@ -130,9 +130,6 @@ namespace NanoverImd
             var rightHand = InputDeviceCharacteristics.Right.WrapAsPosedObject();
             var headset = InputDeviceCharacteristics.HeadMounted.WrapAsPosedObject();
 
-            var leftCursor = application.controllerManager.LeftController.CursorPose;
-            var rightCursor = application.controllerManager.RightController.CursorPose;
-
             while (true)
             {
                 if (nanover.Multiplayer.IsOpen)

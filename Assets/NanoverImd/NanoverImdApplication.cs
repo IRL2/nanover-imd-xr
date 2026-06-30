@@ -264,7 +264,7 @@ namespace NanoverImd
 
             void OnPressed()
             {
-                if (controllerManager.RightController.HeadPose.Pose is { } pose)
+                if (controllerManager.RightController.CursorPose.Pose is { } pose)
                 {
                     poses.Add(pose);
 
