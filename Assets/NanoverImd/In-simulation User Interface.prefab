@@ -653,7 +653,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -50.23}
-  m_SizeDelta: {x: 643.6472, y: 30}
+  m_SizeDelta: {x: 643.6472, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &2971540108686228541
 MonoBehaviour:
@@ -960,8 +960,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controllers: {fileID: 0}
+  broadcastCursors: 0
   gizmo: {fileID: 0}
-  anchor: 0
+  anchor: 2
   priority: 2
   bothHands: 1
 --- !u!1 &6628193889355024325
