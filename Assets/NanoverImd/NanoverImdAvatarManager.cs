@@ -108,7 +108,7 @@ namespace NanoverImd
 
             MultiplayerCursor MakeCursor(IPosedObject posedObject, InputDeviceCharacteristics characteristic)
             {
-                if (posedObject.Pose is not { } pose)
+                if (TransformPoseWorldToCalibrated(posedObject.Pose) is not { } pose)
                     return null;
 
                 var device = characteristic.GetFirstDevice();
