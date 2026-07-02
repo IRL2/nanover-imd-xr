@@ -4,6 +4,9 @@ using System.Linq;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using WebDiscovery;
+#if ENABLE_INPUT_SYSTEM
+using UnityEngine.InputSystem;
+#endif
 
 namespace NanoverImd
 {
@@ -33,14 +36,23 @@ namespace NanoverImd
 
         public float interactionForceMultiplier = 1000;
 
+        private Vector2 currentGuiAreaOrigin;
+        private Vector2 fallbackMouseGuiPosition;
+        private bool fallbackMouseWasDown;
+        private bool fallbackMouseDownThisFrame;
+        private bool fallbackClickConsumed;
+        private int fallbackMouseFrame = -1;
+
         private void OnGUI()
         {
-            GUILayout.BeginArea(new Rect(16, 16, 192, 1024));
+            UpdateFallbackMouseState();
+
+            BeginDebugArea(new Rect(16, 16, 192, 1024));
             GUILayout.Box("Nanover iMD");
 
             GUILayout.Box("Demos");
 
-            if (GUILayout.Button("Refresh"))
+            if (DebugButton("Refresh"))
             {
                 NanoverRecordings
                 .FetchDemosListing()
@@ -53,7 +65,7 @@ namespace NanoverImd
 
             foreach (var entry in knownDemos)
             {
-                if (GUILayout.Button(entry.Name))
+                if (DebugButton(entry.Name))
                 {
                     NanoverRecordings.LoadDemo(entry.URL).AsUniTask().ContinueWith(simulation.ConnectRecordingReader);
                 }
@@ -61,12 +73,12 @@ namespace NanoverImd
 
             GUILayout.Box("Connect");
 
-            if (GUILayout.Button("Manual"))
+            if (DebugButton("Manual"))
             {
                 directConnect = !directConnect;
             }
 
-            if (GUILayout.Button("Discover"))
+            if (DebugButton("Discover"))
             {
                 discovery = !discovery;
 
@@ -83,7 +95,7 @@ namespace NanoverImd
                 }
             }
 
-            if (GUILayout.Button("Disconnect"))
+            if (DebugButton("Disconnect"))
             {
                 simulation.Disconnect();
             }
@@ -101,28 +113,28 @@ namespace NanoverImd
                     GUILayout.TextField(simulation.ManipulableParticles.ForceType);
 
                 GUILayout.Box("Simulation");
-                if (GUILayout.Button("Play"))
+                if (DebugButton("Play"))
                     simulation.PlayTrajectory();
 
-                if (GUILayout.Button("Pause"))
+                if (DebugButton("Pause"))
                     simulation.PauseTrajectory();
 
-                if (GUILayout.Button("Step"))
+                if (DebugButton("Step"))
                     simulation.StepForwardTrajectory();
                 
-                if (GUILayout.Button("Reset"))
+                if (DebugButton("Reset"))
                     simulation.ResetTrajectory();
                 
-                if (GUILayout.Button("Reset Box"))
+                if (DebugButton("Reset Box"))
                     simulation.ResetBox();
 
                 GUILayout.Box("Switch Simulation");
-                if (GUILayout.Button("Refresh"))
+                if (DebugButton("Refresh"))
                     simulation.Trajectory.GetSimulationListing().ContinueWith((list) => knownSimulations = list);
 
                 for (int i = 0; i < knownSimulations.Count; ++i)
                 {
-                    if (GUILayout.Button(knownSimulations[i]))
+                    if (DebugButton(knownSimulations[i]))
                         simulation.Trajectory.SetSimulationIndex(i);
                 }
 
@@ -131,7 +143,7 @@ namespace NanoverImd
 
                 if (!application.ColocateLighthouses)
                 {
-                    if (GUILayout.Button("Reset Radial Orientation"))
+                    if (DebugButton("Reset Radial Orientation"))
                         simulation.RunRadialOrientation();
 
                     GUILayout.Label("Radial Displacement");
@@ -141,12 +153,12 @@ namespace NanoverImd
                 }
 
                 GUILayout.Box("User Commands");
-                if (GUILayout.Button("Refresh List"))
+                if (DebugButton("Refresh List"))
                     simulation.Trajectory.UpdateCommands().Forget();
 
                 foreach (var command in simulation.Trajectory.CommandDefinitions.Values.Where(command => command.Name.StartsWith("user/")))
                 {
-                    if (GUILayout.Button(command.Name))
+                    if (DebugButton(command.Name))
                         simulation.Trajectory.RunCommand(command.Name, new Dictionary<string, object>());
                 }
             }
@@ -155,7 +167,7 @@ namespace NanoverImd
             xrSimulatorContainer.SetActive(GUILayout.Toggle(xrSimulatorContainer.activeSelf, "Simulate Controllers"));
 
             GUILayout.Box("Misc");
-            if (GUILayout.Button("Quit"))
+            if (DebugButton("Quit"))
                 application.Quit();
 
             GUILayout.EndArea();
@@ -168,19 +180,19 @@ namespace NanoverImd
 
         private void ShowDirectConnectWindow()
         {
-            GUILayout.BeginArea(new Rect(192 + 16 * 2, 10, 192, 512));
+            BeginDebugArea(new Rect(192 + 16 * 2, 10, 192, 512));
             GUILayout.Box("Direct Connect");
 
             GUILayout.Label("Address");
             directConnectAddress = GUILayout.TextField(directConnectAddress);
 
-            if (GUILayout.Button("Connect WebSocket"))
+            if (DebugButton("Connect WebSocket"))
             {
                 directConnect = false;
                 application.Simulation.ConnectWebSocket(directConnectAddress);
             }
 
-            if (GUILayout.Button("Cancel"))
+            if (DebugButton("Cancel"))
                 directConnect = false;
 
             GUILayout.EndArea();
@@ -188,10 +200,10 @@ namespace NanoverImd
 
         private void ShowServiceDiscoveryWindow()
         {
-            GUILayout.BeginArea(new Rect(192 * 2 + 16 * 3, 10, 192, 512));
+            BeginDebugArea(new Rect(192 * 2 + 16 * 3, 10, 192, 512));
             GUILayout.Box("Discover Servers");
 
-            if (GUILayout.Button("Search"))
+            if (DebugButton("Search"))
             {
                 //WebsocketDiscovery.DiscoverWebsocketServers("").ContinueWith(result => knownWebSockets = result);
 
@@ -203,7 +215,7 @@ namespace NanoverImd
                     .ToList();
             }
 
-            if (GUILayout.Button("Cancel"))
+            if (DebugButton("Cancel"))
                 discovery = false;
 
             if (knownWebSockets.Count > 0)
@@ -212,7 +224,7 @@ namespace NanoverImd
 
                 foreach (var entry in knownWebSockets)
                 {
-                    if (GUILayout.Button($"{entry.code}: {entry.info.name} ({entry.info.ws})"))
+                    if (DebugButton($"{entry.code}: {entry.info.name} ({entry.info.ws})"))
                     {
                         discovery = false;
                         application.Connect(entry);
@@ -226,7 +238,7 @@ namespace NanoverImd
 
                 foreach (var hub in knownServiceHubs)
                 {
-                    if (GUILayout.Button($"{hub.Name} ({hub.Address})"))
+                    if (DebugButton($"{hub.Name} ({hub.Address})"))
                     {
                         discovery = false;
                         knownServiceHubs = new List<ServiceHub>();
@@ -243,6 +255,64 @@ namespace NanoverImd
             return int.TryParse(text, out int number)
                  ? number
                  : (int?) null;
+        }
+
+        private void BeginDebugArea(Rect area)
+        {
+            currentGuiAreaOrigin = area.position;
+            GUILayout.BeginArea(area);
+        }
+
+        private bool DebugButton(string label)
+        {
+            var clicked = GUILayout.Button(label);
+            var rect = GUILayoutUtility.GetLastRect();
+
+            if (!clicked && IsFallbackClicked(rect))
+                clicked = true;
+
+            return clicked;
+        }
+
+        private void UpdateFallbackMouseState()
+        {
+            if (Event.current.type != EventType.Repaint || fallbackMouseFrame == Time.frameCount)
+                return;
+
+            fallbackMouseFrame = Time.frameCount;
+            fallbackClickConsumed = false;
+#if ENABLE_INPUT_SYSTEM
+            var mouse = Mouse.current;
+            if (mouse == null)
+            {
+                fallbackMouseDownThisFrame = false;
+                fallbackMouseWasDown = false;
+                return;
+            }
+
+            var isDown = mouse.leftButton.isPressed;
+            fallbackMouseDownThisFrame = isDown && !fallbackMouseWasDown;
+            fallbackMouseWasDown = isDown;
+
+            var mousePosition = mouse.position.ReadValue();
+            fallbackMouseGuiPosition = new Vector2(mousePosition.x, Screen.height - mousePosition.y);
+#else
+            fallbackMouseDownThisFrame = false;
+            fallbackMouseWasDown = false;
+#endif
+        }
+
+        private bool IsFallbackClicked(Rect localRect)
+        {
+            if (Event.current.type != EventType.Repaint || !fallbackMouseDownThisFrame || fallbackClickConsumed)
+                return false;
+
+            var localMousePosition = fallbackMouseGuiPosition - currentGuiAreaOrigin;
+            if (!localRect.Contains(localMousePosition))
+                return false;
+
+            fallbackClickConsumed = true;
+            return true;
         }
     }
 }

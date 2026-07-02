@@ -45,7 +45,7 @@ public class PlaybackSlider : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         lastRequestedFrame = -1;
     }
 
-    void UpdateUI(int current, int total)
+    void UpdateUI(int current, int total, float currentTime, float totalTime, string timeUnit)
     {
         if (slider != null && !isInteracting)
         {
@@ -54,7 +54,7 @@ public class PlaybackSlider : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         }
 
         if (stepText != null && !isInteracting)
-            stepText.text = $"{current} / {total}";
+            stepText.text = FormatPlaybackText(current, total, currentTime, totalTime, timeUnit);
     }
 
     void OnSliderValueChanged(float value)
@@ -67,7 +67,13 @@ public class PlaybackSlider : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         {
             var frameIndex = NormalizedValueToFrameIndex(value, total);
             if (stepText != null)
-                stepText.text = $"{frameIndex + 1} / {total}";
+                stepText.text = FormatPlaybackText(
+                    frameIndex + 1,
+                    total,
+                    InterpolateSimulationTime(frameIndex, total),
+                    dataHandler.TotalSimulationTime,
+                    dataHandler.SimulationTimeUnit
+                );
 
             RequestSeek(frameIndex, false);
         }
@@ -112,5 +118,33 @@ public class PlaybackSlider : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     static int NormalizedValueToFrameIndex(float normalizedValue, int total)
     {
         return Mathf.RoundToInt(Mathf.Clamp01(normalizedValue) * Mathf.Max(0, total - 1));
+    }
+
+    float InterpolateSimulationTime(int frameIndex, int total)
+    {
+        if (dataHandler == null ||
+            float.IsNaN(dataHandler.TotalSimulationTime) ||
+            total <= 1)
+        {
+            return float.NaN;
+        }
+
+        return dataHandler.TotalSimulationTime * frameIndex / (total - 1);
+    }
+
+    static string FormatPlaybackText(int current, int total, float currentTime, float totalTime, string timeUnit)
+    {
+        if (float.IsNaN(currentTime) || float.IsNaN(totalTime))
+            return $"{current} / {total}";
+
+        var unitSuffix = string.IsNullOrEmpty(timeUnit) ? string.Empty : $" {timeUnit}";
+        return $"{FormatTime(currentTime)} / {FormatTime(totalTime)}{unitSuffix}";
+    }
+
+    static string FormatTime(float time)
+    {
+        return Mathf.Approximately(time, Mathf.Round(time))
+            ? Mathf.RoundToInt(time).ToString()
+            : time.ToString("0.###");
     }
 }

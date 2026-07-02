@@ -12,14 +12,20 @@ public class DnemdUIDataHandler : MonoBehaviour
     [SerializeField]
     NanoverImdSimulation simulation;
 
-    public event Action<int, int> OnPlaybackStepChanged;
+    public event Action<int, int, float, float, string> OnPlaybackStepChanged;
     public event Action<float[]> OnResidueColourGradientChanged;
 
     int totalSteps;
     int currentStep;
+    float currentSimulationTime = float.NaN;
+    float totalSimulationTime = float.NaN;
+    string simulationTimeUnit;
     float[] residueColourGradient;
 
     public int TotalSteps => totalSteps;
+    public float CurrentSimulationTime => currentSimulationTime;
+    public float TotalSimulationTime => totalSimulationTime;
+    public string SimulationTimeUnit => simulationTimeUnit;
 
     void OnEnable()
     {
@@ -66,9 +72,45 @@ public class DnemdUIDataHandler : MonoBehaviour
             }
         }
 
+        if (frame.Data.TryGetValue("frame.time", out var timeObj))
+        {
+            float time = Convert.ToSingle(timeObj);
+            if (!Mathf.Approximately(time, currentSimulationTime))
+            {
+                currentSimulationTime = time;
+                playbackChanged = true;
+            }
+        }
+
+        if (frame.Data.TryGetValue("frame.total_time", out var totalTimeObj))
+        {
+            float totalTime = Convert.ToSingle(totalTimeObj);
+            if (!Mathf.Approximately(totalTime, totalSimulationTime))
+            {
+                totalSimulationTime = totalTime;
+                playbackChanged = true;
+            }
+        }
+
+        if (frame.Data.TryGetValue("frame.time_unit", out var timeUnitObj))
+        {
+            string timeUnit = Convert.ToString(timeUnitObj);
+            if (timeUnit != simulationTimeUnit)
+            {
+                simulationTimeUnit = timeUnit;
+                playbackChanged = true;
+            }
+        }
+
         if (playbackChanged)
         {
-            OnPlaybackStepChanged?.Invoke(currentStep, totalSteps);
+            OnPlaybackStepChanged?.Invoke(
+                currentStep,
+                totalSteps,
+                currentSimulationTime,
+                totalSimulationTime,
+                simulationTimeUnit
+            );
         }
 
         // ---- residue colour gradient ----
