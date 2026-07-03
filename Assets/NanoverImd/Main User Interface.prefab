@@ -231,8 +231,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controllers: {fileID: 0}
+  broadcastCursors: 0
   gizmo: {fileID: 6469026284909248119, guid: db7711c7495a561469a596e18cb6a74b, type: 3}
-  anchor: 0
+  anchor: 2
   priority: 5
   bothHands: 0
 --- !u!1001 &246325849062967322

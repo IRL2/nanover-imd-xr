@@ -107,6 +107,8 @@ namespace WebSocketTypes
     {
         public static object StringifyStructureKeys(this object structure)
         {
+            if (structure is IList<object> list)
+                return list.Select(value => StringifyStructureKeys(value)).ToArray();
             if (structure is IDictionary<object, object> dict)
                 return dict.ToDictionary(pair => pair.Key.ToString(), pair => StringifyStructureKeys(pair.Value));
             if (structure is IDictionary<string, object> dict2)

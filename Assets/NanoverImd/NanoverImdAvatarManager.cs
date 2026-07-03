@@ -108,7 +108,7 @@ namespace NanoverImd
 
             MultiplayerCursor MakeCursor(IPosedObject posedObject, InputDeviceCharacteristics characteristic)
             {
-                if (posedObject.Pose is not { } pose)
+                if (TransformPoseWorldToCalibrated(posedObject.Pose) is not { } pose)
                     return null;
 
                 var device = characteristic.GetFirstDevice();
@@ -129,9 +129,6 @@ namespace NanoverImd
             var leftHand = InputDeviceCharacteristics.Left.WrapAsPosedObject();
             var rightHand = InputDeviceCharacteristics.Right.WrapAsPosedObject();
             var headset = InputDeviceCharacteristics.HeadMounted.WrapAsPosedObject();
-
-            var leftCursor = application.controllerManager.LeftController.CursorPose;
-            var rightCursor = application.controllerManager.RightController.CursorPose;
 
             while (true)
             {

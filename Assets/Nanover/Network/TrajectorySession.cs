@@ -1,5 +1,4 @@
-using Cysharp.Threading.Tasks;
-using WebSocketTypes;
+﻿using Cysharp.Threading.Tasks;
 using Nanover.Frame;
 using Nanover.Frame.Event;
 using Nanover.Network.Frame;
@@ -8,7 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
+using WebSocketTypes;
+using static Nanover.Network.Trajectory.TrajectorySession;
 using CommandArguments = System.Collections.Generic.Dictionary<string, object>;
 using CommandReturn = System.Collections.Generic.Dictionary<string, object>;
 
@@ -161,13 +161,36 @@ namespace Nanover.Network.Trajectory
         public async UniTask<Dictionary<string, CommandDefinition>> UpdateCommands()
         {
             var result = await RunCommand(CommandGetCommandsListing);
-            CommandDefinitions = ((Dictionary<string, object>)result["list"]).ToDictionary(pair => pair.Key, pair => new CommandDefinition { Name = pair.Key, Arguments = pair.Value as CommandArguments });
+
+            if (result.TryGetValue("commands", out object commands))
+            {
+                var listing = (object[]) commands;
+                CommandDefinitions = listing.Select(value => DictToCommandDefinition((Dictionary<string, object>) value)).ToDictionary(def => def.Name, def => def);
+
+                CommandDefinition DictToCommandDefinition(Dictionary<string, object> dict)
+                {
+                    return new CommandDefinition
+                    {
+                        Name = dict["name"] as string,
+                        Label = dict["label"] as string,
+                        Icon = dict["icon"] as string,
+                        Arguments = dict["arguments"] as CommandArguments,
+                    };
+                }
+            }
+            else
+            {
+                CommandDefinitions = ((Dictionary<string, object>) result["list"]).ToDictionary(pair => pair.Key, pair => new CommandDefinition { Name = pair.Key, Arguments = pair.Value as CommandArguments, Label = pair.Key });
+            }
+
             return CommandDefinitions;
         }
 
         public class CommandDefinition
         {
             public string Name { get; set; }
+            public string Label { get; set; }
+            public string Icon { get; set; } = "❓";
             public CommandArguments Arguments { get; set; }
         }
     }

@@ -14,7 +14,7 @@ namespace Nanover.Frontend.UI
 
         private List<UiButton> children = new List<UiButton>();
 
-        public void AddItem(string name, Sprite icon, Action callback, string subtext = null)
+        public UiButton AddItem(string name, Sprite icon, Action callback, string subtext = null)
         {
             var button = CreateButton();
             children.Add(button);
@@ -22,6 +22,18 @@ namespace Nanover.Frontend.UI
             button.Image = icon;
             button.Subtext = subtext ?? "";
             button.OnClick += callback;
+            return button;
+        }
+
+        public UiButton AddItem(string name, string emoji, Action callback, string subtext = null)
+        {
+            var button = CreateButton();
+            children.Add(button);
+            button.Text = name;
+            button.Emoji = emoji;
+            button.Subtext = subtext ?? "";
+            button.OnClick += callback;
+            return button;
         }
 
         private UiButton CreateButton()

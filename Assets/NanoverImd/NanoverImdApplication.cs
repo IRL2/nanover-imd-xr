@@ -1,4 +1,4 @@
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using Essd;
 using Nanover.Core.Math;
 using Nanover.Frontend.Controllers;
@@ -63,7 +63,6 @@ namespace NanoverImd
         private UnityEvent connectionLost;
         [SerializeField]
         private UnityEvent afterCalibration;
-
 #pragma warning restore 0649
 
         public NanoverImdSimulation Simulation => simulation;
@@ -264,7 +263,7 @@ namespace NanoverImd
 
             void OnPressed()
             {
-                if (controllerManager.RightController.HeadPose.Pose is { } pose)
+                if (controllerManager.RightController.CursorPose.Pose is { } pose)
                 {
                     poses.Add(pose);
 

@@ -297,7 +297,7 @@ GameObject:
   - component: {fileID: 28540375}
   - component: {fileID: 28540376}
   m_Layer: 0
-  m_Name: Head Pivot
+  m_Name: Cursor Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4147,7 +4147,7 @@ GameObject:
   m_Component:
   - component: {fileID: 488755928}
   m_Layer: 0
-  m_Name: Head Angle
+  m_Name: Cursor Angle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7841,7 +7841,7 @@ MonoBehaviour:
   controllers: {fileID: 2074532958}
   broadcastCursors: 1
   gizmo: {fileID: 3640672610816993193, guid: 1c71c146c52b75b40b044e66de75be8e, type: 3}
-  anchor: 2
+  anchor: 0
   priority: 0
   bothHands: 1
 --- !u!1 &848849406
@@ -8455,118 +8455,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ec3523c8fda986468a5387b5a36806e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: NanoverImd::NanoverImd.UI.ControllerSnackBar
---- !u!1 &949419497
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 949419501}
-  - component: {fileID: 949419500}
-  - component: {fileID: 949419499}
-  - component: {fileID: 949419498}
-  m_Layer: 0
-  m_Name: Cube
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!65 &949419498
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 949419497}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &949419499
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 949419497}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_MaskInteraction: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &949419500
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 949419497}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &949419501
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 949419497}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &952470910
 GameObject:
   m_ObjectHideFlags: 0
@@ -8815,9 +8703,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18417681407e45fc8e7f6295c81a490c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cursor: {fileID: 1582432138}
+  cursor: {fileID: 1882443842}
   grip: {fileID: 1576478889}
-  head: {fileID: 1882443842}
+  head: {fileID: 1582432138}
   showNotification:
     m_PersistentCalls:
       m_Calls: []
@@ -9731,9 +9619,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18417681407e45fc8e7f6295c81a490c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cursor: {fileID: 1314255420}
+  cursor: {fileID: 28540376}
   grip: {fileID: 952470912}
-  head: {fileID: 28540376}
+  head: {fileID: 1314255420}
   showNotification:
     m_PersistentCalls:
       m_Calls:
@@ -11524,7 +11412,7 @@ GameObject:
   - component: {fileID: 1314255419}
   - component: {fileID: 1314255420}
   m_Layer: 0
-  m_Name: Cursor Pivot
+  m_Name: Head Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12016,7 +11904,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1396409553}
   m_Layer: 0
-  m_Name: Head Angle
+  m_Name: Cursor Angle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12777,7 +12665,7 @@ GameObject:
   - component: {fileID: 1582432137}
   - component: {fileID: 1582432138}
   m_Layer: 0
-  m_Name: Cursor Pivot
+  m_Name: Head Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17489,7 +17377,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7867285928577189556, guid: 5ce1f7023435bfe4994f657b9d8d9612, type: 3}
       propertyPath: anchor
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7867285928577189556, guid: 5ce1f7023435bfe4994f657b9d8d9612, type: 3}
       propertyPath: priority
@@ -18904,7 +18792,7 @@ GameObject:
   - component: {fileID: 1882443841}
   - component: {fileID: 1882443842}
   m_Layer: 0
-  m_Name: Head Pivot
+  m_Name: Cursor Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21855,6 +21743,10 @@ PrefabInstance:
       value: 14.05
       objectReference: {fileID: 0}
     - target: {fileID: 4969003233117326809, guid: f3eac0c1301591843a2e2180567c3f3b, type: 3}
+      propertyPath: anchor
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4969003233117326809, guid: f3eac0c1301591843a2e2180567c3f3b, type: 3}
       propertyPath: controllers
       value: 
       objectReference: {fileID: 2074532958}
@@ -22511,4 +22403,3 @@ SceneRoots:
   - {fileID: 1938083353}
   - {fileID: 1757073662}
   - {fileID: 6751013410290198896}
-  - {fileID: 949419501}

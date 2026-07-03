@@ -49,12 +49,12 @@ namespace NanoverImd.UI
                 }
 
                 string commandName = "";
-                foreach (string part in command.Name.Split('/').Skip(1))
+                foreach (string part in command.Label.Split('/').Skip(1))
                 {
                     commandName += part + "\n";
                 }
 
-                menu.AddItem(commandName, commandIcon, RunCommand);
+                menu.AddItem(commandName, emoji: command.Icon, RunCommand);
             }
 
             // activate the rest of the menu, only if there are commands to show
