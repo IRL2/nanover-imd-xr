@@ -69,8 +69,15 @@ namespace NanoverImd.UI
 
         protected void SetupOutOfSimulationMenu()
         {
-            SetupControllerButton(InputDeviceCharacteristics.Left, leftControllerButton, () => SimulationActive, LaunchButtonTrigger);
-            SetupControllerButton(InputDeviceCharacteristics.Right, rightControllerButton, () => SimulationActive, LaunchButtonTrigger);
+            SetupControllerButton(InputDeviceCharacteristics.Left, 
+                                  leftControllerButton, 
+                                  () => SimulationActive, 
+                                  LaunchButtonTrigger);
+
+            SetupControllerButton(InputDeviceCharacteristics.Right, 
+                                  rightControllerButton, 
+                                  () => SimulationActive, 
+                                  LaunchButtonTrigger);
         }
 
         protected void SetupControllerButton(InputDeviceCharacteristics hand, ControllerButton button, Func<bool> predicate, Action pressed)
