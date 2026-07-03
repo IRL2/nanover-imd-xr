@@ -19,6 +19,14 @@ namespace NanoverImd
             public Mesh mesh;
         }
 
+        [Serializable]
+        public class LineMaterial
+        {
+            public string type;
+            public Material material;
+        }
+
+
 #pragma warning disable 0649
         [SerializeField]
         private NanoverImdApplication application;
@@ -36,6 +44,9 @@ namespace NanoverImd
         [Header("Lines")]
         [SerializeField]
         private LineRenderer lineTemplate;
+
+        [SerializeField]
+        private LineMaterial[] lineMaterials;
 
         [Header("Labels")]
         [SerializeField]
@@ -77,6 +88,11 @@ namespace NanoverImd
             return shapeMeshes.FirstOrDefault(mesh => mesh.shape == shape)?.mesh ?? shapeMeshes[0].mesh;
         }
 
+        private Material GetLineMaterial(string type)
+        {
+            return lineMaterials.FirstOrDefault(template => template.type == type)?.material ?? lineMaterials[0].material;
+        }
+
         private void UpdateRendering()
         {
             var camera = Camera.main;
@@ -99,6 +115,7 @@ namespace NanoverImd
                 model.positionCount = line.Positions.Length;
                 model.SetPositions(line.Positions);
                 model.widthMultiplier = line.Size * scale;
+                model.material = GetLineMaterial(line.Type);// .GetComponent<MeshRenderer>().sharedMaterial;
                 model.material.color = line.Color;
             }
 

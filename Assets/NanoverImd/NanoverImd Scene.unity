@@ -10960,6 +10960,11 @@ MonoBehaviour:
   - shape: cube
     mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   lineTemplate: {fileID: 176545961}
+  lineMaterials:
+  - type: default
+    material: {fileID: 2100000, guid: e07c417ce8c733a419a271f31b8b17a5, type: 2}
+  - type: path
+    material: {fileID: 2100000, guid: 40210b70ee6f80247be00c5b1a233447, type: 2}
   labelTemplate: {fileID: 1297829366}
 --- !u!1 &1270700716
 GameObject:
