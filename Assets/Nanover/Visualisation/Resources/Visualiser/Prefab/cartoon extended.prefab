@@ -1103,8 +1103,8 @@ MonoBehaviour:
     rendererColor:
       value: {r: 0, g: 0, b: 0, a: 0}
       isValueProvided: 0
-    segments: 32
-    sides: 64
+    segments: 8
+    sides: 16
     material: {fileID: 2100000, guid: c1cb68af83b4c504ba08228b450ac643, type: 2}
     splineRadius:
       value: 0

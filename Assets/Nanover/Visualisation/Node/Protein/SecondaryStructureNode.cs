@@ -96,6 +96,14 @@ namespace Nanover.Visualisation.Node.Protein
         [SerializeField]
         private DsspOptions dsspOptions = new DsspOptions();
 
+        /// <summary>
+        /// Recalculate DSSP assignments whenever atom positions change. When disabled,
+        /// assignments are calculated from the first available structure and then reused
+        /// while the trajectory plays.
+        /// </summary>
+        [SerializeField]
+        private bool recalculateOnPositionChange = false;
+
         #endregion
 
         #region Output Properties
@@ -132,6 +140,11 @@ namespace Nanover.Visualisation.Node.Protein
         private bool needRecalculate = true;
 
         /// <summary>
+        /// Has an assignment been calculated for the current residue topology.
+        /// </summary>
+        private bool hasCalculatedSecondaryStructure = false;
+
+        /// <summary>
         /// Set of residue data (positions of hydrogen-bonding involved atoms) for each
         /// residue in each sequence specified in <see cref="PeptideResidueSequences" />.
         /// </summary>
@@ -156,10 +169,15 @@ namespace Nanover.Visualisation.Node.Protein
             {
                 if (IsInputValid)
                 {
+                    var residuesChanged = false;
+
                     if (AreResiduesDirty)
                     {
                         if (AreResiduesValid)
+                        {
                             UpdateResidues();
+                            residuesChanged = true;
+                        }
 
                         atomResidues.IsDirty = false;
                         peptideResidueSequences.IsDirty = false;
@@ -167,14 +185,24 @@ namespace Nanover.Visualisation.Node.Protein
                         residueCount.IsDirty = false;
                     }
 
-                    if (atomPositions.IsDirty)
+                    var shouldUseCurrentPositions = atomPositions.HasNonEmptyValue()
+                                                 && (recalculateOnPositionChange
+                                                  || !hasCalculatedSecondaryStructure
+                                                  || residuesChanged);
+
+                    if (shouldUseCurrentPositions)
                         UpdatePositions();
 
-                    if (needRecalculate || Time.frameCount % 30 == 0)
+                    var shouldRecalculate = needRecalculate
+                                         || (recalculateOnPositionChange
+                                          && Time.frameCount % 30 == 0);
+
+                    if (shouldRecalculate && atomPositions.HasNonEmptyValue())
                     {
                         CalculateSecondaryStructure();
                         CalculateHydrogenBonds();
                         needRecalculate = false;
+                        hasCalculatedSecondaryStructure = true;
                     }
                 }
             }
@@ -190,6 +218,7 @@ namespace Nanover.Visualisation.Node.Protein
                         DsspAlgorithm.GetResidueData(sequence, atomResidues, atomNames));
 
                 needRecalculate = true;
+                hasCalculatedSecondaryStructure = false;
             }
         }
 
