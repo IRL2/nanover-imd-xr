@@ -4,6 +4,7 @@ using Nanover.Frame;
 using Nanover.Visualisation.Properties;
 using Nanover.Visualisation.Properties.Collections;
 using Nanover.Visualisation.Property;
+using Unity.Profiling;
 using UnityEngine;
 
 namespace Nanover.Visualisation.Node.Protein
@@ -14,6 +15,21 @@ namespace Nanover.Visualisation.Node.Protein
     [Serializable]
     public class SecondaryStructureNode
     {
+        private static readonly ProfilerMarker RefreshMarker =
+            new ProfilerMarker("Nanover.SecondaryStructure.Refresh");
+
+        private static readonly ProfilerMarker UpdateResiduesMarker =
+            new ProfilerMarker("Nanover.SecondaryStructure.UpdateResidues");
+
+        private static readonly ProfilerMarker UpdatePositionsMarker =
+            new ProfilerMarker("Nanover.SecondaryStructure.UpdatePositions");
+
+        private static readonly ProfilerMarker CalculateSecondaryStructureMarker =
+            new ProfilerMarker("Nanover.SecondaryStructure.CalculateSecondaryStructure");
+
+        private static readonly ProfilerMarker CalculateHydrogenBondsMarker =
+            new ProfilerMarker("Nanover.SecondaryStructure.CalculateHydrogenBonds");
+
         #region Input Properties
 
         /// <summary>
@@ -136,83 +152,98 @@ namespace Nanover.Visualisation.Node.Protein
 
         public void Refresh()
         {
-            if (IsInputValid)
+            using (RefreshMarker.Auto())
             {
-                if (AreResiduesDirty)
+                if (IsInputValid)
                 {
-                    if (AreResiduesValid)
-                        UpdateResidues();
+                    if (AreResiduesDirty)
+                    {
+                        if (AreResiduesValid)
+                            UpdateResidues();
 
-                    atomResidues.IsDirty = false;
-                    peptideResidueSequences.IsDirty = false;
-                    atomNames.IsDirty = false;
-                    residueCount.IsDirty = false;
-                }
+                        atomResidues.IsDirty = false;
+                        peptideResidueSequences.IsDirty = false;
+                        atomNames.IsDirty = false;
+                        residueCount.IsDirty = false;
+                    }
 
-                if (atomPositions.IsDirty)
-                    UpdatePositions();
+                    if (atomPositions.IsDirty)
+                        UpdatePositions();
 
-                if (needRecalculate || Time.frameCount % 30 == 0)
-                {
-                    CalculateSecondaryStructure();
-                    CalculateHydrogenBonds();
-                    needRecalculate = false;
+                    if (needRecalculate || Time.frameCount % 30 == 0)
+                    {
+                        CalculateSecondaryStructure();
+                        CalculateHydrogenBonds();
+                        needRecalculate = false;
+                    }
                 }
             }
         }
 
         private void UpdateResidues()
         {
-            sequenceResidueData.Clear();
-            foreach (var sequence in peptideResidueSequences.Value)
-                sequenceResidueData.Add(
-                    DsspAlgorithm.GetResidueData(sequence, atomResidues, atomNames));
+            using (UpdateResiduesMarker.Auto())
+            {
+                sequenceResidueData.Clear();
+                foreach (var sequence in peptideResidueSequences.Value)
+                    sequenceResidueData.Add(
+                        DsspAlgorithm.GetResidueData(sequence, atomResidues, atomNames));
 
-            needRecalculate = true;
+                needRecalculate = true;
+            }
         }
 
         private void CalculateSecondaryStructure()
         {
-            foreach (var peptideSequence in sequenceResidueData)
-                DsspAlgorithm.CalculateSecondaryStructure(peptideSequence, dsspOptions);
+            using (CalculateSecondaryStructureMarker.Auto())
+            {
+                foreach (var peptideSequence in sequenceResidueData)
+                    DsspAlgorithm.CalculateSecondaryStructure(peptideSequence, dsspOptions);
 
-            residueSecondaryStructure.Resize(residueCount.Value);
+                residueSecondaryStructure.Resize(residueCount.Value);
 
-            foreach (var sequence in sequenceResidueData)
-            foreach (var data in sequence)
-                residueSecondaryStructure.Value[data.ResidueIndex] = data.SecondaryStructure;
+                foreach (var sequence in sequenceResidueData)
+                foreach (var data in sequence)
+                    residueSecondaryStructure.Value[data.ResidueIndex] = data.SecondaryStructure;
 
-            residueSecondaryStructure.MarkValueAsChanged();
+                residueSecondaryStructure.MarkValueAsChanged();
+            }
         }
 
         private BondPair[] hydrogrenBondsArray = new BondPair[0];
 
         private void CalculateHydrogenBonds()
         {
-            int count = 0;
-            foreach (var sequence in sequenceResidueData)
-                foreach (var data in sequence)
-                    if (data.DonorHydrogenBondResidue != null)
-                        count += 1;
+            using (CalculateHydrogenBondsMarker.Auto())
+            {
+                int count = 0;
+                foreach (var sequence in sequenceResidueData)
+                    foreach (var data in sequence)
+                        if (data.DonorHydrogenBondResidue != null)
+                            count += 1;
 
-            if (count != hydrogrenBondsArray.Length)
-                hydrogrenBondsArray = new BondPair[count];
+                if (count != hydrogrenBondsArray.Length)
+                    hydrogrenBondsArray = new BondPair[count];
 
-            int next = 0;
-            foreach (var sequence in sequenceResidueData)
-                foreach (var data in sequence)
-                    if (data.DonorHydrogenBondResidue != null)
-                        hydrogrenBondsArray[next++] = new BondPair(data.OxygenIndex, data.DonorHydrogenBondResidue.NitrogenIndex);
+                int next = 0;
+                foreach (var sequence in sequenceResidueData)
+                    foreach (var data in sequence)
+                        if (data.DonorHydrogenBondResidue != null)
+                            hydrogrenBondsArray[next++] = new BondPair(data.OxygenIndex, data.DonorHydrogenBondResidue.NitrogenIndex);
 
-            hydrogenBonds.Value = hydrogrenBondsArray;
+                hydrogenBonds.Value = hydrogrenBondsArray;
+            }
         }
 
         private void UpdatePositions()
         {
-            foreach (var t in sequenceResidueData)
-                DsspAlgorithm.UpdateResidueAtomPositions(atomPositions.Value, t);
+            using (UpdatePositionsMarker.Auto())
+            {
+                foreach (var t in sequenceResidueData)
+                    DsspAlgorithm.UpdateResidueAtomPositions(atomPositions.Value, t);
 
-            needRecalculate = true;
+                needRecalculate = true;
+            }
         }
     }
 }

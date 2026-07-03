@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Nanover.Frame;
 using Nanover.Visualisation.Node.Adaptor;
 using Nanover.Visualisation.Property;
+using Unity.Profiling;
 
 namespace Nanover.Visualisation.Components.Adaptor
 {
@@ -10,6 +11,9 @@ namespace Nanover.Visualisation.Components.Adaptor
     public class FrameAdaptorComponent<TAdaptor> : VisualisationComponent<TAdaptor>, IDynamicPropertyProvider
         where TAdaptor : BaseAdaptorNode, new()
     {
+        private static readonly ProfilerMarker UpdateMarker =
+            new ProfilerMarker("Nanover.FrameAdaptorComponent.Update");
+
         /// <summary>
         /// The wrapped <see cref="FrameAdaptor" />.
         /// </summary>
@@ -23,7 +27,8 @@ namespace Nanover.Visualisation.Components.Adaptor
 
         private void Update()
         {
-            node.Refresh();
+            using (UpdateMarker.Auto())
+                node.Refresh();
         }
 
         /// <inheritdoc cref="IDynamicPropertyProvider.GetPotentialProperties" />

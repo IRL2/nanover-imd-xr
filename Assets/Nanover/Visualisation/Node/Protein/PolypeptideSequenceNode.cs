@@ -5,6 +5,7 @@ using Nanover.Core.Science;
 using Nanover.Visualisation.Properties;
 using Nanover.Visualisation.Properties.Collections;
 using Nanover.Visualisation.Property;
+using Unity.Profiling;
 using UnityEngine;
 
 namespace Nanover.Visualisation.Node.Protein
@@ -16,6 +17,12 @@ namespace Nanover.Visualisation.Node.Protein
     [Serializable]
     public class PolypeptideSequenceNode : GenericOutputNode
     {
+        private static readonly ProfilerMarker UpdateOutputMarker =
+            new ProfilerMarker("Nanover.PolypeptideSequence.UpdateOutput");
+
+        private static readonly ProfilerMarker CalculateSequencesMarker =
+            new ProfilerMarker("Nanover.PolypeptideSequence.CalculateSequences");
+
         public IProperty<string[]> AtomNames => atomNames;
         
         /// <summary>
@@ -89,13 +96,16 @@ namespace Nanover.Visualisation.Node.Protein
         /// <inheritdoc cref="UpdateOutput" />
         protected override void UpdateOutput()
         {
-            var (resSequences, alphaSequences) = CalculateSequences(residueNames.Value,
-                                                                    atomNames.Value,
-                                                                    atomResidues.Value,
-                                                                    residueEntities.Value);
-            residueSequences.Value = resSequences;
-            alphaCarbonSequences.Value = alphaSequences.SelectMany(i => i).ToArray();
-            sequenceLengths.Value = alphaSequences.Select(i => i.Count).ToArray();
+            using (UpdateOutputMarker.Auto())
+            {
+                var (resSequences, alphaSequences) = CalculateSequences(residueNames.Value,
+                                                                        atomNames.Value,
+                                                                        atomResidues.Value,
+                                                                        residueEntities.Value);
+                residueSequences.Value = resSequences;
+                alphaCarbonSequences.Value = alphaSequences.SelectMany(i => i).ToArray();
+                sequenceLengths.Value = alphaSequences.Select(i => i.Count).ToArray();
+            }
         }
 
         /// <summary>
@@ -107,41 +117,44 @@ namespace Nanover.Visualisation.Node.Protein
                                int[] atomResidues,
                                int[] residueEntities)
         {
-            var residueSequences = new List<IReadOnlyList<int>>();
-            var alphaCarbonSequences = new List<IReadOnlyList<int>>();
-            var currentResidues = new List<int>();
-            var currentAlphaCarbons = new List<int>();
-            var currentEntity = -1;
-
-            for (var atom = 0; atom < atomNames.Length; atom++)
+            using (CalculateSequencesMarker.Auto())
             {
-                if (!string.Equals(atomNames[atom], "ca",
-                                   StringComparison.InvariantCultureIgnoreCase))
-                    continue;
-                var residue = atomResidues[atom];
-                //if (!AminoAcid.IsStandardAminoAcid(residueNames[residue]))
-                //    continue;
-                var entity = residueEntities[residue];
-                if (currentEntity != entity && currentResidues.Any())
+                var residueSequences = new List<IReadOnlyList<int>>();
+                var alphaCarbonSequences = new List<IReadOnlyList<int>>();
+                var currentResidues = new List<int>();
+                var currentAlphaCarbons = new List<int>();
+                var currentEntity = -1;
+
+                for (var atom = 0; atom < atomNames.Length; atom++)
+                {
+                    if (!string.Equals(atomNames[atom], "ca",
+                                       StringComparison.InvariantCultureIgnoreCase))
+                        continue;
+                    var residue = atomResidues[atom];
+                    //if (!AminoAcid.IsStandardAminoAcid(residueNames[residue]))
+                    //    continue;
+                    var entity = residueEntities[residue];
+                    if (currentEntity != entity && currentResidues.Any())
+                    {
+                        residueSequences.Add(currentResidues);
+                        alphaCarbonSequences.Add(currentAlphaCarbons);
+                        currentResidues = new List<int>();
+                        currentAlphaCarbons = new List<int>();
+                    }
+
+                    currentEntity = entity;
+                    currentResidues.Add(residue);
+                    currentAlphaCarbons.Add(atom);
+                }
+
+                if (currentResidues.Any())
                 {
                     residueSequences.Add(currentResidues);
                     alphaCarbonSequences.Add(currentAlphaCarbons);
-                    currentResidues = new List<int>();
-                    currentAlphaCarbons = new List<int>();
                 }
 
-                currentEntity = entity;
-                currentResidues.Add(residue);
-                currentAlphaCarbons.Add(atom);
+                return (residueSequences.ToArray(), alphaCarbonSequences.ToArray());
             }
-
-            if (currentResidues.Any())
-            {
-                residueSequences.Add(currentResidues);
-                alphaCarbonSequences.Add(currentAlphaCarbons);
-            }
-
-            return (residueSequences.ToArray(), alphaCarbonSequences.ToArray());
         }
 
         /// <inheritdoc cref="ClearOutput" />

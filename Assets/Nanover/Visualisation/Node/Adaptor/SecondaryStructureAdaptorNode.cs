@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Nanover.Visualisation.Node.Protein;
 using Nanover.Visualisation.Properties.Collections;
 using Nanover.Visualisation.Property;
+using Unity.Profiling;
 using UnityEngine;
 
 namespace Nanover.Visualisation.Node.Adaptor
@@ -13,6 +14,18 @@ namespace Nanover.Visualisation.Node.Adaptor
     [Serializable]
     public class SecondaryStructureAdaptorNode : ParentedAdaptorNode
     {
+        private static readonly ProfilerMarker RefreshMarker =
+            new ProfilerMarker("Nanover.SecondaryStructureAdaptor.Refresh");
+
+        private static readonly ProfilerMarker ParentRefreshMarker =
+            new ProfilerMarker("Nanover.SecondaryStructureAdaptor.ParentRefresh");
+
+        private static readonly ProfilerMarker PolypeptideRefreshMarker =
+            new ProfilerMarker("Nanover.SecondaryStructureAdaptor.PolypeptideSequenceRefresh");
+
+        private static readonly ProfilerMarker SecondaryStructureRefreshMarker =
+            new ProfilerMarker("Nanover.SecondaryStructureAdaptor.SecondaryStructureRefresh");
+
         internal PolypeptideSequenceNode polypeptideSequence = new PolypeptideSequenceNode();
         internal SecondaryStructureNode secondaryStructure = new SecondaryStructureNode();
 
@@ -42,9 +55,15 @@ namespace Nanover.Visualisation.Node.Adaptor
         /// <inheritdoc cref="BaseAdaptorNode.Refresh"/>
         public override void Refresh()
         {
-            base.Refresh();
-            polypeptideSequence.Refresh();
-            secondaryStructure.Refresh();
+            using (RefreshMarker.Auto())
+            {
+                using (ParentRefreshMarker.Auto())
+                    base.Refresh();
+                using (PolypeptideRefreshMarker.Auto())
+                    polypeptideSequence.Refresh();
+                using (SecondaryStructureRefreshMarker.Auto())
+                    secondaryStructure.Refresh();
+            }
         }
 
         private const string ResidueSecondaryStructureKey = "residue.secondarystructures";
