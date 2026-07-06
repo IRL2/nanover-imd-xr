@@ -15,6 +15,10 @@ namespace Nanover.Frontend.UI
         [SerializeField]
         private Image icon;
 
+        [Tooltip("The text component that will display the emoji.")]
+        [SerializeField]
+        private TMP_Text emoji;
+
         [Tooltip("The text component that will display the label.")]
         [SerializeField]
         private TMP_Text text;
@@ -51,6 +55,26 @@ namespace Nanover.Frontend.UI
                 {
                     icon.enabled = true;
                     icon.sprite = value;
+                }
+            }
+        }
+
+        /// <summary>
+        /// The sprite that will display as an icon for the button.
+        /// </summary>
+        public string Emoji
+        {
+            set
+            {
+                if (value == null)
+                {
+                    emoji.enabled = false;
+                }
+                else
+                {
+                    icon.enabled = false;
+                    emoji.enabled = true;
+                    emoji.text = value;
                 }
             }
         }

@@ -47,7 +47,7 @@ namespace NanoverImd.UI.Scene
                 var index = i;
 
                 menu.AddItem(simulations[i], 
-                             null, 
+                             icon: null,
                              () => application.Simulation.Trajectory.SetSimulationIndex(index));
             }
         }
