@@ -48,12 +48,7 @@ namespace NanoverImd.UI
                         notifiedController.PushNotification($"Completed {command.Name}");
                 }
 
-                string commandName = "";
-                foreach (string part in command.Label.Split('/').Skip(1))
-                {
-                    commandName += part + "\n";
-                }
-
+                string commandName = command.Label ?? string.Join("\n", command.Name.Split('/').Skip(1));
                 menu.AddItem(commandName, emoji: command.Icon, RunCommand);
             }
 
