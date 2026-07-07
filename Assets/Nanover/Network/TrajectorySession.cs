@@ -172,9 +172,9 @@ namespace Nanover.Network.Trajectory
                     return new CommandDefinition
                     {
                         Name = dict["name"] as string,
-                        Label = dict["label"] as string,
-                        Icon = dict["icon"] as string,
-                        Arguments = dict["arguments"] as CommandArguments,
+                        Label = dict.GetValueOrDefault("label", null) as string,
+                        Icon = dict.GetValueOrDefault("icon", "❓") as string,
+                        Arguments = dict.GetValueOrDefault("arguments", null) as CommandArguments,
                     };
                 }
             }
