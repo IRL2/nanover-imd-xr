@@ -1,6 +1,10 @@
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Diagnostics;
+using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Nanover.Core.Serialization
 {
@@ -25,6 +29,28 @@ namespace Nanover.Core.Serialization
         {
             switch (obj)
             {
+                // why
+                case JValue jvalue:
+                    foreach (var v in Iterate(jvalue.Value))
+                        yield return v;
+                    break;
+                case JObject jobject:
+                    yield return (JsonToken.StartObject, null);
+                    foreach (var (key, value) in jobject)
+                    {
+                        yield return (JsonToken.PropertyName, key);
+                        foreach (var v in Iterate(value))
+                            yield return v;
+                    }
+                    yield return (JsonToken.EndObject, null);
+                    break;
+                case JArray jarray:
+                    yield return (JsonToken.StartArray, null);
+                    foreach (var item in jarray)
+                        foreach (var v in Iterate(item))
+                            yield return v;
+                    yield return (JsonToken.EndArray, null);
+                    break;
                 case IReadOnlyDictionary<object, object> dictAnnoying:
                     yield return (JsonToken.StartObject, null);
                     foreach (var (key, value) in dictAnnoying)
@@ -59,6 +85,9 @@ namespace Nanover.Core.Serialization
                     yield return (JsonToken.Boolean, bol);
                     break;
                 case int nt:
+                    yield return (JsonToken.Integer, nt);
+                    break;
+                case Int64 nt:
                     yield return (JsonToken.Integer, nt);
                     break;
                 case UInt64 nt:

@@ -1,3 +1,4 @@
+using Nanover.Core.Serialization;
 using Nanover.Frontend.UI;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,20 +17,18 @@ namespace NanoverImd.UI
 
         [SerializeField]
         private GameObject sliderElement;
-        
-        public void Configure(Dictionary<string, object> data)
+
+        public void Configure(AdhocElementData data)
         {
             Clear();
 
-            if (data.GetValueOrDefault("type") is not string type)
-                return;
-
-            if (type == "header")
-                ConfigureAsHeader(data.GetValueOrDefault("label") as string);
-            else if (type == "button")
-                ConfigureAsButton(data.GetValueOrDefault("label") as string);
-            else if (type == "slider")
-                ConfigureAsSlider(data.GetValueOrDefault("label") as string);
+            if (data.Type == "header") { 
+                ConfigureAsHeader(Serialization.FromDataStructure<AdhocHeaderData>(data.Other));
+            } else if (data.Type == "button") { 
+                ConfigureAsButton(Serialization.FromDataStructure<AdhocButtonData>(data.Other));
+            } else if (data.Type == "slider") {
+                ConfigureAsSlider(Serialization.FromDataStructure<AdhocSliderData>(data.Other));
+            }
         }
 
         private void Clear()
@@ -39,19 +38,19 @@ namespace NanoverImd.UI
             sliderElement.gameObject.SetActive(false);
         }
 
-        public void ConfigureAsHeader(string label)
+        public void ConfigureAsHeader(AdhocHeaderData data)
         {
             headerElement.gameObject.SetActive(true);
-            headerElement.text = label;
+            headerElement.text = data.Label;
         }
 
-        public void ConfigureAsButton(string label)
+        public void ConfigureAsButton(AdhocButtonData data)
         {
             buttonElement.gameObject.SetActive(true);
-            buttonElement.Text = label;
+            buttonElement.Text = data.Label;
         }
 
-        public void ConfigureAsSlider(string label)
+        public void ConfigureAsSlider(AdhocSliderData data)
         {
             sliderElement.gameObject.SetActive(true);
         }

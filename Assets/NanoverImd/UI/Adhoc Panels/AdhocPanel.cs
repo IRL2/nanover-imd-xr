@@ -1,8 +1,11 @@
+using Nanover.Core;
+using Nanover.Core.Serialization;
 using Nanover.Frontend.Utility;
+using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using UnityEngine;
 using Text = TMPro.TextMeshProUGUI;
-using Nanover.Core;
 
 namespace NanoverImd.UI
 {
@@ -31,27 +34,56 @@ namespace NanoverImd.UI
 
         private void Start()
         {
-            var panel = app.Simulation.Multiplayer.SharedStateDictionary.GetValueOrDefault<Dictionary<string, object>>("panel.test");
-            if (panel != null)
-                Configure(panel);
-
-            //Configure(new Dictionary<string, object>()
-            //{
-            //    { "label", "COOL PANEL" },
-            //    { "elements", new Dictionary<string, object>[] {
-            //        new Dictionary<string, object> { { "type", "header" }, { "label", "nice controls" } },
-            //        new Dictionary<string, object> { { "type", "slider" }, { "label", "no label" } },
-            //        new Dictionary<string, object> { { "type", "button" }, { "label", "epic action" } },
-            //    }},
-            //});
+            var data = app.Simulation.Multiplayer.SharedStateDictionary.GetValueOrDefault<Dictionary<string, object>>("panel.test");
+            if (data != null)
+                Configure(Serialization.FromDataStructure<AdhocPanelData>(data));
         }
 
-        public void Configure(Dictionary<string, object> data)
+        public void Configure(AdhocPanelData data)
         {
-            titleText.text = data.GetValueOrDefault<string>("label") ?? "Unnamed Panel";
-            
-            var elements = data.GetValueOrDefault<object[]>("elements") ?? new object[] { };
-            elementPool.MapConfig(elements, (data, element) => element.Configure(data as Dictionary<string, object>));
+            titleText.text = data.Label ?? "Unnamed Panel";
+            elementPool.MapConfig(data.Elements, (data, element) => element.Configure(data));
         }
+    }
+
+    [DataContract]
+    public class AdhocPanelData
+    {
+        [DataMember(Name="label")]
+        public string Label { get; set; }
+
+        [DataMember(Name="elements")]
+        public List<AdhocElementData> Elements { get; set; } = new List<AdhocElementData>();
+    }
+
+    [DataContract]
+    public class AdhocElementData
+    {
+        [DataMember(Name ="type")]
+        public string Type { get; set; }
+
+        [JsonExtensionData]
+        public Dictionary<string, object> Other = new Dictionary<string, object>();
+    }
+
+    [DataContract]
+    public class AdhocHeaderData : AdhocElementData
+    {
+        [DataMember(Name="label")]
+        public string Label { get; set; }
+    }
+
+    [DataContract]
+    public class AdhocButtonData : AdhocElementData
+    {
+        [DataMember(Name="label")]
+        public string Label { get; set; }
+    }
+
+    [DataContract]
+    public class AdhocSliderData : AdhocElementData
+    {
+        [DataMember(Name="label")]
+        public string Label { get; set; }
     }
 }
