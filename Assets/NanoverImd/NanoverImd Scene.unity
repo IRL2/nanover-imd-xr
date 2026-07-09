@@ -21668,6 +21668,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 54429685}
+    - target: {fileID: 3973504052225277241, guid: f3eac0c1301591843a2e2180567c3f3b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -22.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3973504052225277241, guid: f3eac0c1301591843a2e2180567c3f3b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4081689633528927057, guid: f3eac0c1301591843a2e2180567c3f3b, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

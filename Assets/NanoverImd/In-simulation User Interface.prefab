@@ -5061,11 +5061,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7523417573825922519, guid: b4d80313b9a5cfe4abacfeb59f5d06c8, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.98078537
       objectReference: {fileID: 0}
     - target: {fileID: 7523417573825922519, guid: b4d80313b9a5cfe4abacfeb59f5d06c8, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0.19509031
       objectReference: {fileID: 0}
     - target: {fileID: 7523417573825922519, guid: b4d80313b9a5cfe4abacfeb59f5d06c8, type: 3}
       propertyPath: m_LocalRotation.y

@@ -52,14 +52,13 @@ namespace NanoverImd.UI
             var data = app.Simulation.Multiplayer.SharedStateDictionary.GetValueOrDefault<Dictionary<string, object>>("panel.test");
             if (data != null)
                 Configure(Serialization.FromDataStructure<AdhocPanelData>(data));
-            else
-                gameObject.SetActive(false);
+            
+            gameObject.SetActive(data != null);
         }
 
         public void Configure()
         {
-            titleText.text = "No Panel";
-            elementPool.SetActiveInstanceCount(0);
+            TestConfigure();
         }
 
         public void Configure(AdhocPanelData data)

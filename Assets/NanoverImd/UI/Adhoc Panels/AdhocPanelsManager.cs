@@ -29,7 +29,7 @@ namespace NanoverImd.UI
             {
                 if (key == "panel.test")
                     foreach (var panel in panels)
-                        panel.Configure(Serialization.FromDataStructure<AdhocPanelData>(value));
+                        panel.Configure();
                 else if (key.StartsWith("variable."))
                     foreach (var panel in panels)
                         panel.OnVariableUpdated(key, value);
