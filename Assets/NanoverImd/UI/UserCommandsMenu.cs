@@ -48,13 +48,8 @@ namespace NanoverImd.UI
                         notifiedController.PushNotification($"Completed {command.Name}");
                 }
 
-                string commandName = "";
-                foreach (string part in command.Name.Split('/').Skip(1))
-                {
-                    commandName += part + "\n";
-                }
-
-                menu.AddItem(commandName, commandIcon, RunCommand);
+                string commandName = command.Label ?? string.Join("\n", command.Name.Split('/').Skip(1));
+                menu.AddItem(commandName, emoji: command.Icon, RunCommand);
             }
 
             // activate the rest of the menu, only if there are commands to show

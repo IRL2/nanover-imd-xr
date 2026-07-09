@@ -146,7 +146,7 @@ namespace NanoverImd
 
                 foreach (var command in simulation.Trajectory.CommandDefinitions.Values.Where(command => command.Name.StartsWith("user/")))
                 {
-                    if (GUILayout.Button(command.Name))
+                    if (GUILayout.Button(command.Name + " " + command.Icon))
                         simulation.Trajectory.RunCommand(command.Name, new Dictionary<string, object>());
                 }
             }
