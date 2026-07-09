@@ -1,22 +1,18 @@
 ﻿using Nanover.Core.Math;
-using Nanover.Frontend.Controllers;
 using Nanover.Frontend.Input;
 using Nanover.Frontend.Utility;
 using Nanover.Frontend.XR;
 using Nanover.Network.Multiplayer;
 using NanoverImd.UI;
-using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.XR;
-using static UnityEngine.XR.Interaction.Toolkit.Inputs.XRInputTrackingAggregator;
 
 namespace NanoverImd
 {
     public class NanoverImdAvatarManager : MonoBehaviour
     {
-#pragma warning disable 0649
         [SerializeField]
         private NanoverImdApplication application;
         
@@ -28,7 +24,6 @@ namespace NanoverImd
 
         [SerializeField]
         private AvatarModel controllerPrefab;
-#pragma warning restore 0649
         
         private IndexedPool<AvatarModel> headsetObjects;
         private IndexedPool<AvatarModel> controllerObjects;
