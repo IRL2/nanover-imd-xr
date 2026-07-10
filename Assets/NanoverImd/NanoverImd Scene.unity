@@ -6210,7 +6210,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e07c417ce8c733a419a271f31b8b17a5, type: 2}
+  - {fileID: 2100000, guid: b40bea28562bcec41991d80e4f61298b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10956,9 +10956,11 @@ MonoBehaviour:
   shapeTemplate: {fileID: 679653415}
   shapeMeshes:
   - shape: sphere
-    mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+    mesh: {fileID: -2432090755550338912, guid: f6daf548f7b3b9048b753e16fa3e384d, type: 3}
   - shape: cube
     mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  - shape: wireframe-cube
+    mesh: {fileID: -2432090755550338912, guid: 6b76ad33a6fda94418fb19bcc7066c10, type: 3}
   lineTemplate: {fileID: 176545961}
   lineMaterials:
   - type: default
