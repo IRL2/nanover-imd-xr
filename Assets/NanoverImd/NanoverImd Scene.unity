@@ -1143,6 +1143,7 @@ GameObject:
   m_Component:
   - component: {fileID: 176545960}
   - component: {fileID: 176545961}
+  - component: {fileID: 176545962}
   m_Layer: 0
   m_Name: Line Template
   m_TagString: Untagged
@@ -1275,6 +1276,25 @@ LineRenderer:
   m_UseWorldSpace: 0
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &176545962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176545959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd2c8761134ad54468f0b99a8f099583, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: NanoverImd::LineToSplineTest
+  lineRenderer: {fileID: 176545961}
+  Scale: 0
+  Color: {r: 0, g: 0, b: 0, a: 0}
+  atomMaterial: {fileID: 2100000, guid: 81f75697c88f4f949a3d2c40e9a7bae3, type: 2}
+  atomMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  bondMaterial: {fileID: 2100000, guid: 7f653e67cac15f746b24ba053d1b89e1, type: 2}
+  bondMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &185265281
 GameObject:
   m_ObjectHideFlags: 0

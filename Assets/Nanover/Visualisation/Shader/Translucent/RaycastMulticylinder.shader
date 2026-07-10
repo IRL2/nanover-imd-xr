@@ -7,6 +7,7 @@ Shader "NanoverIMD/Translucent/Raycast Multiple Cylinders"
         _Diffuse ("Diffuse", Range(0, 1)) = 0.5
         _Shrink ("Shrink Factor", Range(0, 1)) = 0.8
         _Spacing ("Spacing", Float) = 1
+        _GradientWidth ("Gradient Width", Range(0, 1)) = 1
     }
     SubShader
     {
