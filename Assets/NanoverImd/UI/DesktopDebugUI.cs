@@ -39,12 +39,17 @@ namespace NanoverImd
         private Vector2 currentGuiAreaOrigin;
         private Vector2 fallbackMouseGuiPosition;
         private bool fallbackMouseWasDown;
-        private bool fallbackMouseDownThisFrame;
+        private bool fallbackMousePressedThisFrame;
+        private bool fallbackMouseReleasedThisFrame;
         private bool fallbackClickConsumed;
         private int fallbackMouseFrame = -1;
+        private int buttonIndex;
+        private int fallbackPressedButtonIndex = -1;
+        private int pendingFallbackButtonIndex = -1;
 
         private void OnGUI()
         {
+            buttonIndex = 0;
             UpdateFallbackMouseState();
 
             BeginDebugArea(new Rect(16, 16, 192, 1024));
@@ -75,24 +80,13 @@ namespace NanoverImd
 
             if (DebugButton("Manual"))
             {
-                directConnect = !directConnect;
+                directConnect = true;
             }
 
             if (DebugButton("Discover"))
             {
-                discovery = !discovery;
-
-                if (discovery)
-                {
-                    //WebsocketDiscovery.DiscoverWebsocketServers("").ContinueWith(result => knownWebSockets = result);
-
-                    var client = new Client();
-                    knownServiceHubs = client
-                        .SearchForServices(500)
-                        .GroupBy(hub => hub.Id)
-                        .Select(group => group.First())
-                        .ToList();
-                }
+                discovery = true;
+                RefreshServiceDiscovery();
             }
 
             if (DebugButton("Disconnect"))
@@ -205,14 +199,7 @@ namespace NanoverImd
 
             if (DebugButton("Search"))
             {
-                //WebsocketDiscovery.DiscoverWebsocketServers("").ContinueWith(result => knownWebSockets = result);
-
-                var client = new Client();
-                knownServiceHubs = client
-                    .SearchForServices(500)
-                    .GroupBy(hub => hub.Id)
-                    .Select(group => group.First())
-                    .ToList();
+                RefreshServiceDiscovery();
             }
 
             if (DebugButton("Cancel"))
@@ -257,6 +244,18 @@ namespace NanoverImd
                  : (int?) null;
         }
 
+        private void RefreshServiceDiscovery()
+        {
+            //WebsocketDiscovery.DiscoverWebsocketServers("").ContinueWith(result => knownWebSockets = result);
+
+            var client = new Client();
+            knownServiceHubs = client
+                .SearchForServices(500)
+                .GroupBy(hub => hub.Id)
+                .Select(group => group.First())
+                .ToList();
+        }
+
         private void BeginDebugArea(Rect area)
         {
             currentGuiAreaOrigin = area.position;
@@ -265,13 +264,40 @@ namespace NanoverImd
 
         private bool DebugButton(string label)
         {
+            var currentButtonIndex = buttonIndex++;
             var clicked = GUILayout.Button(label);
             var rect = GUILayoutUtility.GetLastRect();
 
-            if (!clicked && IsFallbackClicked(rect))
+            if (clicked)
+            {
+                ClearFallbackClick(currentButtonIndex);
+            }
+            else if (ConsumePendingFallbackClick(currentButtonIndex))
+            {
                 clicked = true;
+            }
+
+            QueueFallbackClick(currentButtonIndex, rect);
 
             return clicked;
+        }
+
+        private bool ConsumePendingFallbackClick(int currentButtonIndex)
+        {
+            if (Event.current.type != EventType.Layout || pendingFallbackButtonIndex != currentButtonIndex)
+                return false;
+
+            pendingFallbackButtonIndex = -1;
+            return true;
+        }
+
+        private void ClearFallbackClick(int currentButtonIndex)
+        {
+            if (pendingFallbackButtonIndex == currentButtonIndex)
+                pendingFallbackButtonIndex = -1;
+
+            if (fallbackPressedButtonIndex == currentButtonIndex)
+                fallbackPressedButtonIndex = -1;
         }
 
         private void UpdateFallbackMouseState()
@@ -285,34 +311,48 @@ namespace NanoverImd
             var mouse = Mouse.current;
             if (mouse == null)
             {
-                fallbackMouseDownThisFrame = false;
+                fallbackMousePressedThisFrame = false;
+                fallbackMouseReleasedThisFrame = false;
                 fallbackMouseWasDown = false;
+                fallbackPressedButtonIndex = -1;
                 return;
             }
 
             var isDown = mouse.leftButton.isPressed;
-            fallbackMouseDownThisFrame = isDown && !fallbackMouseWasDown;
+            fallbackMousePressedThisFrame = isDown && !fallbackMouseWasDown;
+            fallbackMouseReleasedThisFrame = !isDown && fallbackMouseWasDown;
             fallbackMouseWasDown = isDown;
 
             var mousePosition = mouse.position.ReadValue();
             fallbackMouseGuiPosition = new Vector2(mousePosition.x, Screen.height - mousePosition.y);
 #else
-            fallbackMouseDownThisFrame = false;
+            fallbackMousePressedThisFrame = false;
+            fallbackMouseReleasedThisFrame = false;
             fallbackMouseWasDown = false;
+            fallbackPressedButtonIndex = -1;
 #endif
         }
 
-        private bool IsFallbackClicked(Rect localRect)
+        private void QueueFallbackClick(int currentButtonIndex, Rect localRect)
         {
-            if (Event.current.type != EventType.Repaint || !fallbackMouseDownThisFrame || fallbackClickConsumed)
-                return false;
+            if (Event.current.type != EventType.Repaint || fallbackClickConsumed)
+                return;
 
             var localMousePosition = fallbackMouseGuiPosition - currentGuiAreaOrigin;
-            if (!localRect.Contains(localMousePosition))
-                return false;
+            var containsMouse = localRect.Contains(localMousePosition);
 
+            if (fallbackMousePressedThisFrame && containsMouse)
+                fallbackPressedButtonIndex = currentButtonIndex;
+
+            if (!fallbackMouseReleasedThisFrame)
+                return;
+
+            if (fallbackPressedButtonIndex != currentButtonIndex || !containsMouse)
+                return;
+
+            pendingFallbackButtonIndex = currentButtonIndex;
+            fallbackPressedButtonIndex = -1;
             fallbackClickConsumed = true;
-            return true;
         }
     }
 }
