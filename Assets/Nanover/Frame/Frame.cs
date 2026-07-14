@@ -17,6 +17,7 @@ namespace Nanover.Frame
         public const string ParticleTypeArrayKey = "particle.types";
         public const string ParticleNameArrayKey = "particle.names";
         public const string ParticleResidueArrayKey = "particle.residues";
+        public const string ParticleColorArrayKey = "particle.colors";
         public const string ParticleCountValueKey = "particle.count";
 
         public const string ResidueNameArrayKey = "residue.names";
