@@ -96,15 +96,17 @@ namespace Nanover.Network.Frame
 
         public static Color[] BytesToColorArray(byte[] bytes)
         {
-            var colors = new Color[bytes.Length / sizeof(float) / 4];
+            var colors = new Color[bytes.Length / 4];
 
             for (int i = 0; i < colors.Length; ++i)
-                colors[i] = new Color(
-                    BitConverter.ToSingle(bytes, (i * 4 + 0) * sizeof(float)),
-                    BitConverter.ToSingle(bytes, (i * 4 + 1) * sizeof(float)),
-                    BitConverter.ToSingle(bytes, (i * 4 + 2) * sizeof(float)),
-                    BitConverter.ToSingle(bytes, (i * 4 + 3) * sizeof(float))
+            {
+                colors[i] = new Color32(
+                    bytes[i * 4 + 0],
+                    bytes[i * 4 + 1],
+                    bytes[i * 4 + 2],
+                    bytes[i * 4 + 3]
                 );
+            }
 
             return colors;
         }
