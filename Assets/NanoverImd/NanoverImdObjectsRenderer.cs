@@ -119,8 +119,9 @@ namespace NanoverImd
                 model.positionCount = line.Positions.Length;
                 model.SetPositions(line.Positions);
                 model.widthMultiplier = line.Size * scale;
-                model.material = template.material;
-                model.material.color = line.Color;
+                model.sharedMaterial = template.material;
+                model.startColor = line.Color;
+                model.endColor = line.Color;
             }
 
             void UpdateLabel(MultiplayerObjectLabel label, Text model)
