@@ -49,6 +49,7 @@ namespace Nanover.Network.Frame
                 [FrameData.ParticlePositionArrayKey] = (value) => Converters.BytesToVector3Array((byte[])value),
                 [FrameData.ParticleElementArrayKey] = (value) => Converters.BytesToElementArray((byte[])value),
                 [FrameData.ParticleResidueArrayKey] = (value) => Converters.BytesToUInt32((byte[])value),
+                [FrameData.ParticleColorArrayKey] = (value) => Converters.BytesToColorArray((byte[])value),
                 [FrameData.ResidueChainArrayKey] = (value) => Converters.BytesToUInt32((byte[])value),
 
                 [FrameData.ParticleNameArrayKey] = (value) => ((object[])value).Cast<string>().ToArray(),
@@ -91,6 +92,23 @@ namespace Nanover.Network.Frame
                 );
 
             return vec3;
+        }
+
+        public static Color[] BytesToColorArray(byte[] bytes)
+        {
+            var colors = new Color[bytes.Length / 4];
+
+            for (int i = 0; i < colors.Length; ++i)
+            {
+                colors[i] = new Color32(
+                    bytes[i * 4 + 0],
+                    bytes[i * 4 + 1],
+                    bytes[i * 4 + 2],
+                    bytes[i * 4 + 3]
+                );
+            }
+
+            return colors;
         }
 
         public static Element[] BytesToElementArray(byte[] bytes)
