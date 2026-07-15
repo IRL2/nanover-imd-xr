@@ -10958,15 +10958,18 @@ MonoBehaviour:
   shapeMeshes:
   - shape: sphere
     mesh: {fileID: -2432090755550338912, guid: f6daf548f7b3b9048b753e16fa3e384d, type: 3}
+    material: {fileID: 2100000, guid: b40bea28562bcec41991d80e4f61298b, type: 2}
   - shape: cube
     mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+    material: {fileID: 2100000, guid: f5cb1367bb33ed648982c2fd00726f53, type: 2}
   - shape: wireframe-cube
     mesh: {fileID: -2432090755550338912, guid: 6b76ad33a6fda94418fb19bcc7066c10, type: 3}
+    material: {fileID: 2100000, guid: f5cb1367bb33ed648982c2fd00726f53, type: 2}
   lineTemplate: {fileID: 176545961}
   lineMaterials:
-  - type: default
+  - type: solid
     material: {fileID: 2100000, guid: e07c417ce8c733a419a271f31b8b17a5, type: 2}
-  - type: path
+  - type: dashed
     material: {fileID: 2100000, guid: 40210b70ee6f80247be00c5b1a233447, type: 2}
   labelTemplate: {fileID: 1297829366}
 --- !u!1 &1270700716
