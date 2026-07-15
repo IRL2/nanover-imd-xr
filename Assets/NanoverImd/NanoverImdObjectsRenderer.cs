@@ -17,7 +17,16 @@ namespace NanoverImd
         {
             public string shape;
             public Mesh mesh;
+            public Material material;
         }
+
+        [Serializable]
+        public class LineMaterial
+        {
+            public string type;
+            public Material material;
+        }
+
 
 #pragma warning disable 0649
         [SerializeField]
@@ -37,6 +46,9 @@ namespace NanoverImd
         [SerializeField]
         private LineRenderer lineTemplate;
 
+        [SerializeField]
+        private LineMaterial[] lineMaterials;
+
         [Header("Labels")]
         [SerializeField]
         private Text labelTemplate;
@@ -45,7 +57,7 @@ namespace NanoverImd
         private IndexedPool<Renderer> shapeObjects;
         private IndexedPool<LineRenderer> lineObjects;
         private IndexedPool<Text> labelObjects;
-        
+
         private void Update()
         {
             UpdateRendering();
@@ -72,9 +84,14 @@ namespace NanoverImd
             );
         }
 
-        private Mesh GetShapeMesh(string shape)
+        private ShapeMesh GetShapeTemplate(string shape)
         {
-            return shapeMeshes.FirstOrDefault(mesh => mesh.shape == shape)?.mesh ?? shapeMeshes[0].mesh;
+            return shapeMeshes.FirstOrDefault(mesh => mesh.shape == shape) ?? shapeMeshes[0];
+        }
+
+        private LineMaterial GetLineTemplate(string type)
+        {
+            return lineMaterials.FirstOrDefault(template => template.type == type) ?? lineMaterials[0];
         }
 
         private void UpdateRendering()
@@ -88,7 +105,9 @@ namespace NanoverImd
 
             void UpdateShape(MultiplayerObjectShape shape, Renderer model)
             {
-                model.GetComponent<MeshFilter>().sharedMesh = GetShapeMesh(shape.Shape);
+                var template = GetShapeTemplate(shape.Shape);
+                model.sharedMaterial = template.material;
+                model.GetComponent<MeshFilter>().sharedMesh = template.mesh;
                 model.transform.localPosition = shape.Position;
                 model.transform.localScale = Vector3.one * shape.Size;
                 model.material.color = shape.Color;
@@ -96,10 +115,13 @@ namespace NanoverImd
 
             void UpdateLine(MultiplayerObjectLine line, LineRenderer model)
             {
+                var template = GetLineTemplate(line.Type);
                 model.positionCount = line.Positions.Length;
                 model.SetPositions(line.Positions);
                 model.widthMultiplier = line.Size * scale;
-                model.material.color = line.Color;
+                model.sharedMaterial = template.material;
+                model.startColor = line.Color;
+                model.endColor = line.Color;
             }
 
             void UpdateLabel(MultiplayerObjectLabel label, Text model)

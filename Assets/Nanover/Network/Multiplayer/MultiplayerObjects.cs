@@ -72,6 +72,8 @@ namespace Nanover.Network.Multiplayer
         public float Size;
         [DataMember(Name = "color")]
         public Color Color;
+        [DataMember(Name = "type")]
+        public string Type;
     }
 
     [DataContract]
