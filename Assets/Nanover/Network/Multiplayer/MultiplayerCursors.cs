@@ -1,12 +1,11 @@
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Nanover.Network.Multiplayer
 {
     /// <summary>
     /// A collection of multiplayer avatars stored in the shared state.
     /// </summary>
-    public class MultiplayerCursors : MultiplayerCollection<MultiplayerCursor>
+    public class MultiplayerCursors : MultiplayerCollectionDictionary<MultiplayerCursor>
     {
         internal MultiplayerCursors(MultiplayerSession session) : base(session)
         {
@@ -27,23 +26,15 @@ namespace Nanover.Network.Multiplayer
         /// <inheritdoc cref="MultiplayerCollection{TItem}.ParseItem"/>
         protected override bool ParseItem(string key, object value, out MultiplayerCursor parsed)
         {
-            if (value is Dictionary<string, object> dict)
+            if (base.ParseItem(key, value, out parsed))
             {
-                parsed = Core.Serialization.Serialization.FromDataStructure<MultiplayerCursor>(dict);
                 parsed.OwnerID = key.Remove(0, KeyPrefix.Length);
                 return true;
             }
 
-            parsed = default;
             return false;
         }
 
-        /// <inheritdoc cref="MultiplayerCollection{TItem}.SerializeItem"/>
-        protected override object SerializeItem(MultiplayerCursor item)
-        {
-            return Core.Serialization.Serialization.ToDataStructure(item);
-        }
-        
         public MultiplayerCursor LocalCursorLeft = new MultiplayerCursor();
         public MultiplayerCursor LocalCursorRight = new MultiplayerCursor();
 
