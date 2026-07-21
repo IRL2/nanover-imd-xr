@@ -47,7 +47,7 @@ namespace NanoverImd
 
         [Header("Lines")]
         [SerializeField]
-        private LineRenderer lineTemplate;
+        private ParticleRibbonRenderer lineTemplate;
 
         [SerializeField]
         private LineMaterial[] lineMaterials;
@@ -58,7 +58,7 @@ namespace NanoverImd
 #pragma warning restore 0649
 
         private IndexedPool<Renderer> shapeObjects;
-        private IndexedPool<LineRenderer> lineObjects;
+        private IndexedPool<ParticleRibbonRenderer> lineObjects;
         private IndexedPool<Text> labelObjects;
 
         private void Update()
@@ -74,7 +74,7 @@ namespace NanoverImd
                 transform => transform.gameObject.SetActive(false)
             );
 
-            lineObjects = new IndexedPool<LineRenderer>(
+            lineObjects = new IndexedPool<ParticleRibbonRenderer>(
                 () => Instantiate(lineTemplate, parent: lineTemplate.transform.parent),
                 transform => transform.gameObject.SetActive(true),
                 transform => transform.gameObject.SetActive(false)
@@ -118,16 +118,17 @@ namespace NanoverImd
                 transforms.Reparent(model.transform, shape.Parent);
             }
 
-            void UpdateLine(MultiplayerObjectLine line, LineRenderer model)
+            void UpdateLine(MultiplayerObjectLine line, ParticleRibbonRenderer model)
             {
                 var template = GetLineTemplate(line.Type);
-                model.positionCount = line.Positions.Length;
-                model.SetPositions(line.Positions);
-                model.widthMultiplier = line.Size * scale;
-                model.sharedMaterial = template.material;
-                model.startColor = line.Color;
-                model.endColor = line.Color;
-
+                model.GetComponent<ParticleSystemRenderer>().sharedMaterial = template.material;
+                model.SetData(
+                    line.Positions, 
+                    line.Colors,
+                    line.Sizes,
+                    color: line.Color, 
+                    size: line.Size * scale
+                );
                 transforms.Reparent(model.transform, line.Parent);
             }
 

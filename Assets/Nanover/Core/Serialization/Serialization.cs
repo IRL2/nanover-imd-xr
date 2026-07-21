@@ -18,6 +18,7 @@ namespace Nanover.Core.Serialization
                 new Vector3Converter(),
                 new QuaternionConverter(),
                 new ColorConverter(),
+                new Color32Converter(),
                 new TransformationConverter(),
             },
         };
