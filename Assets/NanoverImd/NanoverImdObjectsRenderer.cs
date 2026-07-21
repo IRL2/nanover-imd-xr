@@ -115,7 +115,7 @@ namespace NanoverImd
                 model.transform.localScale = Vector3.one * shape.Size;
                 model.material.color = shape.Color;
 
-                model.transform.SetParent(transforms.GetTransform(shape.Parent), worldPositionStays: false);
+                transforms.Reparent(model.transform, shape.Parent);
             }
 
             void UpdateLine(MultiplayerObjectLine line, LineRenderer model)
@@ -128,7 +128,7 @@ namespace NanoverImd
                 model.startColor = line.Color;
                 model.endColor = line.Color;
 
-                model.transform.SetParent(transforms.GetTransform(line.Parent), worldPositionStays: false);
+                transforms.Reparent(model.transform, line.Parent);
             }
 
             void UpdateLabel(MultiplayerObjectLabel label, Text model)
@@ -138,7 +138,7 @@ namespace NanoverImd
                 model.transform.localScale = Vector3.one * label.Size / scale;
                 model.color = label.Color;
 
-                model.transform.SetParent(transforms.GetTransform(label.Parent), worldPositionStays: false);
+                transforms.Reparent(model.transform, label.Parent);
                 model.transform.LookAt(camera.transform);
             }
         }

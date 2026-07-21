@@ -45,24 +45,29 @@ namespace NanoverImd
             return id2transform.TryGetValue(id ?? "", out var transform) ? transform : defaultParent;
         }
 
+        public void Reparent(Transform child, string parent)
+        {
+            child.SetParent(GetTransform(parent), worldPositionStays: false);
+        }
+
         private void Refresh()
         {
             id2transform.Clear();
+            id2transform["simulation"] = simulationParent;
+
             transforms.MapConfig(nanover.Multiplayer.Transforms.Values, UpdateTransformMatrix);
             transforms.MapConfig(nanover.Multiplayer.Transforms.Values, UpdateTransformParent);
 
             void UpdateTransformMatrix(MultiplayerTransform transform, GameObject go)
             {
+                go.name = $"Transform {transform.ID}";
                 id2transform[transform.ID] = go.transform; 
                 transform.Transformation.CopyToTransformRelativeToParent(go.transform);
             }
 
             void UpdateTransformParent(MultiplayerTransform transform, GameObject go)
             {
-                if (transform.Parent == "simulation")
-                    go.transform.SetParent(simulationParent, worldPositionStays: false);
-                else
-                    go.transform.SetParent(defaultParent, worldPositionStays: false);
+                Reparent(go.transform, transform.Parent);
             }
         }
     }
