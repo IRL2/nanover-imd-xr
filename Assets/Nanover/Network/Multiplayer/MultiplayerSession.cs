@@ -24,6 +24,7 @@ namespace Nanover.Network.Multiplayer
         public MultiplayerObjectsShape Shapes { get; }
         public MultiplayerObjectsLine Lines { get; }
         public MultiplayerObjectsLabel Labels { get; }
+        public MultiplayerTransforms Transforms { get; }
         public PlayAreaCollection PlayAreas { get; }
         public PlayOriginCollection PlayOrigins { get; }
 
@@ -34,6 +35,7 @@ namespace Nanover.Network.Multiplayer
             Shapes = new MultiplayerObjectsShape(this);
             Lines = new MultiplayerObjectsLine(this);
             Labels = new MultiplayerObjectsLabel(this);
+            Transforms = new MultiplayerTransforms(this);
             PlayAreas = new PlayAreaCollection(this);
             PlayOrigins = new PlayOriginCollection(this);
 

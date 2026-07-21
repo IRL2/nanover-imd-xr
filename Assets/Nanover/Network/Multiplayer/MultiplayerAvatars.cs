@@ -6,7 +6,7 @@ namespace Nanover.Network.Multiplayer
     /// <summary>
     /// A collection of multiplayer avatars stored in the shared state.
     /// </summary>
-    public class MultiplayerAvatars : MultiplayerCollection<MultiplayerAvatar>
+    public class MultiplayerAvatars : MultiplayerCollectionDictionary<MultiplayerAvatar>
     {
         internal MultiplayerAvatars(MultiplayerSession session) : base(session)
         {
@@ -27,23 +27,15 @@ namespace Nanover.Network.Multiplayer
         /// <inheritdoc cref="MultiplayerCollection{TItem}.ParseItem"/>
         protected override bool ParseItem(string key, object value, out MultiplayerAvatar parsed)
         {
-            if (value is Dictionary<string, object> dict)
+            if (base.ParseItem(key, value, out parsed))
             {
-                parsed = Core.Serialization.Serialization.FromDataStructure<MultiplayerAvatar>(dict);
                 parsed.ID = key.Remove(0, KeyPrefix.Length);
                 return true;
             }
 
-            parsed = default;
             return false;
         }
 
-        /// <inheritdoc cref="MultiplayerCollection{TItem}.SerializeItem"/>
-        protected override object SerializeItem(MultiplayerAvatar item)
-        {
-            return Core.Serialization.Serialization.ToDataStructure(item);
-        }
-        
         /// <summary>
         /// A list of <see cref="MultiplayerAvatar"/> which are not the current player.
         /// </summary>

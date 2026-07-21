@@ -53,6 +53,8 @@ namespace Nanover.Network.Multiplayer
     [DataContract]
     public class MultiplayerObjectShape
     {
+        [DataMember(Name = "parent")]
+        public string Parent;
         [DataMember(Name = "shape")]
         public string Shape;
         [DataMember(Name = "position")]
@@ -66,6 +68,8 @@ namespace Nanover.Network.Multiplayer
     [DataContract]
     public class MultiplayerObjectLine
     {
+        [DataMember(Name = "parent")]
+        public string Parent;
         [DataMember(Name = "positions")]
         public Vector3[] Positions;
         [DataMember(Name = "size")]
@@ -79,6 +83,8 @@ namespace Nanover.Network.Multiplayer
     [DataContract]
     public class MultiplayerObjectLabel
     {
+        [DataMember(Name = "parent")]
+        public string Parent;
         [DataMember(Name = "text")]
         public string Text;
         [DataMember(Name = "position")]

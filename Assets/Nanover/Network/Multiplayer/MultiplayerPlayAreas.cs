@@ -10,59 +10,25 @@ namespace Nanover.Network.Multiplayer
     /// Tracks play areas of a multiuser session i.e user-reported corners for
     /// their VR bounds in the shared space.
     /// </summary>
-    public class PlayAreaCollection : MultiplayerCollection<PlayArea>
+    public class PlayAreaCollection : MultiplayerCollectionDictionary<PlayArea>
     {
         public PlayAreaCollection(MultiplayerSession session) : base(session)
         {
         }
 
         protected override string KeyPrefix => "playarea.";
-
-        protected override bool ParseItem(string key, object value, out PlayArea parsed)
-        {
-            if (value is Dictionary<string, object> dict)
-            {
-                parsed = Serialization.FromDataStructure<PlayArea>(dict);
-                return true;
-            }
-
-            parsed = default;
-            return false;
-        }
-
-        protected override object SerializeItem(PlayArea item)
-        {
-            return Serialization.ToDataStructure(item);
-        }
     }
 
     /// <summary>
     /// Tracks server-suggested transform origin for clients.
     /// </summary>
-    public class PlayOriginCollection : MultiplayerCollection<PlayOrigin>
+    public class PlayOriginCollection : MultiplayerCollectionDictionary<PlayOrigin>
     {
         public PlayOriginCollection(MultiplayerSession session) : base(session)
         {
         }
 
         protected override string KeyPrefix => "user-origin.";
-
-        protected override bool ParseItem(string key, object value, out PlayOrigin parsed)
-        {
-            if (value is Dictionary<string, object> dict)
-            {
-                parsed = Serialization.FromDataStructure<PlayOrigin>(dict);
-                return true;
-            }
-
-            parsed = default;
-            return false;
-        }
-
-        protected override object SerializeItem(PlayOrigin item)
-        {
-            return Serialization.ToDataStructure(item);
-        }
     }
 
     /// <summary>
