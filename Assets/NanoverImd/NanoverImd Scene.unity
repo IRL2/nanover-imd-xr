@@ -7232,6 +7232,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: NanoverImd::NanoverImd.NanoverImdTransformsManager
   application: {fileID: 544060994}
   nanover: {fileID: 431384315}
+  defaultParent: {fileID: 1270324916}
+  simulationParent: {fileID: 1270324916}
 --- !u!1 &778773330
 GameObject:
   m_ObjectHideFlags: 0
@@ -11001,6 +11003,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: NanoverImd::NanoverImd.NanoverImdObjectsRenderer
   application: {fileID: 544060994}
   nanover: {fileID: 431384315}
+  transforms: {fileID: 777422673}
   shapeTemplate: {fileID: 679653415}
   shapeMeshes:
   - shape: sphere

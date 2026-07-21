@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Nanover.Frontend.Utility;
+using Nanover.Network.Multiplayer;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Nanover.Frontend.Utility;
-using Nanover.Network.Multiplayer;
+using Unity.VectorGraphics;
 using UnityEngine;
-
 using Text = TMPro.TextMeshPro;
 
 namespace NanoverImd
@@ -34,6 +34,9 @@ namespace NanoverImd
         
         [SerializeField]
         private NanoverImdSimulation nanover;
+
+        [SerializeField]
+        private NanoverImdTransformsManager transforms;
 
         [Header("Shapes")]
         [SerializeField]
@@ -111,6 +114,8 @@ namespace NanoverImd
                 model.transform.localPosition = shape.Position;
                 model.transform.localScale = Vector3.one * shape.Size;
                 model.material.color = shape.Color;
+
+                model.transform.SetParent(transforms.GetTransform(shape.Parent), worldPositionStays: false);
             }
 
             void UpdateLine(MultiplayerObjectLine line, LineRenderer model)
@@ -122,6 +127,8 @@ namespace NanoverImd
                 model.sharedMaterial = template.material;
                 model.startColor = line.Color;
                 model.endColor = line.Color;
+
+                model.transform.SetParent(transforms.GetTransform(line.Parent), worldPositionStays: false);
             }
 
             void UpdateLabel(MultiplayerObjectLabel label, Text model)
@@ -131,6 +138,7 @@ namespace NanoverImd
                 model.transform.localScale = Vector3.one * label.Size / scale;
                 model.color = label.Color;
 
+                model.transform.SetParent(transforms.GetTransform(label.Parent), worldPositionStays: false);
                 model.transform.LookAt(camera.transform);
             }
         }
