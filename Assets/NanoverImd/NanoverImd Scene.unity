@@ -1111,9 +1111,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 172730443}
+  - component: {fileID: 172730440}
   - component: {fileID: 172730442}
   - component: {fileID: 172730441}
-  - component: {fileID: 172730440}
   m_Layer: 0
   m_Name: Line Template (Ribbon)
   m_TagString: Untagged
