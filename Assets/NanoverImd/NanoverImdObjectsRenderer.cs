@@ -127,7 +127,7 @@ namespace NanoverImd
                     line.Colors,
                     line.Sizes,
                     color: line.Color, 
-                    size: line.Size * scale
+                    size: line.Size
                 );
                 transforms.Reparent(model.transform, line.Parent);
             }
