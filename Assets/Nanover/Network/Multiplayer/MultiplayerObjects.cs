@@ -72,6 +72,10 @@ namespace Nanover.Network.Multiplayer
         public string Parent;
         [DataMember(Name = "positions")]
         public Vector3[] Positions;
+        [DataMember(Name = "colors")]
+        public Color[] Colors;
+        [DataMember(Name = "sizes")]
+        public float[] Sizes;
         [DataMember(Name = "size")]
         public float Size;
         [DataMember(Name = "color")]
