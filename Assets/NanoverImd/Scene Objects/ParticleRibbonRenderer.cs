@@ -6,7 +6,7 @@ public class ParticleRibbonRenderer : MonoBehaviour
     [SerializeField]
     private ParticleSystem particleSystem;
 
-    private ParticleSystem.Particle[] particles = new ParticleSystem.Particle[0];
+    private ParticleSystem.Particle[] particles = new ParticleSystem.Particle[1];
 
     private void Awake()
     {
@@ -15,7 +15,7 @@ public class ParticleRibbonRenderer : MonoBehaviour
 
     private void Resize(int minimum)
     {
-        int count = minimum;
+        int count = particles.Length;
 
         while (count < minimum)
             count *= 2;
@@ -28,6 +28,9 @@ public class ParticleRibbonRenderer : MonoBehaviour
         {
             particles[i].remainingLifetime = i * factor;
         }
+
+        var main = particleSystem.main;
+        main.maxParticles = particles.Length;
     }
 
     public void SetData(
