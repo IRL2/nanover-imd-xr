@@ -32,9 +32,9 @@ public class ParticleRibbonRenderer : MonoBehaviour
 
     public void SetData(
         IList<Vector3> positions,
-        IList<Color32> colors = null,
+        IList<Color> colors = null,
         IList<float> sizes = null,
-        Color32 color = default,
+        Color color = default,
         float size = .1f
     )
     {
