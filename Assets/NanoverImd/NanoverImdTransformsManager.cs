@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Nanover.Core.Math;
 using Nanover.Frontend.Utility;
 using Nanover.Network.Multiplayer;
 using UnityEngine;
@@ -18,6 +19,9 @@ namespace NanoverImd
 
         [SerializeField]
         private Transform defaultParent;
+
+        [SerializeField]
+        private Transform calibratedParent;
 
         [SerializeField]
         private Transform simulationParent;
@@ -52,7 +56,12 @@ namespace NanoverImd
 
         private void Refresh()
         {
+            var m = application.CalibratedSpace.LocalToWorldMatrix;
+            calibratedParent.localPosition = m.GetPosition();
+            calibratedParent.localRotation = m.GetRotation();
+
             id2transform.Clear();
+            id2transform["calibrated"] = calibratedParent;
             id2transform["simulation"] = simulationParent;
 
             transforms.MapConfig(nanover.Multiplayer.Transforms.Values, UpdateTransformMatrix);
