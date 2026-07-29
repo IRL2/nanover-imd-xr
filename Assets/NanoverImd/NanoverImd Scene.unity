@@ -12084,6 +12084,7 @@ MonoBehaviour:
   application: {fileID: 544060994}
   nanover: {fileID: 431384315}
   defaultParent: {fileID: 1270324916}
+  calibratedParent: {fileID: 261444382}
   simulationParent: {fileID: 1270324916}
 --- !u!1 &778773330
 GameObject:

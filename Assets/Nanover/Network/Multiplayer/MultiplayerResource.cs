@@ -36,7 +36,9 @@ namespace Nanover.Network.Multiplayer
             this.session = session;
             ResourceKey = key;
             LockState = MultiplayerResourceLockState.Unlocked;
+            session.SharedStateDictionaryCleared += () => Reset(default);
             session.SharedStateDictionaryKeyUpdated += SharedStateDictionaryKeyUpdated;
+            session.SharedStateDictionaryKeyRemoved += (key) => SharedStateDictionaryKeyUpdated(key, null);
             this.objectToValue = objectToValue;
             this.valueToObject = valueToObject;
             CopyRemoteValueToLocal();
@@ -220,6 +222,7 @@ namespace Nanover.Network.Multiplayer
         public void Reset(TValue value)
         {
             this.value = value;
+            sentUpdateIndex = -1;
             localValuePending = false;
             ValueChanged?.Invoke();
         }
