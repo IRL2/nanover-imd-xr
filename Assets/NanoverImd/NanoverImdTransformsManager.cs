@@ -63,7 +63,6 @@ namespace NanoverImd
             id2transform.Clear();
 
             transforms.MapConfig(nanover.Multiplayer.Transforms.Values, UpdateTransformMatrix);
-            transforms.MapConfig(nanover.Multiplayer.Transforms.Values, UpdateTransformParent);
 
             // can't decide what this is called
             id2transform["root"] = calibratedParent;
@@ -72,6 +71,8 @@ namespace NanoverImd
 
             // overwrite with local so box movement is fluid
             id2transform["simulation"] = simulationParent;
+
+            transforms.MapConfig(nanover.Multiplayer.Transforms.Values, UpdateTransformParent);
 
             void UpdateTransformMatrix(MultiplayerTransform transform, GameObject go)
             {
