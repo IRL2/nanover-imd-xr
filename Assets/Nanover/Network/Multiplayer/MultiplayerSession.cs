@@ -16,6 +16,7 @@ namespace Nanover.Network.Multiplayer
     public sealed class MultiplayerSession : IDisposable
     {
         public const string SimulationPoseKey = "scene";
+        public const string SimulationPoseNewKey = "transform.simulation";
 
         public string AccessToken { get; set; }
 
@@ -42,12 +43,21 @@ namespace Nanover.Network.Multiplayer
             SimulationPose =
                 new MultiplayerResource<Transformation>(this, SimulationPoseKey, PoseFromObject,
                                                         PoseToObject);
+
+            SimulationPoseNew = new MultiplayerResource<Transformation>(
+                this, 
+                SimulationPoseNewKey, 
+                PoseFromSimulationTransformStateEntry, 
+                PoseToSimulationTransformStateEntry
+            );
         }
 
         /// <summary>
         /// The transformation of the simulation box.
         /// </summary>
         public readonly MultiplayerResource<Transformation> SimulationPose;
+
+        public readonly MultiplayerResource<Transformation> SimulationPoseNew;
 
         /// <summary>
         /// Dictionary of the currently known shared state.
@@ -156,6 +166,7 @@ namespace Nanover.Network.Multiplayer
             openedFake = true;
             MultiplayerJoined?.Invoke();
             SimulationPose.Reset(Transformation.Identity);
+            SimulationPoseNew.Reset(Transformation.Identity);
         }
 
         public void OpenClient(WebSocketMessageSource source, Func<Message, UniTask> SendMessage)
@@ -379,9 +390,34 @@ namespace Nanover.Network.Multiplayer
             throw new ArgumentOutOfRangeException();
         }
 
-        public MultiplayerResource<object> GetSharedResource(string key)
+        private static object PoseToSimulationTransformStateEntry(Transformation pose)
         {
-            return new MultiplayerResource<object>(this, key);
+            var data = new object[]
+            {
+                pose.Position.x, pose.Position.y, pose.Position.z, pose.Rotation.x, pose.Rotation.y,
+                pose.Rotation.z, pose.Rotation.w, -pose.Scale.x, pose.Scale.y, pose.Scale.z,
+            };
+
+            return new Dictionary<string, object>
+            {
+                { "transform", data },
+            };
+        }
+
+        private static Transformation PoseFromSimulationTransformStateEntry(object @object)
+        {
+            if (@object is IReadOnlyDictionary<string, object> dict)
+            {
+                var transform = PoseFromObject(dict["transform"]);
+                transform.Scale = new Vector3(-transform.Scale.x, transform.Scale.y, transform.Scale.z);
+                return transform;
+            }
+            else if (@object is null)
+            {
+                return Transformation.Identity;
+            }
+
+            throw new ArgumentOutOfRangeException();
         }
     }
 }

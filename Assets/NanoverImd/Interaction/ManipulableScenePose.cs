@@ -42,8 +42,8 @@ namespace NanoverImd.Interaction
             this.calibratedSpace = calibratedSpace;
             manipulable = new ManipulableTransform(sceneTransform);
             this.multiplayer.SimulationPose.LockRejected += SimulationPoseLockRejected;
-            this.multiplayer.SimulationPose.RemoteValueChanged +=
-                RemoteSimulationPoseChanged;
+            this.multiplayer.SimulationPose.RemoteValueChanged += RemoteSimulationPoseChanged;
+            this.multiplayer.SimulationPoseNew.RemoteValueChanged += RemoteSimulationPoseChanged;
 
             calibratedSpace.CalibrationChanged += RemoteSimulationPoseChanged;
 
