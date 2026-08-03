@@ -74,6 +74,14 @@ namespace NanoverImd
 
             transforms.MapConfig(nanover.Multiplayer.Transforms.Values, UpdateTransformParent);
 
+            // can't decide what this is called
+            id2transform["root"] = calibratedParent;
+            id2transform["shared"] = calibratedParent;
+            id2transform["calibrated"] = calibratedParent;
+
+            // overwrite with local so box movement is fluid
+            id2transform["simulation"] = simulationParent;
+
             void UpdateTransformMatrix(MultiplayerTransform transform, GameObject go)
             {
                 go.name = $"Transform {transform.ID}";
