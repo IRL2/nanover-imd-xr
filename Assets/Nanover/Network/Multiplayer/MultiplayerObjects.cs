@@ -50,6 +50,12 @@ namespace Nanover.Network.Multiplayer
         protected override string KeyPrefix => "object.label";
     }
 
+    public class MultiplayerObjectsSprite : MultiplayerObjects<MultiplayerObjectSprite>
+    {
+        public MultiplayerObjectsSprite(MultiplayerSession session) : base(session) { }
+        protected override string KeyPrefix => "object.sprite";
+    }
+
     [DataContract]
     public class MultiplayerObjectShape
     {
@@ -91,6 +97,21 @@ namespace Nanover.Network.Multiplayer
         public string Parent;
         [DataMember(Name = "text")]
         public string Text;
+        [DataMember(Name = "position")]
+        public Vector3 Position;
+        [DataMember(Name = "size")]
+        public float Size;
+        [DataMember(Name = "color")]
+        public Color Color;
+    }
+
+    [DataContract]
+    public class MultiplayerObjectSprite
+    {
+        [DataMember(Name = "parent")]
+        public string Parent;
+        [DataMember(Name = "texture")]
+        public string Texture;
         [DataMember(Name = "position")]
         public Vector3 Position;
         [DataMember(Name = "size")]

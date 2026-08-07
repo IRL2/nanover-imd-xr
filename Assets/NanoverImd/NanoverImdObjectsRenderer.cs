@@ -4,8 +4,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VectorGraphics;
 using UnityEngine;
+using UnityEngine.UI;
 using Text = TMPro.TextMeshPro;
 
 namespace NanoverImd
@@ -38,6 +38,9 @@ namespace NanoverImd
         [SerializeField]
         private NanoverImdTransformsManager transforms;
 
+        [SerializeField]
+        private NanoverImdRemoteTexturesManager textures;
+
         [Header("Shapes")]
         [SerializeField]
         private Renderer shapeTemplate;
@@ -55,11 +58,16 @@ namespace NanoverImd
         [Header("Labels")]
         [SerializeField]
         private Text labelTemplate;
+
+        [Header("Sprites")]
+        [SerializeField]
+        private Canvas spriteTemplate;
 #pragma warning restore 0649
 
         private IndexedPool<Renderer> shapeObjects;
         private IndexedPool<ParticleRibbonRenderer> lineObjects;
         private IndexedPool<Text> labelObjects;
+        private IndexedPool<Canvas> spriteObjects;
 
         private void Update()
         {
@@ -85,6 +93,12 @@ namespace NanoverImd
                 transform => transform.gameObject.SetActive(true),
                 transform => transform.gameObject.SetActive(false)
             );
+
+            spriteObjects = new IndexedPool<Canvas>(
+                () => Instantiate(spriteTemplate, parent: spriteTemplate.transform.parent),
+                transform => transform.gameObject.SetActive(true),
+                transform => transform.gameObject.SetActive(false)
+            );
         }
 
         private ShapeMesh GetShapeTemplate(string shape)
@@ -105,6 +119,7 @@ namespace NanoverImd
             shapeObjects.MapConfig(application.Simulation.Multiplayer.Shapes.Values, UpdateShape);
             lineObjects.MapConfig(application.Simulation.Multiplayer.Lines.Values, UpdateLine);
             labelObjects.MapConfig(application.Simulation.Multiplayer.Labels.Values, UpdateLabel);
+            spriteObjects.MapConfig(application.Simulation.Multiplayer.Sprites.Values, UpdateSprite);
 
             void UpdateShape(MultiplayerObjectShape shape, Renderer model)
             {
@@ -141,6 +156,19 @@ namespace NanoverImd
 
                 transforms.Reparent(model.transform, label.Parent);
                 model.transform.LookAt(camera.transform);
+            }
+
+            void UpdateSprite(MultiplayerObjectSprite sprite, Canvas model)
+            {
+                var image = model.GetComponentInChildren<RawImage>();
+
+                image.texture = textures.GetTexture(sprite.Texture);
+                image.transform.localPosition = sprite.Position;
+                image.transform.localScale = Vector3.one * sprite.Size;
+                image.color = sprite.Color;
+                image.SetNativeSize();
+
+                transforms.Reparent(model.transform.parent, sprite.Parent);
             }
         }
     }
