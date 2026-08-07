@@ -15,6 +15,14 @@ namespace NanoverImd
 
         private Dictionary<string, Texture2D> resource2texture = new Dictionary<string, Texture2D>();
 
+        public void Clear()
+        {
+            foreach (var texture in resource2texture.Values)
+                Destroy(texture);
+
+            resource2texture.Clear();
+        }
+
         public Texture2D GetTexture(string resourceId)
         {
             if (resource2texture.TryGetValue(resourceId, out Texture2D texture))
