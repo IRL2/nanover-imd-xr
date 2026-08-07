@@ -168,7 +168,7 @@ namespace NanoverImd
                 image.color = sprite.Color;
                 image.SetNativeSize();
 
-                transforms.Reparent(model.transform.parent, sprite.Parent);
+                transforms.Reparent(model.transform, sprite.Parent);
             }
         }
     }
