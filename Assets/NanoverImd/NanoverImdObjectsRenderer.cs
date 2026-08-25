@@ -162,9 +162,10 @@ namespace NanoverImd
             {
                 var image = model.GetComponentInChildren<RawImage>();
 
-                image.texture = textures.GetTexture(sprite.Texture);
-                image.transform.localPosition = sprite.Position;
+                model.transform.localPosition = sprite.Position;
+
                 image.transform.localScale = Vector3.one * sprite.Size;
+                image.texture = textures.GetTexture(sprite.Texture);
                 image.color = sprite.Color;
                 image.SetNativeSize();
 
