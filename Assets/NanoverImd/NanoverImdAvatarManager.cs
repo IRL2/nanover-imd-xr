@@ -144,6 +144,13 @@ namespace NanoverImd
 
         private void UpdateRendering()
         {
+            if (application.HideAvatars)
+            {
+                headsetObjects.SetActiveInstanceCount(0);
+                controllerObjects.SetActiveInstanceCount(0);
+                return;
+            }
+
             var headsets = nanover.Multiplayer
                                  .Avatars.OtherPlayerAvatars
                                  .SelectMany(avatar => avatar.Components, (avatar, component) =>
