@@ -71,6 +71,7 @@ namespace NanoverImd
         public bool ColocateLighthouses { get; set; } = false;
         public float PlayAreaRotationCorrection { get; set; } = 0;
         public float PlayAreaRadialDisplacementFactor { get; set; } = 0;
+        public bool HideAvatars { get; set; } = false;
 
         /// <summary>
         /// The route through which simulation space can be manipulated with
@@ -163,6 +164,7 @@ namespace NanoverImd
             const string passthroughKey = "suggested.passthrough";
             const string boxLockedKey = "suggested.box.locked";
             const string boxHiddenKey = "suggested.box.hidden";
+            const string avatarsHiddenKey = "suggested.avatars.hidden";
             const string debugColocationKey = "debug.colocation";
 
             if (simulation.Multiplayer.GetSharedState(scaleKey) is double scale)
@@ -197,6 +199,8 @@ namespace NanoverImd
             {
                 boxVisualiser.SetActive(true);
             }
+
+            HideAvatars = (simulation.Multiplayer.GetSharedState(avatarsHiddenKey) as bool?) ?? false;
 
             var colocationDebug = false;
 
