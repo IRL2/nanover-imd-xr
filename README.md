@@ -8,7 +8,7 @@ and distributed under the [MIT](LICENSE) license.
 See [the list of contributors](CONTRIBUTORS.md) for the individual authors of the project.
 
 # Run the latest release build
-* Download the [latest builds](https://github.com/IRL2/nanover-imd/releases).
+* Download the [latest builds](https://github.com/IRL2/nanover-imd-xr/releases).
 * Extract the downloaded zip file.
 
 * In the extracted directory,
