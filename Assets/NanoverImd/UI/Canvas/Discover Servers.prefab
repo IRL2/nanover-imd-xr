@@ -1143,6 +1143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d50d7398e3c453c91e843400237168d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  discoveryEndpoint: https://irl-discovery.onrender.com
   localServerIcon: {fileID: 21300000, guid: 71afd49077d51ea4282bc33b929cd183, type: 3}
   remoteServerIcon: {fileID: 21300000, guid: 86f11938c84af754d9cb4a36da4cc72b, type: 3}
   application: {fileID: 0}

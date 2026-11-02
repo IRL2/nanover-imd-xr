@@ -71,16 +71,7 @@ namespace NanoverImd
                 discovery = !discovery;
 
                 if (discovery)
-                {
-                    //WebsocketDiscovery.DiscoverWebsocketServers("").ContinueWith(result => knownWebSockets = result);
-
-                    var client = new Client();
-                    knownServiceHubs = client
-                        .SearchForServices(500)
-                        .GroupBy(hub => hub.Id)
-                        .Select(group => group.First())
-                        .ToList();
-                }
+                    RunDiscovery();
             }
 
             if (GUILayout.Button("Disconnect"))
@@ -177,7 +168,7 @@ namespace NanoverImd
             if (GUILayout.Button("Connect WebSocket"))
             {
                 directConnect = false;
-                application.Simulation.ConnectWebSocket(directConnectAddress);
+                application.Simulation.ConnectAddressOrCode(directConnectAddress).Forget();
             }
 
             if (GUILayout.Button("Cancel"))
@@ -186,22 +177,25 @@ namespace NanoverImd
             GUILayout.EndArea();
         }
 
+        private void RunDiscovery()
+        {
+            new Discovery { Host = "irl-discovery.onrender.com" }.GetListing().ContinueWith(result => knownWebSockets = result);
+
+            var client = new Client();
+            knownServiceHubs = client
+                .SearchForServices(500)
+                .GroupBy(hub => hub.Id)
+                .Select(group => group.First())
+                .ToList();
+        }
+
         private void ShowServiceDiscoveryWindow()
         {
             GUILayout.BeginArea(new Rect(192 * 2 + 16 * 3, 10, 192, 512));
             GUILayout.Box("Discover Servers");
 
             if (GUILayout.Button("Search"))
-            {
-                //WebsocketDiscovery.DiscoverWebsocketServers("").ContinueWith(result => knownWebSockets = result);
-
-                var client = new Client();
-                knownServiceHubs = client
-                    .SearchForServices(500)
-                    .GroupBy(hub => hub.Id)
-                    .Select(group => group.First())
-                    .ToList();
-            }
+                RunDiscovery();
 
             if (GUILayout.Button("Cancel"))
                 discovery = false;

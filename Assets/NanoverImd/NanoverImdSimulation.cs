@@ -162,7 +162,21 @@ namespace NanoverImd
             playback.Reset();
         }
 
-        public void ConnectWebSocket(string address)
+        public async UniTask ConnectAddressOrCode(string text)
+        {
+            if (text.StartsWith("wss://") || text.StartsWith("ws://"))
+            {
+                await ConnectWebSocket(text);
+            }
+            else
+            {
+                var discovery = new Discovery { Host = "irl-discovery.onrender.com" };
+                var entry = await discovery.GetEntry(text);
+                await ConnectWebSocket(entry.info.ws ?? entry.info.wss);
+            }
+        }
+
+        public UniTask ConnectWebSocket(string address)
         {
             Close();
 
@@ -193,7 +207,7 @@ namespace NanoverImd
                     ReceiveWebSocketCommand(update);
             };
 
-            websocket.Connect().AsUniTask().Forget();
+            return websocket.Connect().AsUniTask();
         }
 
         private Dictionary<string, CommandCallback> commandCallbacks = new Dictionary<string, CommandCallback>();
@@ -351,7 +365,7 @@ namespace NanoverImd
             if (GetServicePort("ws") is int port)
             {
                 var address = $"ws://{hub.Address}:{port}";
-                ConnectWebSocket(address);
+                ConnectWebSocket(address).Forget();
             }
             else
             {
@@ -366,22 +380,9 @@ namespace NanoverImd
 
         public void Connect(DiscoveryEntry entry)
         {
-            Debug.Log($"Connecting to {entry.info.name} ({entry.info.ws})");
-            ConnectWebSocket(entry.info.ws);
-        }
-
-        public async UniTask AutoConnectWebSocket()
-        {
-            var request = UnityWebRequest.Get("https://irl-discovery.onrender.com/list");
-            await request.SendWebRequest();
-
-            var json = request.downloadHandler.text;
-            json = "{\"list\":" + json + "}";
-
-            var listing = JsonUtility.FromJson<DiscoveryListing>(json);
-            var address = listing.list[0].info.ws;
-
-            ConnectWebSocket(address);
+            var address = entry.info.ws ?? entry.info.wss;
+            Debug.Log($"Connecting to {entry.info.name} ({address})");
+            ConnectWebSocket(address).Forget();
         }
 
         /// <summary>
