@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using Essd;
 using Nanover.Frontend.UI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -12,8 +13,11 @@ namespace NanoverImd.UI.Scene
     public class DiscoverServers : MonoBehaviour
     {
         private Client client;
-        private List<ServiceHub> hubs = new List<ServiceHub>();
-        private List<DiscoveryEntry> websockets = new List<DiscoveryEntry>();
+        private List<ServiceHub> essdListing = new List<ServiceHub>();
+        private List<DiscoveryEntry> webListing = new List<DiscoveryEntry>();
+
+        [SerializeField]
+        private string discoveryHost = "irl-discovery.onrender.com";
 
         [SerializeField]
         private Sprite localServerIcon;
@@ -59,18 +63,14 @@ namespace NanoverImd.UI.Scene
         [SerializeField]
         private UnityEvent endSearch;
 
-        public async UniTask SearchAsync()
+        public async UniTask SearchAll()
         {
-            currentSearchTask = client.StartSearch().AsUniTask();
             startSearch?.Invoke();
-            await UniTask.WhenAny(UniTask.Delay(500), currentSearchTask.Value);
-            await client.StopSearch();
-            currentSearchTask = null;
+            await UniTask.WhenAll(SearchESSDAsync(), SearchWebAsync());
             endSearch?.Invoke();
-            RefreshHubs();
         }
 
-        public void Refresh()
+        public async UniTask SearchESSDAsync()
         {
             if (currentSearchTask != null)
             {
@@ -80,27 +80,52 @@ namespace NanoverImd.UI.Scene
             }
 
             client = new Client();
-            hubs.Clear();
-            client.ServiceFound += (obj, args) => hubs.Add(args);
-            SearchAsync().Forget();
+            essdListing.Clear();
+            client.ServiceFound += (obj, args) => essdListing.Add(args);
+
+            currentSearchTask = client.StartSearch().AsUniTask();
+            await UniTask.WhenAny(UniTask.Delay(500), currentSearchTask.Value);
+            await client.StopSearch();
+            currentSearchTask = null;
+            RefreshListings();
         }
 
-        public void RefreshHubs()
+        public async UniTask SearchWebAsync()
         {
-            hubs = hubs.GroupBy(hub => hub.Id)
+            var discovery = new Discovery { Host = discoveryHost };
+
+            try
+            {
+                webListing = await discovery.GetListing();
+                RefreshListings();
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
+        }
+
+        public void Refresh()
+        {
+            SearchAll().Forget();
+        }
+
+        public void RefreshListings()
+        {
+            essdListing = essdListing.GroupBy(hub => hub.Id)
                        .Select(SelectBestService)
                        .ToList();
 
             menu.ClearChildren();
-            foreach (var hub in hubs)
+            foreach (var hub in essdListing)
             {
                 var local = hub.Address.Equals("127.0.0.1") || hub.Address.Equals("localhost");
                 menu.AddItem(hub.Name, local ? localServerIcon : remoteServerIcon,
                                 () => application.Connect(hub), hub.Address); 
             }
-            foreach (var entry in websockets)
+            foreach (var entry in webListing)
             {
-                menu.AddItem(entry.info.name, remoteServerIcon, () => application.Connect(entry), entry.info.ws);
+                menu.AddItem(entry.info.name, remoteServerIcon, () => application.Connect(entry), entry.info.ws ?? entry.info.wss);
             }
         }
     }

@@ -24,7 +24,7 @@ namespace NanoverImd.UI.Scene
         /// </summary>
         public void ConnectToServer()
         {
-            application.Simulation.ConnectWebSocket(addressInputField.text);
+            application.Simulation.ConnectAddressOrCode(addressInputField.text).Forget();
         }
     }
 }
