@@ -1,5 +1,7 @@
-﻿using Nanover.Frontend.Utility;
+﻿using Nanover.Core.Math;
+using Nanover.Frontend.Utility;
 using Nanover.Network.Multiplayer;
+using Nanover.Visualisation.Components.Calculator;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -113,6 +115,31 @@ namespace NanoverImd
 
         private void UpdateRendering()
         {
+            Transformation? TransformFromArray(float[] array)
+            {
+                if (array == null)
+                    return null;
+
+                return new Transformation(
+                    new Vector3(
+                        array[0],
+                        array[1],
+                        array[2]
+                    ),
+                    new Quaternion(
+                        array[3],
+                        array[4],
+                        array[5],
+                        array[6]
+                    ),
+                    new Vector3(
+                        array[7],
+                        array[8],
+                        array[9]
+                    )
+                );
+            }
+
             var camera = Camera.main;
             var scale = Math.Abs(transform.lossyScale.x);
 
@@ -131,6 +158,9 @@ namespace NanoverImd
                 model.material.color = shape.Color;
 
                 transforms.Reparent(model.transform, shape.Parent);
+
+                if (TransformFromArray(shape.TransformationData) is { } transformation)
+                    transformation.CopyToTransformRelativeToParent(model.transform);
             }
 
             void UpdateLine(MultiplayerObjectLine line, ParticleRibbonRenderer model)
@@ -170,6 +200,9 @@ namespace NanoverImd
                 image.SetNativeSize();
 
                 transforms.Reparent(model.transform, sprite.Parent);
+
+                if (TransformFromArray(sprite.TransformationData) is { } transformation)
+                    transformation.CopyToTransformRelativeToParent(model.transform);
             }
         }
     }
