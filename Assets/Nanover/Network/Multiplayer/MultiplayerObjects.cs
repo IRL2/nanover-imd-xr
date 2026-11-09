@@ -69,6 +69,9 @@ namespace Nanover.Network.Multiplayer
         public float Size;
         [DataMember(Name = "color")]
         public Color Color;
+
+        [DataMember(Name = "transform")]
+        public float[] TransformationData;
     }
 
     [DataContract]
@@ -118,5 +121,8 @@ namespace Nanover.Network.Multiplayer
         public float Size;
         [DataMember(Name = "color")]
         public Color Color;
+
+        [DataMember(Name = "transform")]
+        public float[] TransformationData;
     }
 }
