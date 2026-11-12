@@ -1200,7 +1200,7 @@ ParticleSystemRenderer:
   m_Flip: {x: 0, y: 0, z: 0}
   m_EnableGPUInstancing: 1
   m_ApplyActiveColorSpace: 1
-  m_AllowRoll: 1
+  m_AllowRoll: 0
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
   m_UseCustomVertexStreams: 0
@@ -5173,7 +5173,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     minVertexDistance: 0.2
-    textureMode: 0
+    textureMode: 1
     textureScale: {x: 1, y: 1}
     ribbonCount: 1
     shadowBias: 0.5
@@ -9781,7 +9781,6 @@ MonoBehaviour:
   passthrough: 1
   passthroughLayer: {fileID: 1938083358}
   floorRenderer: {fileID: 2133969602}
-  floorMaterial: {fileID: 0}
   camera: {fileID: 199515959}
   passthroughCyclingStops:
   - 0
@@ -15962,7 +15961,7 @@ MonoBehaviour:
   - type: solid
     material: {fileID: 2100000, guid: e07c417ce8c733a419a271f31b8b17a5, type: 2}
   - type: dashed
-    material: {fileID: 2100000, guid: 40210b70ee6f80247be00c5b1a233447, type: 2}
+    material: {fileID: 2100000, guid: 70ebc89c74cba6b46ab2dea9ff21bf34, type: 2}
   labelTemplate: {fileID: 1297829366}
   spriteTemplate: {fileID: 1900945669}
 --- !u!1 &1270700716
