@@ -1,8 +1,8 @@
+using Cysharp.Threading.Tasks;
+using Nanover.Core.Math;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cysharp.Threading.Tasks;
-using Nanover.Core.Math;
 using UnityEngine;
 using WebSocketTypes;
 
@@ -257,6 +257,21 @@ namespace Nanover.Network.Multiplayer
         public object GetSharedState(string key)
         {
             return SharedStateDictionary.TryGetValue(key, out var value) ? value : null;
+        }
+
+        public float? GetSharedStateAsFloat(string key)
+        {
+            if (GetSharedState(key) is not { } value)
+                return null;
+
+            try
+            {
+                return Convert.ToSingle(GetSharedState(key));
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         /// <summary>

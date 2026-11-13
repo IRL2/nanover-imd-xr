@@ -90,15 +90,11 @@ namespace NanoverImd.Interaction
             const string interactionRangeKey = "suggested.interaction.range";
             const string interactionHydrogenKey = "suggested.interaction.hydrogens";
 
-            if (simulation.Multiplayer.GetSharedState(interactionRangeKey) is double range)
-            {
-                InteractionRange = (float) range;
-            }
+            if (simulation.Multiplayer.GetSharedStateAsFloat(interactionRangeKey) is float range)
+                InteractionRange = range;
 
             if (simulation.Multiplayer.GetSharedState(interactionHydrogenKey) is bool hydrogens)
-            {
                 InteractWithHydrogens = hydrogens;
-            }
         }
 
         public void HoverParticleGrab(Transformation grabberPose)

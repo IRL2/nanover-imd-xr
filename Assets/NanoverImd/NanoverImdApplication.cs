@@ -177,9 +177,9 @@ namespace NanoverImd
             const string avatarsHiddenKey = "suggested.avatars.hidden";
             const string debugColocationKey = "debug.colocation";
 
-            if (simulation.Multiplayer.GetSharedState(scaleKey) is double scale)
+            if (simulation.Multiplayer.GetSharedStateAsFloat(scaleKey) is float scale)
             {
-                simulation.ManipulableParticles.ForceScale = (float)scale;
+                simulation.ManipulableParticles.ForceScale = scale;
             }
 
             if (simulation.Multiplayer.GetSharedState(typeKey) is string type)
@@ -187,9 +187,9 @@ namespace NanoverImd
                 simulation.ManipulableParticles.ForceType = type;
             }
 
-            if (simulation.Multiplayer.GetSharedState(passthroughKey) is double value)
+            if (simulation.Multiplayer.GetSharedStateAsFloat(passthroughKey) is float value)
             {
-                passthrough = (float)value;
+                passthrough = value;
             }
 
             if (simulation.Multiplayer.GetSharedState(boxLockedKey) is bool locked)
