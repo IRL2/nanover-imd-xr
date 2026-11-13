@@ -100,21 +100,8 @@ namespace NanoverImd.UI
             var data = GetData<AdhocSliderData>();
             var value = Mathf.Lerp(data.Range[0], data.Range[1], .5f);
 
-            if (app.Simulation.Multiplayer.GetSharedState(data.Variable) is { } remote)
-            {
-                switch (remote)
-                {
-                    case float number:
-                        value = number;
-                        break;
-                    case int number:
-                        value = number;
-                        break;
-                    case double number:
-                        value = (float) number;
-                        break;
-                }
-            }
+            if (app.Simulation.Multiplayer.GetSharedStateAsFloat(data.Variable) is float remote)
+                value = remote;
 
             if (data.IsInteger)
                 return Mathf.Round(value);
