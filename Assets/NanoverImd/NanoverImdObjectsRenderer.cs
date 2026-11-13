@@ -167,6 +167,7 @@ namespace NanoverImd
             {
                 var template = GetLineTemplate(line.Type);
                 model.GetComponent<ParticleSystemRenderer>().sharedMaterial = template.material;
+                model.GetComponent<ParticleSystemRenderer>().trailMaterial = template.material;
                 model.SetData(
                     line.Positions, 
                     line.Colors,

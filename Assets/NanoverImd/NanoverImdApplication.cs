@@ -6,6 +6,7 @@ using Nanover.Frontend.XR;
 using Nanover.Network.Multiplayer;
 using Nanover.Visualisation;
 using NanoverImd.Interaction;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,6 +51,10 @@ namespace NanoverImd
         private OVRPassthroughLayer passthroughLayer;
 
         [SerializeField]
+        private MeshRenderer floorRenderer;
+        private Material floorMaterial;
+
+        [SerializeField]
         private new Camera camera;
 
         [SerializeField]
@@ -90,6 +95,8 @@ namespace NanoverImd
 
             simulation.SessionOpened += connectionEstablished.Invoke;
             simulation.SessionClosed += connectionLost.Invoke;
+
+            floorMaterial = floorRenderer.sharedMaterial;
         }
 
         // These methods expose the underlying async methods to Unity for use
@@ -144,15 +151,20 @@ namespace NanoverImd
             UpdatePlayArea();
 
             // update passthrough
-            passthroughLayer.textureOpacity = passthrough;
-
-            if (passthrough == 0.0f)
+            if (passthroughLayer.textureOpacity != passthrough)
             {
-                camera.clearFlags = CameraClearFlags.Skybox;
-            } else
-            {
-                camera.clearFlags = CameraClearFlags.SolidColor;
+                passthroughLayer.textureOpacity = passthrough;
+                if (passthrough == 0.0f)
+                {
+                    camera.clearFlags = CameraClearFlags.Skybox;
+                    floorMaterial.SetFloat("_Falloff", 1.8f);  // show enough floor grid when no passthrough
+                } else
+                {
+                    camera.clearFlags = CameraClearFlags.SolidColor;
+                    floorMaterial.SetFloat("_Falloff", Mathf.Lerp(0.04f, 0.00f, passthrough*2));  // small floor grid when passthrough is low, none when it is high
+                }
             }
+
         }
 
         private void UpdateSuggestedParameters()
