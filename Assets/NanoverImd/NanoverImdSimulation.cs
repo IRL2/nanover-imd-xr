@@ -64,6 +64,12 @@ namespace NanoverImd
 
         public bool InLocalPlayback => playback != null;
 
+        /// <summary>
+        /// The address of the server this client is connected or connecting
+        /// to, as typed or looked up. Null when not connected to a server.
+        /// </summary>
+        public string ServerAddress { get; private set; }
+
         private WebSocket websocket;
         private NanoverRecordingPlayback playback;
         
@@ -180,6 +186,7 @@ namespace NanoverImd
         {
             Close();
 
+            ServerAddress = address;
             websocket = new WebSocket(address);
             
             websocket.OnMessage += (bytes) =>
@@ -409,6 +416,7 @@ namespace NanoverImd
 
             var websocket = this.websocket;
             this.websocket = null;
+            ServerAddress = null;
 
             if (websocket!=null)
             {
