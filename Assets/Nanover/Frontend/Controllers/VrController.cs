@@ -16,6 +16,8 @@ namespace Nanover.Frontend.Controllers
     {
         [SerializeField]
         private NanoverRenderModel renderModel;
+        [SerializeField]
+        private AudioSource audioSource;
 
         public NanoverRenderModel RenderModel => renderModel;
 
@@ -56,6 +58,11 @@ namespace Nanover.Frontend.Controllers
         public void PushNotification(string text)
         {
             controllerPrefab.PushNotification(text);
+        }
+
+        public void PlayAudioClip(AudioClip clip)
+        {
+            audioSource.PlayOneShot(clip);
         }
 
         private void SetupPose(ref ControllerPivot pivot,
