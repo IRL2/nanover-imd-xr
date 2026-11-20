@@ -6795,7 +6795,6 @@ Transform:
   - {fileID: 1315455146}
   - {fileID: 777422672}
   - {fileID: 1840050953}
-  - {fileID: 1145772410}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &261444383
@@ -7266,7 +7265,7 @@ MonoBehaviour:
   simulation: {fileID: 431384315}
   notifiedController: {fileID: 1083629888}
   otherController: {fileID: 971855733}
-  remoteAudioManager: {fileID: 1145772411}
+  remoteAudioManager: {fileID: 1840050955}
   audioSource: {fileID: 289581465}
 --- !u!82 &289581465
 AudioSource:
@@ -10073,6 +10072,30 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1840050954}
         m_TargetAssemblyTypeName: NanoverImd.NanoverImdRemoteTexturesManager, NanoverImd
+        m_MethodName: Clear
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1840050955}
+        m_TargetAssemblyTypeName: NanoverImd.NanoverImdRemoteAudioManager, NanoverImd
+        m_MethodName: Clear
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1840050956}
+        m_TargetAssemblyTypeName: NanoverImd.NanoverImdRemoteDataManager, NanoverImd
         m_MethodName: Clear
         m_Mode: 1
         m_Arguments:
@@ -15388,53 +15411,6 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.008976316, y: -0.064772196, z: -0.067473285}
     m_Extent: {x: 0.0043462086, y: 0.006806761, z: 0.0068782493}
   m_DirtyAABB: 0
---- !u!1 &1145772409
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1145772410}
-  - component: {fileID: 1145772411}
-  m_Layer: 0
-  m_Name: Remote Audio
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1145772410
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1145772409}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 261444382}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1145772411
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1145772409}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27f237f0643751147ad3bccbe5c6e236, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: NanoverImd::NanoverImd.NanoverImdRemoteAudioManager
-  application: {fileID: 544060994}
-  nanover: {fileID: 431384315}
-  fallback: {fileID: 8300000, guid: 5c19112d3e0367447987c641fa6c13ad, type: 3}
 --- !u!1 &1145803402
 GameObject:
   m_ObjectHideFlags: 0
@@ -24054,9 +24030,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1840050953}
+  - component: {fileID: 1840050956}
   - component: {fileID: 1840050954}
+  - component: {fileID: 1840050955}
   m_Layer: 0
-  m_Name: Remote Textures
+  m_Name: Remote Resources
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24089,6 +24067,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dc12466f1c1bde47b5271fce7ef0d72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: NanoverImd::NanoverImd.NanoverImdTransformsManager
+  application: {fileID: 544060994}
+  nanover: {fileID: 431384315}
+  remoteDataManager: {fileID: 1840050956}
+--- !u!114 &1840050955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1840050952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27f237f0643751147ad3bccbe5c6e236, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: NanoverImd::NanoverImd.NanoverImdRemoteAudioManager
+  application: {fileID: 544060994}
+  nanover: {fileID: 431384315}
+  remoteDataManager: {fileID: 1840050956}
+  fallback: {fileID: 8300000, guid: 5c19112d3e0367447987c641fa6c13ad, type: 3}
+--- !u!114 &1840050956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1840050952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df3c1692c42898043b2a73d53d1a5a7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: NanoverImd::NanoverImd.NanoverImdRemoteDataManager
   application: {fileID: 544060994}
   nanover: {fileID: 431384315}
 --- !u!1 &1842598312

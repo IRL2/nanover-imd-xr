@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using Nanover.Core;
 using UnityEngine;
 
 namespace NanoverImd
@@ -12,6 +11,9 @@ namespace NanoverImd
 
         [SerializeField]
         private NanoverImdSimulation nanover;
+
+        [SerializeField]
+        private NanoverImdRemoteDataManager remoteDataManager;
 
         private Dictionary<string, Texture2D> resource2texture = new Dictionary<string, Texture2D>();
 
@@ -38,12 +40,8 @@ namespace NanoverImd
 
         private async void FetchTexture(string resourceId, Texture2D texture)
         {
-            var response = await nanover.RunCommand("resources/fetch", new Dictionary<string, object> { { "key", resourceId } });
-
-            if (response.TryGetValue("data", out byte[] bytes))
-            {
-                ImageConversion.LoadImage(texture, bytes);
-            }
+            var bytes = await remoteDataManager.FetchData(resourceId);
+            ImageConversion.LoadImage(texture, bytes);
         }
     }
 }

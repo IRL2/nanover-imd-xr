@@ -1,7 +1,9 @@
-﻿using Nanover.Core;
+﻿using Cysharp.Threading.Tasks;
+using Nanover.Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -16,9 +18,21 @@ namespace NanoverImd
         private NanoverImdSimulation nanover;
 
         [SerializeField]
+        private NanoverImdRemoteDataManager remoteDataManager;
+
+        [SerializeField]
         private AudioClip fallback;
 
         private Dictionary<string, AudioClip> resource2audioclip = new Dictionary<string, AudioClip>();
+
+        private void Update()
+        {
+            const string preloadAudioKey = "resources.preload.audio";
+
+            if (nanover.Multiplayer.GetSharedState(preloadAudioKey) is IList<object> resourceIds)
+                foreach (var resourceId in resourceIds.Cast<string>())
+                    PreloadAudio(resourceId);
+        }
 
         public void Clear()
         {
@@ -30,12 +44,18 @@ namespace NanoverImd
 
         public AudioClip GetAudioClip(string resourceId)
         {
+            PreloadAudio(resourceId);
+
             if (resource2audioclip.TryGetValue(resourceId, out AudioClip audio))
                 return audio;
 
-            FetchAudio(resourceId);
-
             return fallback;
+        }
+
+        public void PreloadAudio(string resourceId)
+        {
+            if (!resource2audioclip.TryGetValue(resourceId, out var audio))
+                FetchAudio(resourceId);
         }
 
         private async void FetchAudio(string resourceId)
@@ -43,25 +63,18 @@ namespace NanoverImd
             // placeholder to mark this audio as already fetching
             resource2audioclip[resourceId] = fallback;
 
-            var response = await nanover.RunCommand("resources/fetch", new Dictionary<string, object> { { "key", resourceId } });
+            var bytes = await remoteDataManager.FetchData(resourceId);
             var path = $"{Application.temporaryCachePath}/{resourceId}.ogg";
 
-            if (response.TryGetValue("data", out byte[] bytes))
+            await File.WriteAllBytesAsync(path, bytes);
+            using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip($"file://{path}", AudioType.OGGVORBIS))
             {
-                await File.WriteAllBytesAsync(path, bytes);
-                using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip($"file://{path}", AudioType.OGGVORBIS))
-                {
-                    await www.SendWebRequest();
+                await www.SendWebRequest();
 
-                    if (www.result == UnityWebRequest.Result.Success)
-                        resource2audioclip[resourceId] = DownloadHandlerAudioClip.GetContent(www);
-                    else
-                        resource2audioclip.Remove(resourceId);
-                }
-            }
-            else
-            {
-                resource2audioclip.Remove(resourceId);
+                if (www.result == UnityWebRequest.Result.Success)
+                    resource2audioclip[resourceId] = DownloadHandlerAudioClip.GetContent(www);
+                else
+                    resource2audioclip.Remove(resourceId);
             }
         }
     }
