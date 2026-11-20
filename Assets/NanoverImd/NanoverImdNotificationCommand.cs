@@ -15,6 +15,10 @@ namespace NanoverImd
         private NanoverImdSimulation simulation;
         [SerializeField]
         private VrController notifiedController;
+        [SerializeField]
+        private NanoverImdRemoteAudioManager remoteAudioManager;
+        [SerializeField]
+        private AudioSource audioSource;
 #pragma warning restore 0649
 
         private void Start()
@@ -28,6 +32,11 @@ namespace NanoverImd
                 if (args.GetValueOrDefault<string>("message") is string message)
                 {
                     notifiedController.PushNotification(message);
+                }
+
+                if (args.GetValueOrDefault<string>("audio") is string resourceId)
+                {
+                    audioSource.PlayOneShot(remoteAudioManager.GetAudio(resourceId));
                 }
 
                 return null;
