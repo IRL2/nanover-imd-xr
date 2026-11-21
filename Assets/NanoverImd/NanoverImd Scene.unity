@@ -331,6 +331,154 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.05
+--- !u!1001 &38109518
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 488755928}
+    m_Modifications:
+    - target: {fileID: 495998950860801787, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 495998950860801787, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      propertyPath: m_fontColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 495998950860801787, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4292670463
+      objectReference: {fileID: 0}
+    - target: {fileID: 3089947305233972809, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
+      objectReference: {fileID: 0}
+    - target: {fileID: 3325979954682767317, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      propertyPath: m_Name
+      value: 'Snack Bar '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6504217415544137932, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6504217415544137932, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6504217415544137932, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6504217415544137932, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6504217415544137932, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6504217415544137932, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6504217415544137932, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6504217415544137932, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6504217415544137932, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.019999996
+      objectReference: {fileID: 0}
+    - target: {fileID: 6504217415544137932, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.020000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 6504217415544137932, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.019999996
+      objectReference: {fileID: 0}
+    - target: {fileID: 6504217415544137932, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6504217415544137932, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6504217415544137932, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6504217415544137932, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.8660254
+      objectReference: {fileID: 0}
+    - target: {fileID: 6504217415544137932, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6504217415544137932, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6504217415544137932, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6504217415544137932, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 6504217415544137932, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 6504217415544137932, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6504217415544137932, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -60
+      objectReference: {fileID: 0}
+    - target: {fileID: 6504217415544137932, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7339688318362202980, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1549604112718095413, guid: 0cd382c4d470f174791dd96eb8f7b786, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6109195022761085468, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+  m_SourcePrefab: {fileID: 100100000, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+--- !u!224 &38109519 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6504217415544137932, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+  m_PrefabInstance: {fileID: 38109518}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &38109520 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5802638612013578250, guid: 18ecc19adb221614f9a22f94787dea61, type: 3}
+  m_PrefabInstance: {fileID: 38109518}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ec3523c8fda986468a5387b5a36806e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: NanoverImd::NanoverImd.UI.ControllerSnackBar
 --- !u!1 &50794176
 GameObject:
   m_ObjectHideFlags: 0
@@ -7079,6 +7227,7 @@ GameObject:
   m_Component:
   - component: {fileID: 289581463}
   - component: {fileID: 289581464}
+  - component: {fileID: 289581465}
   m_Layer: 0
   m_Name: NotifyCommand
   m_TagString: Untagged
@@ -7115,6 +7264,97 @@ MonoBehaviour:
   m_EditorClassIdentifier: NanoverImd::NanoverImd.NanoverImdNotificationCommand
   simulation: {fileID: 431384315}
   notifiedController: {fileID: 1083629888}
+  otherController: {fileID: 971855733}
+  remoteAudioManager: {fileID: 1840050955}
+  audioSource: {fileID: 289581465}
+--- !u!82 &289581465
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 289581462}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 0.990099
+  MaxDistance: 1
+  Pan2D: 0
+  rolloffMode: 2
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &290364060
 GameObject:
   m_ObjectHideFlags: 0
@@ -9093,6 +9333,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1882443841}
+  - {fileID: 38109519}
   m_Father: {fileID: 1270700717}
   m_LocalEulerAnglesHint: {x: 0, y: 30, z: 0}
 --- !u!1 &490738562
@@ -9832,6 +10073,30 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1840050954}
         m_TargetAssemblyTypeName: NanoverImd.NanoverImdRemoteTexturesManager, NanoverImd
+        m_MethodName: Clear
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1840050955}
+        m_TargetAssemblyTypeName: NanoverImd.NanoverImdRemoteAudioManager, NanoverImd
+        m_MethodName: Clear
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1840050956}
+        m_TargetAssemblyTypeName: NanoverImd.NanoverImdRemoteDataManager, NanoverImd
         m_MethodName: Clear
         m_Mode: 1
         m_Arguments:
@@ -13611,6 +13876,7 @@ GameObject:
   - component: {fileID: 971855735}
   - component: {fileID: 971855736}
   - component: {fileID: 971855737}
+  - component: {fileID: 971855738}
   m_Layer: 0
   m_Name: Dummy Controller Left
   m_TagString: Untagged
@@ -13647,6 +13913,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   renderModel: {fileID: 971855734}
+  audioSource: {fileID: 971855738}
   interactionLaser: {fileID: 616363347}
 --- !u!114 &971855734
 MonoBehaviour:
@@ -13712,7 +13979,116 @@ MonoBehaviour:
   head: {fileID: 1582432138}
   showNotification:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 38109520}
+        m_TargetAssemblyTypeName: NanoverImd.UI.ControllerSnackBar, NanoverImd
+        m_MethodName: PushNotification
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!82 &971855738
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 971855731}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &989440272
 GameObject:
   m_ObjectHideFlags: 0
@@ -14527,6 +14903,7 @@ GameObject:
   - component: {fileID: 1083629890}
   - component: {fileID: 1083629891}
   - component: {fileID: 1083629892}
+  - component: {fileID: 1083629893}
   m_Layer: 0
   m_Name: Dummy Controller Right
   m_TagString: Untagged
@@ -14563,6 +14940,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   renderModel: {fileID: 1083629889}
+  audioSource: {fileID: 1083629893}
   interactionLaser: {fileID: 400568004}
 --- !u!114 &1083629889
 MonoBehaviour:
@@ -14641,6 +15019,103 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!82 &1083629893
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1083629886}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1088436021
 GameObject:
   m_ObjectHideFlags: 0
@@ -23571,9 +24046,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1840050953}
+  - component: {fileID: 1840050956}
   - component: {fileID: 1840050954}
+  - component: {fileID: 1840050955}
   m_Layer: 0
-  m_Name: Remote Textures
+  m_Name: Remote Resources
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23606,6 +24083,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dc12466f1c1bde47b5271fce7ef0d72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: NanoverImd::NanoverImd.NanoverImdTransformsManager
+  application: {fileID: 544060994}
+  nanover: {fileID: 431384315}
+  remoteDataManager: {fileID: 1840050956}
+--- !u!114 &1840050955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1840050952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27f237f0643751147ad3bccbe5c6e236, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: NanoverImd::NanoverImd.NanoverImdRemoteAudioManager
+  application: {fileID: 544060994}
+  nanover: {fileID: 431384315}
+  remoteDataManager: {fileID: 1840050956}
+  fallback: {fileID: 8300000, guid: 5c19112d3e0367447987c641fa6c13ad, type: 3}
+--- !u!114 &1840050956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1840050952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df3c1692c42898043b2a73d53d1a5a7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: NanoverImd::NanoverImd.NanoverImdRemoteDataManager
   application: {fileID: 544060994}
   nanover: {fileID: 431384315}
 --- !u!1 &1842598312
