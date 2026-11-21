@@ -41,6 +41,14 @@ See [the list of contributors](CONTRIBUTORS.md) for the individual authors of th
 
 Once open in Unity, the main Unity scene can be found in `NanoverImd/Assets/NanoverImd Scene`.
 
+# Voice chat
+
+When the app connects to a server, it joins a voice channel shared by everyone connected to the same server
+address, so people in different places can talk during a session. It leaves the channel when it disconnects. On a
+Meta Quest, the app asks for microphone permission the first time it connects. Voice uses
+[Unity Vivox](https://docs.unity.com/en-us/vivox-unity), with an anonymous Unity
+sign-in.
+
 ## Citation, Credits and External Libraries
 
 Any work that uses NanoVer should cite the following publications:
