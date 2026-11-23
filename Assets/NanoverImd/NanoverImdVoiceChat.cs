@@ -191,6 +191,8 @@ namespace NanoverImd
 
         private void Update()
         {
+            VoiceEnabled = application.VoiceChat;
+
             if (updating || Time.unscaledTime < nextCheck)
                 return;
 
