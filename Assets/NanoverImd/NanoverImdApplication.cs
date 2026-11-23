@@ -382,7 +382,7 @@ namespace NanoverImd
         /// </summary>
         private void CalibrateFromRemote()
         {
-            var key = simulation.Multiplayer.AccessToken;
+            var key = $"user-origin.{simulation.Multiplayer.AccessToken}";
             var origin = simulation.Multiplayer.PlayOrigins.ContainsKey(key)
                        ? simulation.Multiplayer.PlayOrigins.GetValue(key).Transformation
                        : UnitScaleTransformation.identity;
