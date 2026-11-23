@@ -37,7 +37,8 @@ namespace NanoverImd
         public void Clear()
         {
             foreach (var audio in resource2audioclip.Values)
-                Destroy(audio);
+                if (audio != fallback)
+                    Destroy(audio);
 
             resource2audioclip.Clear();
         }
@@ -65,6 +66,13 @@ namespace NanoverImd
 
             var bytes = await remoteDataManager.FetchData(resourceId);
             var path = $"{Application.temporaryCachePath}/{resourceId}.ogg";
+
+            // if fetch failed, remove placeholder and stop
+            if (bytes == null)
+            {
+                resource2audioclip.Remove(resourceId);
+                return;
+            }
 
             await File.WriteAllBytesAsync(path, bytes);
             using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip($"file://{path}", AudioType.OGGVORBIS))
