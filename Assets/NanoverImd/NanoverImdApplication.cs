@@ -72,6 +72,7 @@ namespace NanoverImd
 
         public NanoverImdSimulation Simulation => simulation;
 
+        public bool VoiceChat { get; set; } = false;
         public bool ManualColocation { get; set; } = false;
         public bool ColocateLighthouses { get; set; } = false;
         public float PlayAreaRotationCorrection { get; set; } = 0;
@@ -167,8 +168,14 @@ namespace NanoverImd
 
         }
 
+        public void SetVoiceChat(bool voiceChat)
+        {
+            simulation.Multiplayer.SetSharedState("suggested.voice", voiceChat);
+        }
+
         private void UpdateSuggestedParameters()
         {
+            const string voiceKey = "suggested.voice";
             const string scaleKey = "suggested.interaction.scale";
             const string typeKey = "suggested.interaction.type";
             const string passthroughKey = "suggested.passthrough";
@@ -176,6 +183,11 @@ namespace NanoverImd
             const string boxHiddenKey = "suggested.box.hidden";
             const string avatarsHiddenKey = "suggested.avatars.hidden";
             const string debugColocationKey = "debug.colocation";
+
+            if (simulation.Multiplayer.GetSharedState(voiceKey) is bool voice)
+            {
+                VoiceChat = voice;
+            }
 
             if (simulation.Multiplayer.GetSharedStateAsFloat(scaleKey) is float scale)
             {

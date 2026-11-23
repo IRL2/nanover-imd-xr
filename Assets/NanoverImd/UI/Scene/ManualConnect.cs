@@ -7,6 +7,8 @@ namespace NanoverImd.UI.Scene
 {
     public class ManualConnect : MonoBehaviour
     {
+        private const string AddressKey = "nanover.manual.address";
+
         [SerializeField]
         private NanoverImdApplication application;
         [SerializeField]
@@ -16,15 +18,23 @@ namespace NanoverImd.UI.Scene
         {
             Assert.IsNotNull(application);
             Assert.IsNotNull(addressInputField);
+
+            var lastAddress = PlayerPrefs.GetString(AddressKey, "");
+            if (!string.IsNullOrWhiteSpace(lastAddress))
+                addressInputField.text = lastAddress;
         }
 
-        /// <summary>
-        /// Called from the UI button to tell the application to connect
-        /// to remote services.
-        /// </summary>
         public void ConnectToServer()
         {
-            application.Simulation.ConnectAddressOrCode(addressInputField.text).Forget();
+            var address = addressInputField.text;
+
+            if (!string.IsNullOrWhiteSpace(address))
+            {
+                PlayerPrefs.SetString(AddressKey, address.Trim());
+                PlayerPrefs.Save();
+            }
+
+            application.Simulation.ConnectAddressOrCode(address).Forget();
         }
     }
 }

@@ -13,14 +13,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Networking;
 using Nerdbank.MessagePack;
 
 using CommandArguments = System.Collections.Generic.Dictionary<string, object>;
 using CommandReturn = System.Collections.Generic.Dictionary<string, object>;
 using WebDiscovery;
 using NativeWebSocket;
-using UnityEngine.UIElements;
 
 
 #if UNITY_EDITOR
@@ -63,6 +61,12 @@ namespace NanoverImd
         public bool Running => Connected || playback != null;
 
         public bool InLocalPlayback => playback != null;
+
+        /// <summary>
+        /// The address of the server this client is connected or connecting
+        /// to, as typed or looked up. Null when not connected to a server.
+        /// </summary>
+        public string ServerAddress { get; private set; }
 
         private WebSocket websocket;
         private NanoverRecordingPlayback playback;
@@ -180,6 +184,7 @@ namespace NanoverImd
         {
             Close();
 
+            ServerAddress = address;
             websocket = new WebSocket(address);
             
             websocket.OnMessage += (bytes) =>
@@ -409,6 +414,7 @@ namespace NanoverImd
 
             var websocket = this.websocket;
             this.websocket = null;
+            ServerAddress = null;
 
             if (websocket!=null)
             {

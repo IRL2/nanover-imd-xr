@@ -13,7 +13,10 @@
         "Oculus.VR",
         "UniTask",
         "endel.nativewebsocket",
-        "Unity.XR.Interaction.Toolkit"
+        "Unity.XR.Interaction.Toolkit",
+        "Unity.Services.Core",
+        "Unity.Services.Authentication",
+        "Unity.Services.Vivox"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
