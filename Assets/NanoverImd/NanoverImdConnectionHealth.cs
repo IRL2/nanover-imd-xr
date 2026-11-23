@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Text = TMPro.TextMeshProUGUI;
 
 namespace NanoverImd
 {
@@ -11,8 +10,6 @@ namespace NanoverImd
 #pragma warning disable 0649
         [SerializeField]
         private NanoverImdSimulation simulation;
-        [SerializeField]
-        private Text label;
 #pragma warning restore 0649
 
         public bool ReportToState = false;
@@ -61,8 +58,6 @@ namespace NanoverImd
                     { "fps", FPS },
                 });
             }
-
-            label.text = $"Frame: {Frame}/s, State: {State}/s, RTT: {RTT}ms";
 
             int CheckTimes(IEnumerable<float> times)
             {

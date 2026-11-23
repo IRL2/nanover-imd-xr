@@ -5,10 +5,6 @@ using UnityEngine.Assertions;
 
 namespace NanoverImd.UI.Scene
 {
-    /// <summary>
-    /// Connects to a server address or code typed by the user, and remembers
-    /// it so it is filled in next time the app starts.
-    /// </summary>
     public class ManualConnect : MonoBehaviour
     {
         private const string AddressKey = "nanover.manual.address";
@@ -28,10 +24,6 @@ namespace NanoverImd.UI.Scene
                 addressInputField.text = lastAddress;
         }
 
-        /// <summary>
-        /// Called from the UI button to tell the application to connect
-        /// to remote services.
-        /// </summary>
         public void ConnectToServer()
         {
             var address = addressInputField.text;
@@ -39,7 +31,6 @@ namespace NanoverImd.UI.Scene
             if (!string.IsNullOrWhiteSpace(address))
             {
                 PlayerPrefs.SetString(AddressKey, address.Trim());
-                // Save now: a headset app is often closed without quitting.
                 PlayerPrefs.Save();
             }
 

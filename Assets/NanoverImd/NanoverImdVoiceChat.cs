@@ -64,7 +64,7 @@ namespace NanoverImd
         /// <summary>
         /// What voice chat is doing, or the step it was on when it failed.
         /// </summary>
-        public string Stage { get; private set; } = "Not connected to a server";
+        public string Stage { get; private set; } = "not connected";
 
         /// <summary>
         /// The state of the Android microphone permission, as last seen.
@@ -230,7 +230,7 @@ namespace NanoverImd
             targetChannel = string.IsNullOrEmpty(TargetAddress) ? null : ChannelNameForAddress(TargetAddress);
 
             if (targetChannel == null && CurrentChannel == null)
-                Stage = voiceEnabled ? "Not connected to a server" : "Voice chat turned off";
+                SetStage(voiceEnabled ? "not connected" : "not enabled");
 
             UpdateVoiceAsync();
         }
@@ -262,7 +262,7 @@ namespace NanoverImd
                 // Voice chat must never break the NanoVer session itself.
                 var code = e is RequestFailedException failure ? $" (error code {failure.ErrorCode})" : "";
                 Debug.LogWarning($"Voice chat failed while: {Stage}{code}\n{e}");
-                Stage = $"Failed: {Stage}";
+                SetStage($"failure in '{Stage}'");
                 retryAt = Time.unscaledTime + RetryDelay;
 
                 await LogOutIfNotInChannelAsync();
@@ -276,7 +276,7 @@ namespace NanoverImd
         private async Task JoinAsync(string channel)
         {
             // Ask first, so the prompt appears even if a later step fails.
-            SetStage("Asking for microphone permission");
+            SetStage("requesting microphone...");
             if (!await RequestMicrophonePermissionAsync())
                 Debug.LogWarning("Voice chat: no microphone permission, so others can't hear you.");
 
@@ -284,7 +284,7 @@ namespace NanoverImd
 
             if (!VivoxService.Instance.IsLoggedIn)
             {
-                SetStage("Logging in to Vivox");
+                SetStage("vivox login...");
 
                 // The display name links this voice participant to this
                 // client's avatar, whose ID is the session's access token.
@@ -294,12 +294,12 @@ namespace NanoverImd
                 });
             }
 
-            SetStage($"Joining channel {channel} for {TargetAddress}");
+            SetStage($"joining channel...");
             await VivoxService.Instance.JoinGroupChannelAsync(channel, ChatCapability.AudioOnly);
             CurrentChannel = channel;
             SetMuted(startMuted);
 
-            SetStage("In voice channel");
+            SetStage("ready");
             Debug.Log($"Voice chat: microphone {VivoxService.Instance.EffectiveInputDevice?.DeviceName}, " +
                       $"speaker {VivoxService.Instance.EffectiveOutputDevice?.DeviceName}");
         }
@@ -307,7 +307,7 @@ namespace NanoverImd
         private async Task LeaveAsync()
         {
             var channel = CurrentChannel;
-            SetStage($"Leaving channel {channel}");
+            SetStage($"leaving channel...");
 
             try
             {
@@ -325,7 +325,7 @@ namespace NanoverImd
                 if (VivoxService.Instance.IsLoggedIn)
                     await VivoxService.Instance.LogoutAsync();
 
-                SetStage(targetChannel == null ? "Not connected to a server" : "Left channel");
+                SetStage(targetChannel == null ? "not connected" : "disconnected");
             }
         }
 
@@ -346,7 +346,7 @@ namespace NanoverImd
         {
             if (UnityServices.State != ServicesInitializationState.Initialized)
             {
-                SetStage("Starting Unity Services");
+                SetStage("starting...");
                 await UnityServices.InitializeAsync();
             }
 
@@ -354,7 +354,7 @@ namespace NanoverImd
             // issues this client's Vivox tokens, so no Vivox key ships in the app.
             if (!AuthenticationService.Instance.IsSignedIn)
             {
-                SetStage("Signing in to Unity (anonymous)");
+                SetStage("signing in...");
                 await AuthenticationService.Instance.SignInAnonymouslyAsync();
                 Debug.Log($"Voice chat: signed in to Unity as player {AuthenticationService.Instance.PlayerId}");
             }
@@ -394,13 +394,13 @@ namespace NanoverImd
             Debug.Log($"Voice chat: {Describe(participant)} left");
         }
 
-        private void OnConnectionRecovering() => SetStage("Connection to Vivox lost, reconnecting");
+        private void OnConnectionRecovering() => SetStage("reconnecting...");
 
-        private void OnConnectionRecovered() => SetStage("In voice channel (reconnected)");
+        private void OnConnectionRecovered() => SetStage("reconnected");
 
         private void OnConnectionFailedToRecover()
         {
-            SetStage("Connection to Vivox lost; reconnect to the server to retry");
+            SetStage("failed to reconnect");
             CurrentChannel = null;
         }
 
