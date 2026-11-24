@@ -105,7 +105,7 @@ namespace NanoverImd.Interaction
             // TODO: this is necessary because the default value of multiplayer.SimulationPose 
             // is degenerate (0 scale) and there seems to be no way to tell if the remote value has
             // been set yet or is default
-            if (remotePose.Scale.x <= 0.001f)
+            if (Mathf.Abs(remotePose.Scale.x) <= 0.001f)
             {
                 remotePose = new Transformation(Vector3.zero, Quaternion.identity, Vector3.one);
             }
